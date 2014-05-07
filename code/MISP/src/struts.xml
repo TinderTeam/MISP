@@ -1,0 +1,21 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+
+<struts>
+<constant name="struts.ui.theme" value="simple" />
+
+<constant name="struts.ui.templateDir" value="template" />
+
+<constant name="struts.ui.templateSuffix" value="ftl" />
+	<package name="login" extends="struts-default">
+		<action name="login" class="cn.fuego.misp.web.action.login.LoginAction">
+			<result type="dispatcher">/client/plantform/main.jsp</result>
+			<result type="dispatcher" name="LoginFailed">/client/login/login.jsp</result>
+			    
+		</action>
+ 
+ 	</package>
+</struts>
+

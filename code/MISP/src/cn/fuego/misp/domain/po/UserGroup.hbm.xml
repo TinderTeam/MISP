@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+	
+<hibernate-mapping
+	package="cn.fuego.misp.domain.po">
+	<class name="UserGroup" table="D_USER_GROUP">
+			<id name="groupID" column="GROUP_ID"  type="int">
+			<generator class="assigned"/>
+			</id>
+        
+           <property name="groupName" column="GROUP_NAME"  not-null="false" ></property>
+           <property name="groupDesp" column="GROUP_DESP"  not-null="false" ></property>
+
+	
+				
+	</class>
+</hibernate-mapping>

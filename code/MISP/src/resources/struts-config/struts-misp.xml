@@ -1,0 +1,14 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+
+<struts>
+	<package name="login" extends="struts-default">
+		<action name="LoginAction" class="cn.fuego.misp.web.action.login">
+			<result>/client/platform/common/jsp/common/main.jsp</result>
+		</action>
+		<!-- Add your actions here -->
+	</package>
+</struts>
+

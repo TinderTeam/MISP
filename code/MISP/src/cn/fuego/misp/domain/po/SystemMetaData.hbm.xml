@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+	
+<hibernate-mapping
+	package="cn.fuego.misp.domain.po">
+	<class name="SystemMetaData" table="S_SYSTEM_META_DATA">
+		<composite-id>
+	       
+           <key-property name="tableName" column="TABLE_NAME" ></key-property>
+           <key-property name="attrName" column="ATTR_NAME"  ></key-property>
+           
+	    </composite-id>
+        
+           <property name="attrDefaultValue" column="ATTR_DEFAULT_VALUE"  not-null="false" ></property>
+           <property name="isDisplay" column="IS_DISPLAY"  not-null="true" ></property>
+           <property name="isFilter" column="IS_FILTER"  not-null="true" ></property>
+           <property name="sortOrder" column="SORT_ORDER"  not-null="true" ></property>           				
+	</class>
+</hibernate-mapping>

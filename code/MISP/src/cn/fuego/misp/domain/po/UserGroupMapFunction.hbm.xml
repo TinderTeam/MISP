@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+	
+<hibernate-mapping
+	package="cn.fuego.misp.domain.po">
+	<class name="UserGroupMapFunction" table="D_USER_GROUP_MAP_FUNCTION">
+		<composite-id>
+	       
+           <key-property name="groupID" column="GROUP_ID"  type="int"></key-property>
+           <key-property name="functionID" column="FUNCTION_ID" type="int" ></key-property>
+           
+	    </composite-id>
+
+				
+	</class>
+</hibernate-mapping>
