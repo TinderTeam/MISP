@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
   </head>
  
-  <body onload="window.location='<%=request.getContextPath()%>/client/login/login.jsp'">
+  <body onload="window.location='<%=request.getContextPath()%>/client/platform/login/login.jsp'">
     
   </body>
 </html>

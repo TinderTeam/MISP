@@ -6,20 +6,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 	<head>
-	    <jsp:include page="../framework/cbb/head.jsp"/>		
-        <jsp:include page="../framework/cbb/js.jsp"/>
+      <jsp:include page="../cbb/head.jsp"/>		
+        <jsp:include page="../cbb/js.jsp"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 	<body>
 		<!-----标题栏----->
-		<jsp:include page="../framework/cbb/title.jsp"/>
+		<jsp:include page="../cbb/title.jsp"/>
 		<!----站内搜索栏---- 暂时不用，拓展用
-		<jsp:include page="../framework/cbb/search.jsp"/>
+		<jsp:include page="../cbb/search.jsp"/>
 		--->		
 		<!---快捷信息操作栏---->
-		<jsp:include page="../framework/cbb/info.jsp"/>
+		<jsp:include page="../cbb/info.jsp"/>
         <!---快捷操作栏----> 
 		 <!----菜单栏--->
-		<jsp:include page="../framework/cbb/menu.jsp"/>
+		<jsp:include page="../cbb/menu.jsp"/>
 		<!----菜单栏--->	
 		<!----内容栏--->
 		<div id="content">
@@ -28,7 +28,7 @@
 			</div>
 			
 			<!---面包屑导航---->
-			<jsp:include page="../framework/cbb/bread.jsp"/>
+			<jsp:include page="../cbb/bread.jsp"/>
 			<!---End 面包屑导航---->
 			
 			
@@ -40,7 +40,7 @@
 				
 				
 				<!----尾部声明---->
-				<jsp:include page="../framework/cbb/footer.jsp"/>				  
+				<jsp:include page="../cbb/footer.jsp"/>				  
 
 			</div>
 		</div>

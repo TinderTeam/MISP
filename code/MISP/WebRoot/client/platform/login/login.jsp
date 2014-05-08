@@ -9,8 +9,8 @@
 
     <head>
   
-        <jsp:include page="../framework/cbb/head.jsp"/>		
-        <jsp:include page="../framework/cbb/js.jsp"/>
+        <jsp:include page="../cbb/head.jsp"/>		
+        <jsp:include page="../cbb/js.jsp"/>
 
 
 <script type="text/javascript">
@@ -64,9 +64,9 @@ if (!isPlaceholder()) {//��֧��placeholder ��jquery�����
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 
     <body>
-		<div class="container background="<%=request.getContextPath()%>/client/framework/img/logo.png">
+		<div class="container background="<%=request.getContextPath()%>/client/lib/unicoinadmin/img/logo.png">
 			<div id="logo">
-				<img src="<%=request.getContextPath()%>/client/framework/img/logo.png"/>
+				<img src="<%=request.getContextPath()%>client/lib/unicoinadmin/img/logo.png"/>
 			</div>
 			<div id="loginbox">            
 				<s:form action="login/login" method="POST">	
