@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/struts-tags" prefix="s"%>
+
 
 		<div id="sidebar">
-			<a href="#" class="visible-phone"><i class="icon icon-home"></i></a>
-			<ul>
-				<li class="active"><a href="index.html"><i class="icon icon-home"></i> <span>主标题</span></a></li>
-			  <li class="submenu">
-					<a href="#"><i class="icon icon-th-list"></i> <span>一级标题</span><span class="label"></span></a>
-				  <ul>
-					  <li><a href="form-common.html">二级标题</a></li>
-				  </ul>
-				</li>
-				</ul>	
+			<jsp:include page="menucbb.jsp"/>
 		</div>
+	
+	
+	
+		
+		

@@ -11,7 +11,7 @@
 <constant name="struts.ui.templateSuffix" value="ftl" />
 	<package name="login" extends="struts-default">
 		<action name="login" class="cn.fuego.misp.web.action.login.LoginAction">
-			<result type="dispatcher">/client/plantform/main.jsp</result>
+			<result type="dispatcher">/client/main/main.jsp</result>
 			<result type="dispatcher" name="LoginFailed">/client/login/login.jsp</result>
 			    
 		</action>
