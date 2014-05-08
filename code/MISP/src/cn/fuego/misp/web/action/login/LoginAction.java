@@ -14,11 +14,15 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import stub.web.util.BreadTrailStub;
+
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.login.exception.LoginServiceException;
 import cn.fuego.misp.service.login.exception.LoginServiceExceptionMsg;
 import cn.fuego.misp.service.login.impl.LoginServiceImpl;
+import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
+import cn.fuego.misp.web.constant.UtilConstant;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
 import cn.fuego.misp.web.model.user.UserModel;
 
@@ -33,7 +37,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @Edit Nan Bowen at 2014-03-23
  */
 
-public class LoginAction extends ActionSupport
+public class LoginAction extends MISPAction
 {
 	Log log = LogFactory.getLog(LoginAction.class);
 	private static final String LOGIN_FAILED = "LoginFailed";
@@ -62,6 +66,14 @@ public class LoginAction extends ActionSupport
 	   
 		//if login success, we should put the user into session
 		session.put(SessionAttrNameConst.LOGIN_USER, user);
+		
+		/*
+		 * This Code is Designed by Bowen. Which is means to config the basic page info. for instance, the name and the breadTrail
+		 * we mast try to do and design better on this fuction. 
+		 */
+		setPage_pageName(UtilConstant.HomeValue);		
+		setPage_breadList(BreadTrailStub.getTwoOrderBreadTrailStub());
+		
 		return SUCCESS;
 	}
 

@@ -24,7 +24,7 @@
 		<!----内容栏--->
 		<div id="content">
 			<div id="content-header">		
-				<h1>MISP</h1>			
+				<h1>${page_pageName}</h1>			
 			</div>
 			
 			<!---面包屑导航---->
