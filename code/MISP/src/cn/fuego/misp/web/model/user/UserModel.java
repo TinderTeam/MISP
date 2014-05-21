@@ -23,36 +23,20 @@ import cn.fuego.misp.web.model.common.AttributeListModel;
 public class UserModel
 {
 	private String userID;
-	private String userName;
 	private String password;
-	private List<UserGroupModel> userGroupList;
 	private AttributeListModel attrValueList;
+	private List<UserGroupModel> userGroupList;
+
 	public String getUserID()
 	{
 		return userID;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		return "UserModel [userID=" + userID + ", userName=" + userName
-				+ ", password=" + password + ", userGroupList=" + userGroupList
-				+ ", attrValueList=" + attrValueList + "]";
-	}
+ 
 	public void setUserID(String userID)
 	{
 		this.userID = userID;
 	}
-	public String getUserName()
-	{
-		return userName;
-	}
-	public void setUserName(String userName)
-	{
-		this.userName = userName;
-	}
+ 
 	public String getPassword()
 	{
 		return password;
@@ -78,7 +62,4 @@ public class UserModel
 		this.attrValueList = attrValueList;
 	}
  
- 
-	
-
 }

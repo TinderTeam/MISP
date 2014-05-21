@@ -23,7 +23,7 @@ import cn.fuego.misp.web.model.user.UserModel;
 
 public interface UserManageService
 {
-	UserModel getUserByID(String userID);
+	public UserModel getUserByID(String userID);
 	
 	/**
 	 * get the menu tree by user id.

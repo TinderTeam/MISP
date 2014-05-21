@@ -8,6 +8,8 @@
 */ 
 package cn.fuego.misp.web.model.user;
 
+import java.util.List;
+
 import cn.fuego.misp.web.model.page.PageModel;
 
 /** 
@@ -20,6 +22,8 @@ import cn.fuego.misp.web.model.page.PageModel;
 
 public class UserListModel
 {
+	private UserFilterModel filter;
+	private List<String> extAttrNameList;
+	private UserModel user;
 	private PageModel<UserModel> userList;
-
 }
