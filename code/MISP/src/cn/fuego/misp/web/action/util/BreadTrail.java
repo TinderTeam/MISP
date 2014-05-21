@@ -2,8 +2,30 @@ package cn.fuego.misp.web.action.util;
 
 public class BreadTrail
 {
+	
+	
+	
 	private String value;
 	private String url;
+	
+	
+	
+	
+	public BreadTrail(String v)
+	{	
+		this.value=v;
+		this.url="#";
+	}
+	
+	public BreadTrail(String v,String u){
+		value=v;
+		url=u;
+	}
+	public BreadTrail()
+	{
+
+	}
+
 	/**
 	 * @return the value
 	 */

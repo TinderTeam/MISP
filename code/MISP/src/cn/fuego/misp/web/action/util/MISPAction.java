@@ -8,6 +8,7 @@ public class MISPAction extends ActionSupport
 {
 	private  String page_pageName=null;
 	private List<BreadTrail> page_breadList =null;
+	
 	/**
 	 * @return the page_pageName
 	 */
@@ -35,6 +36,15 @@ public class MISPAction extends ActionSupport
 	public void setPage_breadList(List page_breadList)
 	{
 		this.page_breadList = page_breadList;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return "MISPAction [page_pageName=" + page_pageName
+				+ ", page_breadList=" + page_breadList + "]";
 	}
 	
 	

@@ -13,7 +13,7 @@
 			<c:if test="${null!=menuItem.childMenuList}"> 
 				<!----有子标题--->
 				<li class="submenu">
-					<a href="<%=request.getContextPath()%>/client/${menuItem.menu.url}"><i class="icon ${menuItem.menu.icon}"></i><span>${menuItem.menu.value}</span></a>
+					<a href="#"><i class="icon ${menuItem.menu.icon}"></i><span>${menuItem.menu.value}</span></a>
 					
 					<!----迭代--->
 					<c:set var="menuTreeItem" value="${menuItem.childMenuList}" scope="request"/>

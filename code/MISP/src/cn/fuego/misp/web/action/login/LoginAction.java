@@ -15,11 +15,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import stub.web.util.BreadTrailStub;
-
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.login.exception.LoginServiceException;
-import cn.fuego.misp.service.login.exception.LoginServiceExceptionMsg;
-import cn.fuego.misp.service.login.impl.LoginServiceImpl;
 import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
@@ -27,7 +24,6 @@ import cn.fuego.misp.web.model.menu.MenuTreeModel;
 import cn.fuego.misp.web.model.user.UserModel;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @ClassName: LoginAction
@@ -49,7 +45,7 @@ public class LoginAction extends MISPAction
 	public String execute()
 	{
 		 ActionContext actionContext = ActionContext.getContext();
-	     Map session = actionContext.getSession();
+	     Map<String, Object> session = actionContext.getSession();
 	       
 	     try
 	     {
@@ -63,10 +59,10 @@ public class LoginAction extends MISPAction
 	    	 log.warn(ex.getMessage(),ex);
 	    	 return this.LOGIN_FAILED;
 	     }
-	   
+	    
 		//if login success, we should put the user into session
 		session.put(SessionAttrNameConst.LOGIN_USER, user);
-		
+		session.put(SessionAttrNameConst.MENU_TREE, menuTreeItem);
 		/*
 		 * This Code is Designed by Bowen. Which is means to config the basic page info. for instance, the name and the breadTrail
 		 * we mast try to do and design better on this fuction. 

@@ -17,6 +17,18 @@ public class TField
 	private String url=null;
 	private String id=null;
 	
+
+	public TField()
+	{
+	}
+	
+	
+	public TField(String n)
+	{
+		
+		setName(n);
+		return ;
+	}	
 	/**
 	 * @return the name
 	 */
@@ -114,6 +126,18 @@ public class TField
 	public void setId(String id)
 	{
 		this.id = id;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return "TField [name=" + name + ", ispection=" + ispection
+				+ ", isVisable=" + isVisable + ", value=" + value + ", type="
+				+ type + ", url=" + url + ", id=" + id + "]";
 	}
 	
 	

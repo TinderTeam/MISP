@@ -8,7 +8,8 @@
 	<head>
 		<jsp:include page="../cbb/head.jsp"/>
 		<jsp:include page="../cbb/js.jsp"/>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	</head>
 <body>
 <!-----标题栏----->
 <jsp:include page="../cbb/title.jsp"/>
@@ -29,12 +30,13 @@
 		  <!---End 面包屑导航---->
 		  <!----内容页---->
 		  <div class="container-fluid">
-				
+				<jsp:include page="../userInfo/userInfoList.jsp"/>		
 					<!----内容页完---->
 					<!----尾部声明---->
 				<jsp:include page="../cbb/footer.jsp"/>
 		   </div>
 	</div>
 	
+
 </body>
 </html>

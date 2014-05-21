@@ -20,5 +20,7 @@ public class SessionAttrNameConst
 { 
 	public static final String LOGIN_USER = "loginUser";
 	public static final String ERR_MSG = "errMsg";
+	public static final String MENU_TREE = "menuTreeItem";
+
 
 }

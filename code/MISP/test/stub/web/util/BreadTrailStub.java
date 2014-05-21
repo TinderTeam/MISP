@@ -13,13 +13,10 @@ public class BreadTrailStub
 		
 		List<BreadTrail> list = new ArrayList<BreadTrail>();
 		
-		BreadTrail bt = new BreadTrail();
-		bt.setValue("一级标题");
-		bt.setUrl("www.fuego.cn");
-		BreadTrail bt2 = new BreadTrail();
-		bt2.setValue("二级标题");
-		bt2.setUrl("www.baidu.com");
-		
+		BreadTrail bt = new BreadTrail("一级标题","www.fuego.cn");
+
+		BreadTrail bt2 = new BreadTrail("二级标题","www.baidu.com");
+	
 		list.add(bt);
 		list.add(bt2);
 		

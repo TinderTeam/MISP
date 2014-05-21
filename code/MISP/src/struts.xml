@@ -12,10 +12,12 @@
 	<package name="login" extends="struts-default">
 		<action name="login" class="cn.fuego.misp.web.action.login.LoginAction">
 			<result type="dispatcher">/client/platform/main/main.jsp</result>
-			<result type="dispatcher" name="LoginFailed">/client/platform/login/login.jsp</result>
-			    
+			<result type="dispatcher" name="LoginFailed">/client/platform/login/login.jsp</result>		    
 		</action>
- 
+		
+		<action name="userManage" class="cn.fuego.misp.web.action.user.UserManageAction">
+			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>  
+		</action>
  	</package>
 </struts>
 
