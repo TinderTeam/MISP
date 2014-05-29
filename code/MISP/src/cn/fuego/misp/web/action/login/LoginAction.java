@@ -37,8 +37,8 @@ public class LoginAction extends MISPAction
 {
 	Log log = LogFactory.getLog(LoginAction.class);
 	private static final String LOGIN_FAILED = "LoginFailed";
-	private List<MenuTreeModel> menuTreeItem;
-	private UserModel user;
+	private List<MenuTreeModel> menuTreeItem=null;
+	private UserModel user=null;
 	private String message; 
 	
 	
@@ -49,6 +49,11 @@ public class LoginAction extends MISPAction
 	       
 	     try
 	     {
+	    	 if(session.get(SessionAttrNameConst.LOGIN_USER)!=null){
+	    		 setPage_pageName(UtilConstant.HomeValue);	
+	    		 return SUCCESS;
+	    	 }
+	    	 	    	 
 	    	 //User Login
 	    	 ServiceContext.getInstance().getLoginService().userLogin(user);
 	    	 //Loading MenuTree
