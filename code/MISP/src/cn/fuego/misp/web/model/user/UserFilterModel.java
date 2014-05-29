@@ -8,7 +8,9 @@
 */ 
 package cn.fuego.misp.web.model.user;
 
-import cn.fuego.misp.web.model.common.AttributeListModel;
+import java.util.List;
+
+import cn.fuego.misp.web.model.common.AttributeModel;
 
 /** 
  * @ClassName: UserFilterModel 
@@ -20,6 +22,29 @@ import cn.fuego.misp.web.model.common.AttributeListModel;
 
 public class UserFilterModel
 {
-	private AttributeListModel attrList;
+	private String userID;
+	private List<AttributeModel> attrList;
+
+	
+	public String getUserID()
+	{
+		return userID;
+	}
+
+	public void setUserID(String userID)
+	{
+		this.userID = userID;
+	}
+
+	public List<AttributeModel> getAttrList()
+	{
+		return attrList;
+	}
+
+	public void setAttrList(List<AttributeModel> attrList)
+	{
+		this.attrList = attrList;
+	}
+	
 
 }

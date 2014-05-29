@@ -10,7 +10,9 @@ package cn.fuego.misp.service;
 
 import java.util.List;
 
+import cn.fuego.misp.service.datasource.AbstractDataSource;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
+import cn.fuego.misp.web.model.user.UserFilterModel;
 import cn.fuego.misp.web.model.user.UserModel;
 
 /** 
@@ -24,6 +26,8 @@ import cn.fuego.misp.web.model.user.UserModel;
 public interface UserManageService
 {
 	public UserModel getUserByID(String userID);
+	
+	public AbstractDataSource<UserModel> getUserListDataSourceByFilter(UserFilterModel filterModel);
 	
 	/**
 	 * get the menu tree by user id.

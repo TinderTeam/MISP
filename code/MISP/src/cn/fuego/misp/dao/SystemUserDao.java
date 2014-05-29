@@ -10,9 +10,7 @@ package cn.fuego.misp.dao;
 
 import java.util.List;
 
-
 import cn.fuego.misp.domain.po.SystemUser;
-import cn.fuego.misp.web.model.user.UserModel;
 
 /**   
  * @Title: SystemUserDao.java 
@@ -38,6 +36,8 @@ public interface SystemUserDao {
 	 * @return
 	 */
 	public List<SystemUser>	 getByFilter(List<String> userIDList,List<String> userNameList);
+	public List<SystemUser>	 getByFilter(SystemUser filter);
+
 	
   
 }

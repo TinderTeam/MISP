@@ -9,6 +9,7 @@
 package cn.fuego.misp.util.validate;
 
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +24,18 @@ import java.util.regex.Pattern;
 public class ValidatorUtil
 {
 	public static boolean isEmpty(List list)
+	{
+		if(null == list)
+		{
+			return true;
+		}
+		if(list.isEmpty())
+		{
+			return true;
+		}
+		return false;
+	}
+	public static boolean isEmpty(Set list)
 	{
 		if(null == list)
 		{

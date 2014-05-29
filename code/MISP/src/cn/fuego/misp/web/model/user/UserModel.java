@@ -10,7 +10,7 @@ package cn.fuego.misp.web.model.user;
 
 import java.util.List;
 
-import cn.fuego.misp.web.model.common.AttributeListModel;
+import cn.fuego.misp.web.model.common.AttributeModel;
 
 /** 
  * @ClassName: UserModel 
@@ -24,7 +24,7 @@ public class UserModel
 {
 	private String userID;
 	private String password;
-	private AttributeListModel attrValueList;
+	private List<AttributeModel> attrList;
 	private List<UserGroupModel> userGroupList;
 
 	public String getUserID()
@@ -53,13 +53,16 @@ public class UserModel
 	{
 		this.userGroupList = userGroupList;
 	}
-	public AttributeListModel getAttrValueList()
+
+	public List<AttributeModel> getAttrList()
 	{
-		return attrValueList;
+		return attrList;
 	}
-	public void setAttrValueList(AttributeListModel attrValueList)
+
+	public void setAttrList(List<AttributeModel> attrList)
 	{
-		this.attrValueList = attrValueList;
+		this.attrList = attrList;
 	}
+ 
  
 }

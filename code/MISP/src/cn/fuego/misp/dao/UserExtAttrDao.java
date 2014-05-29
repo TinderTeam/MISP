@@ -9,10 +9,9 @@
 package cn.fuego.misp.dao;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import cn.fuego.misp.domain.base.AttributeBean;
-import cn.fuego.misp.domain.po.SystemUser;
 import cn.fuego.misp.domain.po.UserExtAttr;
 
 /**   
@@ -33,6 +32,6 @@ public interface UserExtAttrDao
 
 	public void delete(UserExtAttr attr);
 	
-	public List<UserExtAttr> getByFilter(AttributeBean attr);
+	public List<UserExtAttr> getByFilter(Set<String> userIDList,AttributeBean attr);
 	
 }

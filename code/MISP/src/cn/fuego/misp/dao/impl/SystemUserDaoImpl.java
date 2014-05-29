@@ -20,6 +20,7 @@ import org.hibernate.criterion.Restrictions;
 import cn.fuego.misp.dao.SystemUserDao;
 import cn.fuego.misp.dao.hibernate.util.HibernateUtil;
 import cn.fuego.misp.domain.po.SystemUser;
+import cn.fuego.misp.util.validate.ValidatorUtil;
 
 /**
  * @Title: SystemUserDaoImpl.java
@@ -172,6 +173,44 @@ public class SystemUserDaoImpl implements SystemUserDao
 
 		return userList;		
 
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.SystemUserDao#getByFilter(cn.fuego.misp.domain.po.SystemUser)
+	 */
+	@Override
+	public List<SystemUser> getByFilter(SystemUser filter)
+	{
+		log.debug("[DAO] get the SystemUser by filter:" +filter );
+		//根据userID列表信息和 userName列表信息 共同查找systemUser信息
+		List<SystemUser> userList;
+		Session s = null;
+
+		try
+		{
+			s = HibernateUtil.getSession();
+
+			Criteria c = s.createCriteria(SystemUser.class);		
+			if (!ValidatorUtil.isEmpty(filter.getUserID()))
+			{
+				c.add(Restrictions.like("userID", "%"+filter.getUserID()+"%"));
+				
+			}	
+			userList = c.list();
+
+		} catch (RuntimeException e)
+		{
+			//log.error("get the SystemUser by UserID and UserName failed." + userList, e);
+			throw e;
+		} finally
+		{
+			if (s != null)
+			{
+				s.close();
+			}
+		}
+
+		return userList;	
 	}
 
 }

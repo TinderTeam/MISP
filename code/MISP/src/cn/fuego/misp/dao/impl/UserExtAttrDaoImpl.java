@@ -11,7 +11,7 @@ package cn.fuego.misp.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +24,6 @@ import org.hibernate.criterion.Restrictions;
 import cn.fuego.misp.dao.UserExtAttrDao;
 import cn.fuego.misp.dao.hibernate.util.HibernateUtil;
 import cn.fuego.misp.domain.base.AttributeBean;
-import cn.fuego.misp.domain.po.SystemUser;
 import cn.fuego.misp.domain.po.UserExtAttr;
 import cn.fuego.misp.util.validate.ValidatorUtil;
 
@@ -123,7 +122,7 @@ public class UserExtAttrDaoImpl implements UserExtAttrDao {
 	/* (non-Javadoc)
 	 * @see cn.fuego.misp.dao.UserExtAttrDao#getByFilter()
 	 */
-	public List<UserExtAttr> getByFilter(AttributeBean attr)
+	public List<UserExtAttr> getByFilter(Set<String> userIDList,AttributeBean attr)
 	{
 		log.debug("[DAO] get the UserExtAttr by attr:" +attr );
 		
@@ -134,7 +133,11 @@ public class UserExtAttrDaoImpl implements UserExtAttrDao {
 			s = HibernateUtil.getSession();
 			Criteria c = s.createCriteria(UserExtAttr.class);	
 			
-
+			if(!ValidatorUtil.isEmpty(userIDList))
+			{
+				c.add(Restrictions.in("userID", userIDList));
+			}
+            
 			if(null != attr)
 			{
 				if (!ValidatorUtil.isEmpty(attr.getAttrName()))

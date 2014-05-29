@@ -13,7 +13,10 @@ import java.util.List;
 import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.cache.SystemMenuCache;
 import cn.fuego.misp.service.cache.UserCache;
+import cn.fuego.misp.service.datasource.AbstractDataSource;
+import cn.fuego.misp.service.datasource.MemoryDataSourceImpl;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
+import cn.fuego.misp.web.model.user.UserFilterModel;
 import cn.fuego.misp.web.model.user.UserModel;
 
 /** 
@@ -45,6 +48,18 @@ public class UserManageServiceImpl implements UserManageService
 	{
 		// TODO Auto-generated method stub
 		return  SystemMenuCache.getInstance().getAllMenu();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.service.UserManageService#getUserListDataSourceByFilter(cn.fuego.misp.web.model.user.UserFilterModel)
+	 */
+	@Override
+	public AbstractDataSource<UserModel> getUserListDataSourceByFilter(UserFilterModel filterModel)
+	{
+		List<UserModel> userList = UserCache.getInstance().getUserListByFilter(filterModel);
+		
+		AbstractDataSource<UserModel> userDataSource = new MemoryDataSourceImpl<UserModel>(userList);
+		return userDataSource;
 	}
 
 }
