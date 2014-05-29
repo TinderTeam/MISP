@@ -67,7 +67,7 @@ if (!isPlaceholder()) {//��֧��placeholder ��jquery�����
     <body>
 		<div class="container background="<%=request.getContextPath()%>/client/lib/unicoinadmin/img/logo.png">
 			<div id="logo">
-				<img src="<%=request.getContextPath()%>client/lib/unicoinadmin/img/logo.png"/>
+				<img src="<%=request.getContextPath()%>/client/lib/unicoinadmin/img/loginlogo.png"/>
 			</div>
 			<div id="loginbox">            
 				<s:form action="login/login" method="POST">	
