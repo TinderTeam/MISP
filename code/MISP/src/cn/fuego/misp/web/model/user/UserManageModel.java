@@ -26,7 +26,7 @@ public class UserManageModel
 	private UserModel user;
 	
 	private List<String> extAttrNameList;
-	private PageModel<UserModel> userList;
+	private PageModel<UserModel> userList = new PageModel<UserModel>();
 	public UserFilterModel getFilter()
 	{
 		return filter;

@@ -12,13 +12,18 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import cn.fuego.misp.dao.SystemMetaDataDao;
 import cn.fuego.misp.dao.hibernate.util.HibernateUtil;
 import cn.fuego.misp.domain.po.SystemMetaData;
+import cn.fuego.misp.domain.po.SystemUser;
+import cn.fuego.misp.util.validate.ValidatorUtil;
 
 /**   
  * @Title: SystemMetaDataDaoImpl.java 
@@ -118,8 +123,35 @@ public class SystemMetaDataDaoImpl implements SystemMetaDataDao {
 	@Override
 	public List<SystemMetaData> getMetaDataByTableName(String tableName)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		log.debug("[DAO] get the getMetaDataByTableName by filter:" +tableName );
+		//根据userID列表信息和 userName列表信息 共同查找systemUser信息
+		List<SystemMetaData> metaDataList;
+		Session s = null;
+
+		try
+		{
+			s = HibernateUtil.getSession();
+
+			Criteria c = s.createCriteria(SystemMetaData.class);		
+			c.add(Restrictions.eq("tableName", tableName));
+			c.addOrder(Order.desc("sortOrder"));
+		 
+			metaDataList = c.list();
+
+		} catch (RuntimeException e)
+		{
+			//log.error("get the SystemUser by UserID and UserName failed." + userList, e);
+			throw e;
+		} finally
+		{
+			if (s != null)
+			{
+				s.close();
+			}
+		}
+		
+		return metaDataList;
+
 	}
 
 }

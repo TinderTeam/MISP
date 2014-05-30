@@ -18,6 +18,8 @@ mysql -u%DB_USER% -p%DB_PASSWORD% <%CREATE_TALBE_PATH%/MISPDDL.sql
 
 mysql -u%DB_USER% -p%DB_PASSWORD% <%STATIC_DATA_PATH%/system_menu.sql
 mysql -u%DB_USER% -p%DB_PASSWORD% <%STATIC_DATA_PATH%/system_user.sql
+mysql -u%DB_USER% -p%DB_PASSWORD% <%STATIC_DATA_PATH%/system_meta_data.sql
+
  
  
 pause

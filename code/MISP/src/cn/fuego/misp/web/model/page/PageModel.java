@@ -31,11 +31,6 @@ public class PageModel<E>
 	private int currentPage = 1;
 	private int count = 0;
 	
- 	public PageModel(AbstractDataSource<E> dataSource)
- 	{
- 		this.dataSource = dataSource;
- 		this.count = this.dataSource.getDataCount();
- 	}
  
 	public List<E> getCurrentPageData()
 	{
@@ -44,6 +39,18 @@ public class PageModel<E>
  
  
  
+	public AbstractDataSource<E> getDataSource()
+	{
+		return dataSource;
+	}
+
+	public void setDataSource(AbstractDataSource<E> dataSource)
+	{
+		this.dataSource = dataSource;
+ 		this.count = this.dataSource.getDataCount();
+		this.dataSource = dataSource;
+	}
+
 	public int getStartNum()
 	{
 		return (currentPage-1)*pageSize;  

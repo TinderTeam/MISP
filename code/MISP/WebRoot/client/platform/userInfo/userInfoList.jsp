@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="row-fluid">
     <div class="span12"> 
 <div class="widget-box">
@@ -15,17 +15,17 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                     <th>用户名</th>  
-                    <c:forEach var="attrName" varStatus="iterStatus" items="${userManage.extAttrNameList}"> 						 
-					   <th>${attrName}</th>   
+                     <th><s:text name="USER.USER_ID"></s:text></th>  
+                    <c:forEach var="attrName"   items="${userInfo.extAttrNameList}"> 						 
+					   <th> ${attrName}</th>   
 					</c:forEach>
                 </tr>
             </thead>
             <tbody>
-               <c:forEach var="userInfo" items="${userManage.userList.currentPageData}"> 						 
+               <c:forEach var="user" items="${userInfo.userList.currentPageData}"> 						 
 				  <tr>
-                    <td>${userInfo.userID}</td>
-                    <c:forEach var="attr" items="${userInfo.attrList}"> 
+                    <td>${user.userID}</td>
+                    <c:forEach var="attr" items="${user.attrList}"> 
                       <td>${attr.attrValue}</td>
                     </c:forEach>
                   </tr>   

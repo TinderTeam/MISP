@@ -17,7 +17,7 @@ public class UserModelStub
 	{
 		UserModel user = new UserModel();
 		user.setUserID(id);
-		user.setUserName(name);
+	 
 		user.setPassword(password);
 		return user;
 	}

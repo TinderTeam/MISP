@@ -10,8 +10,10 @@ package cn.fuego.misp.service.impl.user;
 
 import java.util.List;
 
+import cn.fuego.misp.domain.po.SystemMetaData;
 import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.cache.SystemMenuCache;
+import cn.fuego.misp.service.cache.SystemMetaDataCache;
 import cn.fuego.misp.service.cache.UserCache;
 import cn.fuego.misp.service.datasource.AbstractDataSource;
 import cn.fuego.misp.service.datasource.MemoryDataSourceImpl;
@@ -60,6 +62,16 @@ public class UserManageServiceImpl implements UserManageService
 		
 		AbstractDataSource<UserModel> userDataSource = new MemoryDataSourceImpl<UserModel>(userList);
 		return userDataSource;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.service.UserManageService#getUserExtAttrNameList()
+	 */
+	@Override
+	public List<String> getUserExtAttrNameList()
+	{
+		List<String> extAttrNameList = SystemMetaDataCache.getInstance().getDisplayAttrNameList(SystemMetaDataCache.USER_TABLE);
+ 		return extAttrNameList;
 	}
 
 }

@@ -8,6 +8,7 @@
 */ 
 package cn.fuego.misp.service.cache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,10 @@ import cn.fuego.misp.domain.po.SystemMetaData;
 public class SystemMetaDataCache
 {
 	private Log log = LogFactory.getLog(SystemMetaDataCache.class);
-	private static String USER_TABLE = "USER_TABLE";
+	public static String USER_TABLE = "D_USER_EXT_ATTR";
+	
+	public static int IS_DISPLAY = 1;
+	public static int IS_Filter = 1;
 	private static SystemMetaDataCache instance;
 	private Map<String,List<SystemMetaData>> cache = new HashMap<String,List<SystemMetaData>>();
 
@@ -47,12 +51,8 @@ public class SystemMetaDataCache
 		return instance;
 	}
 	
-	public List<SystemMetaData> getUserMetaData()
-	{
-		return getMetaDataByTableName(USER_TABLE);
-	}
-	
-	public List<SystemMetaData> getMetaDataByTableName(String tableName)
+ 
+	private List<SystemMetaData> getMetaDataByTableName(String tableName)
 	{
 		List<SystemMetaData> metaDataList = this.cache.get(tableName);
 		if(null == metaDataList)
@@ -65,7 +65,34 @@ public class SystemMetaDataCache
 		
 		return metaDataList;
 	}
-	
+	public List<String> getDisplayAttrNameList(String tableName)
+	{
+		List<String> extAttrNameList = new ArrayList<String>();
+		List<SystemMetaData> metaDataList = this.getMetaDataByTableName(tableName);
+		for(SystemMetaData metaData : metaDataList)
+		{
+			if(metaData.getIsDisplay() == SystemMetaDataCache.IS_Filter)
+			{	
+				extAttrNameList.add(metaData.getAttrName());
+			}
+		}
+		
+		return extAttrNameList;
+	}
+	public List<String> getFilterAttrNameList(String tableName)
+	{
+		List<String> extAttrNameList = new ArrayList<String>();
+		List<SystemMetaData> metaDataList = this.getMetaDataByTableName(tableName);
+		for(SystemMetaData metaData : metaDataList)
+		{
+			if(metaData.getIsFilter() == SystemMetaDataCache.IS_DISPLAY)
+			{	
+				extAttrNameList.add(metaData.getAttrName());
+			}
+		}
+		
+		return extAttrNameList;
+	}
 	public void reload()
 	{
 		cache.clear();

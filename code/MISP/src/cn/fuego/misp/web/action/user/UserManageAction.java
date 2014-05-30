@@ -44,7 +44,7 @@ public class UserManageAction extends MISPAction
 
 
 	private UserManageModel userManage = new UserManageModel();
-	
+ 	
 	private UserManageService userService = ServiceContext.getInstance().getUserManagerService();
  
 	
@@ -64,9 +64,10 @@ public class UserManageAction extends MISPAction
 		 * we mast try to do and design better on this fuction. 
 		 */
 	    AbstractDataSource<UserModel> userDataSource = userService.getUserListDataSourceByFilter(userManage.getFilter());
-	    userManage.setUserList(new PageModel<UserModel>(userDataSource));
-		
+	    userManage.getUserList().setDataSource(userDataSource);
+	    userManage.setExtAttrNameList(userService.getUserExtAttrNameList());
 	    setPage_pageName("用户管理");
+ 
 		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
 		breadList.add(new BreadTrail("用户管理"));
 		setPage_breadList(breadList);
@@ -84,6 +85,22 @@ public class UserManageAction extends MISPAction
 	public List<MenuTreeModel> getMenuTreeItem()
 	{
 		return menuTreeItem;
+	}
+
+
+
+
+	public UserManageModel getUserManage()
+	{
+		return userManage;
+	}
+
+
+
+
+	public void setUserManage(UserManageModel userManage)
+	{
+		this.userManage = userManage;
 	}
 
 

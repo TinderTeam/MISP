@@ -97,7 +97,7 @@ public class UserExtAttrDaoImplTest
 		UserModelStub.setAttrModel("002", "b", "bb");
 		UserModelStub.setAttrModel("003", "c", "cc");
 		
-		List<UserExtAttr> userExtList=attrimpl.getByFilter(ab1);
+		List<UserExtAttr> userExtList=attrimpl.getByFilter(null,ab1);
 		log.info(userExtList);
 		System.out.println(userExtList);
 		//assert.equals(userExtList);
