@@ -58,7 +58,7 @@
 		  <div class="container-fluid">		
 				<div class="widget-content">
 					<div class="control-group">
-						<button  id ="btn_createdata" type="submit" class="btn btn-success" onclick="loadInfo()">生成数据</button>
+						<button  id ="btn_createdata" type="submit" class="btn btn-success" onClick="loadInfo()">生成数据</button>
 						<button  id="btn_download" type="submit" class="btn btn-success" name="submit" value = "download" disabled="true">下载</button>																		
 					</div>
 				</div>		
