@@ -30,13 +30,43 @@
 		  <!---End 面包屑导航---->
 		  <!----内容页---->
 		  <div class="container-fluid">
-				<jsp:include page="../userInfo/userInfoList.jsp"/>		
+				
+				<div class="row-fluid">
+					<div class="span12"> 
+						<div class="widget-box">
+							<div class="widget-title">
+								<span class="icon">
+									<i class="icon-th"></i>
+								</span>
+								<h5>组织机构管理</h5>
+							</div>
+						<s:form action="orgManage/orgManage" method="POST">	
+							<div class="widget-content nopadding">	
+								<div class="form-horizontal">
+									<div class="span4"> 						
+											<label class="control-label">选中的组织：</label>
+											<label class="control-label">某某某组织</label>
+										
+										
+				
+												
+									</div>
+									
+									<div class="span8"> 
+										
+									
+									</div>
+								</div>
+							</div>					
+							</s:form>
+						 </div>
+					 </div>
+				 </div>	 	 
 					<!----内容页完---->
 					<!----尾部声明---->
 				<jsp:include page="../cbb/footer.jsp"/>
 		   </div>
 	</div>
-	
 
 </body>
 </html>

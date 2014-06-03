@@ -9,6 +9,7 @@
 package cn.fuego.misp.service.impl.user;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.fuego.misp.domain.po.SystemMetaData;
 import cn.fuego.misp.service.UserManageService;
@@ -17,6 +18,9 @@ import cn.fuego.misp.service.cache.SystemMetaDataCache;
 import cn.fuego.misp.service.cache.UserCache;
 import cn.fuego.misp.service.datasource.AbstractDataSource;
 import cn.fuego.misp.service.datasource.MemoryDataSourceImpl;
+import cn.fuego.misp.service.exception.ServiceException;
+import cn.fuego.misp.service.exception.msg.ExceptionMsg;
+import cn.fuego.misp.service.login.exception.LoginServiceExceptionMsg;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
 import cn.fuego.misp.web.model.user.UserFilterModel;
 import cn.fuego.misp.web.model.user.UserModel;
@@ -71,7 +75,26 @@ public class UserManageServiceImpl implements UserManageService
 	public List<String> getUserExtAttrNameList()
 	{
 		List<String> extAttrNameList = SystemMetaDataCache.getInstance().getDisplayAttrNameList(SystemMetaDataCache.USER_TABLE);
- 		return extAttrNameList;
+	
+		return extAttrNameList;
+	}
+
+	@Override
+	public void modifyPassword(UserModel user, String oldPassword,
+			String confirmPassword, String newPassword)
+	{
+		if(!newPassword.equals(confirmPassword))
+		{
+			//two password not correct
+			throw new ServiceException(ExceptionMsg.TWO_PASSWORD_WRONG);
+		}else if(!user.getPassword().equals(oldPassword))
+		{
+			//old password is wrong 
+			throw new ServiceException(LoginServiceExceptionMsg.PASSWORD_WRONG);
+		}else{
+			//reSet the password 
+			user.setPassword(newPassword);
+		}
 	}
 
 }

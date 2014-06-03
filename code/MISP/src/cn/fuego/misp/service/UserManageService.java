@@ -36,4 +36,9 @@ public interface UserManageService
 	 */
 	public List<MenuTreeModel> loadMenuTreeByUserID(String userID);
 
+
+
+	public void modifyPassword(UserModel object, String oldPassword,
+			String confirmPassword, String newPassword);
+
 }

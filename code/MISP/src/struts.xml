@@ -22,7 +22,6 @@
 		<action name="ajaxDownloadDebug" class="cn.fuego.misp.web.action.debug.AjaxDownDebugAction">
 			<result type="dispatcher">/client/platform/debug/ajaxdown.jsp</result> 
 		</action>
-
  	</package>
 </struts>
 
