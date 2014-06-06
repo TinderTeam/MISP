@@ -5,7 +5,7 @@
 
 <struts>
 <constant name="struts.ui.theme" value="simple" />
-
+<constant name="struts.enable.DynamicMethodInvocation" value="true"/>
 <constant name="struts.ui.templateDir" value="template" />
 
 <constant name="struts.ui.templateSuffix" value="ftl" />
@@ -27,12 +27,13 @@
 			<result type="dispatcher">/client/platform/login/login.jsp</result>	
 			<result type="dispatcher" name="ConfigFailed">/client/platform/userInfo/passwordConfig.jsp</result>	
 			<result type="dispatcher" name="SystemError">/client/platform/common/systemError.jsp</result>		    
+		</action>	
+		
+		<action name="orgManage" class="cn.fuego.misp.web.action.user.OrgManageAction">
+			<result type="dispatcher">/client/platform/debug/ajaxdown.jsp</result> 
 		</action>
-		
-		
- 	</package>
- 	
- 	
+	</package>	
+
  	
 </struts>
 

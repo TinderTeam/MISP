@@ -8,6 +8,60 @@
 	<head>
 		<jsp:include page="../cbb/head.jsp"/>
 		<jsp:include page="../cbb/js.jsp"/>
+		
+		
+		<script type="text/javascript">
+			function ajaxSearchOrg(nameSelected){
+				
+				
+				alert("传入的nameSelected="+nameSelected);
+				
+				$.ajax({  
+					url: "orgManage!ajaxSearchOrg.action", 
+					dataType:"html",
+					
+					data:{
+						orgName:nameSelected,
+					},
+					success: function (str) { 
+						
+						document.getElementById("orgInfoName").value=nameSelected;
+						document.getElementById("beloneInfo").innerHTML="["+nameSelected+"]隶属于";
+						document.getElementById("beloneInfoContent").innerHTML=str;
+						
+					}, 
+					error: function (XMLHttpRequest, textStatus, errorThrown) { 
+						alert(errorThrown); 
+					} 
+				});		
+			}
+				
+			</script>
+		
+		<script type="text/javascript">
+			
+		
+			function serachOrg()
+			{
+				<!------- Search ORG ---->
+				
+				var nameSelected =document.getElementById("selectedOrg").innerHTML;
+				if(nameSelected=="未选择组织机构"){
+					alert("请选择组织结构");
+				}
+				else{
+					ajaxSearchOrg(nameSelected);	
+				}
+			}
+		
+		</script>		
+		<script type="text/javascript">
+		<!-----Tree Select--->
+			function treeSelect(str)
+			{
+				document.getElementById("selectedOrg").innerHTML=str;
+			}
+		</script>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	</head>
 <body>
@@ -32,38 +86,41 @@
 		  <div class="container-fluid">
 				
 				<div class="row-fluid">
-					<s:form action="orgManage/orgManage" method="POST">			
-						<div class="span3"> 
+					
+						<div class="span5"> 
 							<div class="well">
 								<h5>选中的组织：</h5>
-								<p class="text-info">选中的组织机构</p>
+								<div class="well">
+									<p  class="text-success"><strong id="selectedOrg">未选择组织机构</strong></p>
+								</div>
+							
 								<h5>组织机构树：</h5>
 								
 								
 									<div class="tree well">
 										<ul>
 											<li>
-												<span><i class="icon-folder-open"></i> </span> <a href="">深圳市孚思科技有限公司</a>
+												<span><i class="icon-folder-open"></i> </span> <a href="#" onclick="treeSelect(this.innerHTML)")>深圳市孚思科技有限公司</a>
 												<ul>
 													<li>
-														<span><i class="icon-minus-sign"></i></span> <a href="">市场部</a>
+														<span><i class="icon-minus-sign"></i></span> <a href="#" onclick="treeSelect(this.innerHTML)")>市场部</a>
 														<ul>
 															<li>
-																<span><i class="icon-leaf"></i></span> <a href="">营销组</a>
+																<span><i class="icon-leaf"></i></span> <a href="#" onclick="treeSelect(this.innerHTML)")>营销组</a>
 															</li>
 														</ul>
 													</li>
 													<li>
-														<span><i class="icon-minus-sign"></i></span> <a href="">研发部</a>
+														<span><i class="icon-minus-sign"></i></span> <a href="#" onclick="treeSelect(this.innerHTML)")>研发部</a>
 														<ul>
 															<li>
-																<span><i class="icon-leaf"></i></span> <a href="">硬件组</a>
+																<span><i class="icon-leaf"></i></span><a href="#" onclick="treeSelect(this.innerHTML)")>硬件组</a>
 															</li>
 															<li>
-																<span><i class="icon-minus-sign"></i></span> <a href="">软件组</a>			
+																<span><i class="icon-minus-sign"></i></span><a href="#" onclick="treeSelect(this.innerHTML)")>软件组</a>			
 															</li>
 															<li>
-																<span><i class="icon-leaf"></i></span> <a href="">后勤组</a>
+																<span><i class="icon-leaf"></i></span><a href="#" onclick="treeSelect(this.innerHTML)")>后勤组</a>
 															</li>
 														</ul>
 													</li>
@@ -74,7 +131,8 @@
 								
 								<HR>
 								<div >
-								  <button type="submit" class="btn btn-primary">查询</button>
+							
+								  <input type="button" class="btn btn-primary" onclick="serachOrg()" value="查询" />
 								  <button type="btn tip-top" class="btn btn-primary tip-top" data-original-title="删除组织机构后会删除组织机构下属所有机构及用户归属信息">删除</button> 
 								  <a href="#myAlert" data-toggle="modal" class="btn btn-primary">新增</a>
 								  
@@ -102,7 +160,7 @@
 															<h6>组织机构描述</h6>		
 							
 															<div class="well">	
-																	<label class="control-label">某某组织机构是.....</label>											
+																	<label class="control-label">${test}组织机构是.....</label>											
 															</div>												
 															
 															</div>	
@@ -134,7 +192,7 @@
 							</div>		
 						 </div>	 
 						 
-						 <div class="span9"> 
+						 <div class="span7"> 
 								<div class="well">	
 									
 									<h5>组织机构详细信息</h5>
@@ -142,22 +200,14 @@
 											<h6>组织机构名称	</h6>									
 												<div class="control-group">
 													<div class="controls">
-														<s:textfield type="text" class="login_input" name="user.userID" placeholder="组织机构名称"/>												
+														<s:textfield id="orgInfoName" type="text" class="login_input" name="" placeholder="组织机构名称"/>												
 													</div>									
 												</div>
 										<HR>
 							
 											<h6>隶属关系</h6>		
-																		
-												<div class="control-group">
-													<ul class="breadcrumb">
-													  <li>选中的组织机构 <strong>隶属于</strong></span></li>
-													  <li>深圳孚思科技有限公司<span class="divider">-</span></li>
-													  <li>市场开发部<span class="divider">-</span></li>
-													  <li>营销组</li>
-													 
-													</ul>
-												</div>
+												<strong id = "beloneInfo"></strong>					
+												<p id = "beloneInfoContent"></p>
 												
 												
 												
@@ -216,7 +266,7 @@
 									</div>	
 							</div>		
 						</div>	
-					</s:form> 	 
+				
 					<!----内容页完---->
 					<!----尾部声明---->
 				<jsp:include page="../cbb/footer.jsp"/>
