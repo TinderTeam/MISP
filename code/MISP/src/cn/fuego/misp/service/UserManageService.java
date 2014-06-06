@@ -38,7 +38,7 @@ public interface UserManageService
 
 
 
-	public void modifyPassword(UserModel object, String oldPassword,
+	public UserModel modifyPassword(UserModel object, String oldPassword,
 			String confirmPassword, String newPassword);
 
 }

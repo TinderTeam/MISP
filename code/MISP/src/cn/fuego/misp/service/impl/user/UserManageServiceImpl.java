@@ -11,7 +11,10 @@ package cn.fuego.misp.service.impl.user;
 import java.util.List;
 import java.util.Map;
 
+import cn.fuego.misp.dao.DaoContext;
+import cn.fuego.misp.dao.SystemUserDao;
 import cn.fuego.misp.domain.po.SystemMetaData;
+import cn.fuego.misp.domain.po.SystemUser;
 import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.cache.SystemMenuCache;
 import cn.fuego.misp.service.cache.SystemMetaDataCache;
@@ -80,7 +83,7 @@ public class UserManageServiceImpl implements UserManageService
 	}
 
 	@Override
-	public void modifyPassword(UserModel user, String oldPassword,
+	public UserModel modifyPassword(UserModel user, String oldPassword,
 			String confirmPassword, String newPassword)
 	{
 		if(!newPassword.equals(confirmPassword))
@@ -93,8 +96,23 @@ public class UserManageServiceImpl implements UserManageService
 			throw new ServiceException(LoginServiceExceptionMsg.PASSWORD_WRONG);
 		}else{
 			//reSet the password 
+			
+			
+			//1.database update
+			
+			SystemUserDao systemUserDao = DaoContext.getInstance().getSystemUserDao(); 
+			SystemUser userPo =systemUserDao.getByID(user.getUserID());
+			userPo.setPassword(newPassword);
+			systemUserDao.saveOrUpdate(userPo);
+			
+			
+			//1.Model Set newPasword
 			user.setPassword(newPassword);
+	
+			
+			return user;
 		}
+		
 	}
 
 }

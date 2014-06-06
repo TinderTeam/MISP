@@ -213,4 +213,16 @@ public class SystemUserDaoImpl implements SystemUserDao
 		return userList;	
 	}
 
+	@Override
+	public SystemUser getByID(String id)
+	{
+		SystemUser filter = new SystemUser();
+		filter.setUserID(id);
+		List<SystemUser> list =getByFilter(filter);
+		/*
+		 * 默认
+		 */
+		return list.get(0);
+	}
+
 }

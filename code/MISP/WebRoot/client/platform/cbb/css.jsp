@@ -13,3 +13,4 @@
         <link rel="stylesheet" href="<%=request.getContextPath()%>/client/lib/unicoinadmin/css/datepicker.css" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/client/lib/unicoinadmin/css/uniform.css" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/client/lib/unicoinadmin/css/select2.css" />		
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/client/lib/unicoinadmin/css/tree.css" />		

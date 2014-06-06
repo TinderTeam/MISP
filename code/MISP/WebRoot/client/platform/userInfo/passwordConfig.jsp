@@ -40,12 +40,12 @@
 								</span>
 								<h5>密码修改</h5>
 							</div>
-						<s:form action="login/login" method="POST">	
+						<s:form action="userInfo/passwordConfig" method="POST">	
 							<div class="widget-content nopadding">	
 								<div class="form-horizontal">
 									<div class="control-group">
 										<label class="control-label">请输入原密码</label>
-								
+									
 										<div class="controls">
 												<s:password  type="password" name="oldPassword" placeholder="请输入原密码" />
 										</div>
@@ -59,13 +59,14 @@
 									<div class="control-group">
 										<label class="control-label">请再次输入新密码</label>
 										<div class="controls">
-											<s:password  type="password" name="newAgainPassword" placeholder="请再次输入新密码" />
+											<s:password  type="password" name="confirmPassword" placeholder="请再次输入新密码" />
 										</div>
 									</div>
 									
 									<div class="form-actions">
 										<input type="submit" name="submit" class="btn btn-success" value="提交" />
 										<input type="submit" name="submit" class="btn btn-success" value="取消" />
+										<p  style="color:red" >${errorMsg}</p>
 									</div>
 								</div>
 							</div>					
