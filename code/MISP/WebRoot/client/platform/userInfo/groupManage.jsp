@@ -39,14 +39,38 @@
 								<h5>选中的权限组：</h5>
 								<p class="text-info">选中的权限组</p>
 								<h5>权限组列表</h5>
-								<select multiple="multiple" style="height:320px">
-								  <option>管理员</option>
-								  <option>业务部</option>
-								  <option>市场部</option>
-								  <option>|4</option>
-								  <option>5</option>
-								</select>
 								
+								<div class="tree well">
+									<ul>
+										<li>
+											<span><i class="icon-folder-open"></i> </span> <a href="">深圳市孚思科技有限公司</a>
+											<ul>
+												<li>
+													<span><i class="icon-minus-sign"></i></span> <a href="">市场部</a>
+													<ul>
+														<li>
+															<span><i class="icon-leaf"></i></span> <a href="">营销组</a>
+														</li>
+													</ul>
+												</li>
+												<li>
+													<span><i class="icon-minus-sign"></i></span> <a href="">研发部</a>
+													<ul>
+														<li>
+															<span><i class="icon-leaf"></i></span> <a href="">硬件组</a>
+														</li>
+														<li>
+															<span><i class="icon-minus-sign"></i></span> <a href="">软件组</a>			
+														</li>
+														<li>
+															<span><i class="icon-leaf"></i></span> <a href="">后勤组</a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>						
+									</ul>
+								</div>					
 								<HR>
 								<div >
 								  <button type="submit" class="btn btn-primary">查询</button>
