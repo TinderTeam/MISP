@@ -30,7 +30,7 @@
 		</action>	
 		
 		<action name="orgManage" class="cn.fuego.misp.web.action.user.OrgManageAction">
-			<result type="dispatcher">/client/platform/debug/ajaxdown.jsp</result> 
+			<result type="dispatcher">/client/platform/userInfo/orgManage.jsp</result> 
 		</action>
 	</package>	
 

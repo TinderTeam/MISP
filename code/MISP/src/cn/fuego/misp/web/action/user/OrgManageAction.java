@@ -8,12 +8,23 @@
 */ 
 package cn.fuego.misp.web.action.user;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
+import stub.web.model.org.OrgModelStub;
+import stub.web.model.user.UserModelStub;
+
+import cn.fuego.misp.web.action.util.BreadTrail;
+import cn.fuego.misp.web.action.util.MISPAction;
+import cn.fuego.misp.web.constant.SessionAttrNameConst;
+import cn.fuego.misp.web.model.org.OrgManageModel;
+
+import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -25,7 +36,7 @@ import com.opensymphony.xwork2.ActionSupport;
  *  
  */
 
-public class OrgManageAction extends ActionSupport
+public class OrgManageAction extends MISPAction
 {
 	/**
 	 * 
@@ -38,14 +49,26 @@ public class OrgManageAction extends ActionSupport
 	Map<String, Object> session = actionContext.getSession();
 	Map<String, Object> parameters = actionContext.getParameters();
 	
-	private String[] orgNameArray;
-	private String orgBeloneInfo;
-	
+
+	private OrgManageModel orgManageModel;
 	
 	public String execute()
 	{   
-		log.info("test");
+		OrgManageModel orgManageModel =new OrgManageModel();
 		
+		/*
+		 *	TODO:
+		 *	服务获取无组织用户名单（用来进行组织成员安排）和组织机构列表 
+		 */
+		orgManageModel.setNoOrgUserList(UserModelStub.getUserModelList());
+		orgManageModel.setOrgList(OrgModelStub.getOrgModelList());
+		
+		session.put(SessionAttrNameConst.ORG_MANAGE_MODEL, orgManageModel);
+		
+		setPage_pageName("组织机构管理");
+		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
+		breadList.add(new BreadTrail("组织机构管理"));
+		setPage_breadList(breadList);
 		return SUCCESS;
 	}
 
@@ -56,37 +79,41 @@ public class OrgManageAction extends ActionSupport
 		 *  Ajax request return the BeloneInfo of ORG
 		 */
 		
-		orgNameArray= (String[])parameters.get("orgName");
 		/*
 		 * 
 		 *  TODO:
 		 *  这里调用OrgManageService的相关方法
 		 *  具体功能：
-		 *  String getOrgBeloneInfoByOrgMame(String orgName);
-		 *  返回值：String OrgBeloneInfo格式为：
+		 *  OrgManageModel getOrgBeloneInfoByOrgMame(String orgName);
+		 *  传入参数 orgName=(String[])parameters.get("orgName")[0]
+		 *  返回值：OrgManageModel OrgBeloneInfo格式为：
 		 *  "深圳孚思科技 - 研发部 - MISP项目组"
 		 */
 	
+		OrgManageModel orgManageModel = new OrgManageModel();
+		orgManageModel.setOrgBeloneInfo("深圳孚思科技 - 研发部 - MISP项目组");
+		orgManageModel.setStaticInfo("MISP项目组有：子机构2个，成员用户2个");
 		
-		orgBeloneInfo="深圳孚思科技 - 研发部 - MISP项目组";//TODO 传入组织归属信息
+		String jsonStr = JSON.toJSONString(orgManageModel);
+		log.info(jsonStr);
+		
 		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
-		ServletActionContext.getResponse().getWriter().print(orgBeloneInfo);
+		ServletActionContext.getResponse().getWriter().print(jsonStr);
 		parameters.put("test","testValue");
 		return null;
 	}
 
-	/**
-	 * @return the orgName
-	 */
 
-	public void setOrgBeloneInfo(String orgBeloneInfo)
+
+
+	public void setOrgManageModel(OrgManageModel orgManageModel)
 	{
-		this.orgBeloneInfo = orgBeloneInfo;
+		this.orgManageModel = orgManageModel;
 	}
 
-	public String getOrgBeloneInfo()
+	public OrgManageModel getOrgManageModel()
 	{
-		return orgBeloneInfo;
+		return orgManageModel;
 	}
 	
 }

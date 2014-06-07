@@ -1,5 +1,8 @@
 package stub.web.model.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.fuego.misp.dao.impl.UserExtAttrDaoImpl;
 import cn.fuego.misp.domain.po.UserExtAttr;
 import cn.fuego.misp.web.model.user.UserModel;
@@ -34,6 +37,13 @@ public class UserModelStub
 			
 	}
 	
-	
+	public static List<UserModel> getUserModelList()
+	{
+		List<UserModel> list = new ArrayList<UserModel>();
+		list.add(getUserModel("user1", "USER1", "1234"));
+		list.add(getUserModel("user2", "USER2", "1234"));
+		return list;
+
+	}
 
 }

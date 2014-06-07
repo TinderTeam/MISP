@@ -8,6 +8,8 @@
 */ 
 package cn.fuego.misp.web.action.user;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -18,6 +20,8 @@ import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.service.exception.msg.ExceptionMsg;
 import cn.fuego.misp.service.login.exception.LoginServiceExceptionMsg;
+import cn.fuego.misp.web.action.util.BreadTrail;
+import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
 import cn.fuego.misp.web.model.user.UserModel;
@@ -33,7 +37,7 @@ import com.opensymphony.xwork2.ActionSupport;
  *  
  */
 
-public class PasswordConfigAction extends ActionSupport
+public class PasswordConfigAction extends MISPAction
 {
 	/**
 	 * 
@@ -78,6 +82,10 @@ public class PasswordConfigAction extends ActionSupport
 		
 		
 		session.put(SessionAttrNameConst.LOGIN_USER,null);
+		setPage_pageName("密码修改");
+		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
+		breadList.add(new BreadTrail("密码修改"));
+		setPage_breadList(breadList);
 		return SUCCESS;
 	}
 
