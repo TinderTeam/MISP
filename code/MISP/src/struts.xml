@@ -32,6 +32,10 @@
 		<action name="orgManage" class="cn.fuego.misp.web.action.user.OrgManageAction">
 			<result type="dispatcher">/client/platform/userInfo/orgManage.jsp</result> 
 		</action>
+		
+		<action name="groupManage" class="cn.fuego.misp.web.action.user.GroupManageAction">
+			<result type="dispatcher">/client/platform/userInfo/groupManage.jsp</result> 
+		</action>
 	</package>	
 
  	

@@ -1,13 +1,35 @@
 package cn.fuego.misp.web.action.util;
 
 import java.util.List;
+import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class MISPAction extends ActionSupport
 {
 	private  String page_pageName=null;
 	private List<BreadTrail> page_breadList =null;
+	
+	
+	
+	/*
+	 * Public Function 
+	 * 用来方便Ajax获取单个参数使用
+	 * 说明：因为从ajax 获取的参数如果是非常简单的String，则不需要用json处理，但是因为返回到后台始终以数组形式体现，
+	 * 为了简化Action界面的代码量，故而在这个类里面实现相关单一参数提取功能。
+	 */
+	public String getAjaxPara(String paraName){
+		
+		ActionContext actionContext = ActionContext.getContext();
+		Map<String, Object> parameters = actionContext.getParameters();
+		
+		String[] paraList=(String[]) parameters.get(paraName);
+		String para=paraList[0];
+		return para;
+		
+	}
+	
 	
 	/**
 	 * @return the page_pageName
