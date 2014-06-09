@@ -85,16 +85,14 @@
 	//确认调整修改
 	function ensureModify()
 	{
-		var disabled=document.getElementById("ensureModifyBtn").value;
+		var disabled=document.getElementById("ensureModifyBtn").disabled;
+		
 		if(disabled==false){
 			//可用状态
-			
 			
 			var oldOrgName=searchOrgValue;
 			var newOrgName=document.getElementById("orgInfoName").value;
 			var newOrgBelone=modifyOrgBelone;
-			
-			alert("旧名称："+oldOrgName+";新名称="+newOrgName+";新归属="+newBelone);
 			
 			$.ajax({  
 				url: "orgManage!ajaxOrgModify.action", 
@@ -106,6 +104,8 @@
 					newOrgBelone:newOrgBelone
 				},
 				success: function () { 
+					alert("修改成功");
+					window.location.href="orgManage.action"; 
 				}, 
 				error: function (XMLHttpRequest, textStatus, errorThrown) { 
 					alert(errorThrown); 
@@ -114,6 +114,7 @@
 			
 		}
 		else{
+			alert("不可用");
 			return;
 		}
 		
