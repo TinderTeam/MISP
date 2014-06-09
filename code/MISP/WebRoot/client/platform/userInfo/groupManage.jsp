@@ -8,7 +8,7 @@
 	<head>
 		<jsp:include page="../cbb/head.jsp"/>
 		<jsp:include page="../cbb/js.jsp"/>
-		<script src="<%=request.getContextPath()%>/client/platform/userInfo/js/onManage.js"></script>
+		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	</head>
 <body>
@@ -36,19 +36,17 @@
 							<div class="well">
 								<h5>选中的权限：</h5>
 								<div class="well">
-									<p  class="text-success"><strong id="selectedOrg">未选择权限组</strong></p>
+									<p  class="text-success"><strong id="selectedGroup">未选择权限组</strong></p>
 								</div>
 						        <form class="form-search">
-  									<input type="text" class="input-medium search-query">
-  									<button type="submit" class="btn">Search</button>
+  									<input id="keyword" type="text" class="input-medium search-query" oninput="ensureSearchGroup()" value="">
+									<input type="button" class="btn" value="查找" onClick="searchGroupResult()" id="ensureSearchGroupBtn" disabled="disabled"></input> 
 								</form>	
-								<h5>权限树：</h5>
-								<select multiple="multiple">
-  									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
+								<h5>权限组列表：</h5>
+								<select id="selectedGroupList" multiple="multiple" onChange="selectGroup(this.value)">
+  									<c:forEach var="group" items="${groupManageModel.groupList}">
+										<option>${group.groupName}</option>
+									</c:forEach>
 								</select>
 
 								
@@ -94,7 +92,7 @@
 											<h6>权限组名称	</h6>									
 												<div class="control-group">
 													<div class="controls">
-														<s:textfield id="orgInfoName" type="text" class="login_input" name="" placeholder="权限组名称"/>												
+														<input id="groupInfoName" type="text" class="login_input" name="" placeholder="权限组名称" oninput="ensureEditGroup()"/>												
 													</div>									
 												</div>
 											<h6>权限组成员	</h6>									
@@ -107,7 +105,7 @@
 												</select>
 												
 											
-								  			<input type="button" class="btn btn-primary" value="删除"></input> 
+								  			<input type="button" class="btn btn-primary" value="删除" onClick="ensureEditGroup()" ></input> 
 								  			<a href="#addMumberModal" data-toggle="modal" class="btn btn-primary">新增</a>
 												<div id="addMumberModal" class="modal hide">
 													<div class="modal-header">
@@ -127,7 +125,7 @@
 													<HR>
 													<div class="modal-footer">
 																	
-														<button type="submit" class="btn btn-primary" name ="submit" value="addNew">增加</button>
+														<input type="button" class="btn btn-primary" value="增加" onClick="ensureEditGroup()"></input> 
 														<a data-dismiss="modal" class="btn" href="#">取消</a>
 													</div>
 												</div>
@@ -136,44 +134,44 @@
 												
 								  			<h6>权限选择	</h6>
 								  				<label class="checkbox">
-  												<input type="checkbox" value="">
+  												<input type="checkbox" value="" onClick="ensureEditGroup()">
   													系统配置
 												</label>	
 												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox1" value="option1"> 用户管理
+												  <input type="checkbox" id="inlineCheckbox1" value="option1" onClick="ensureEditGroup()"> 用户管理
 												</label>
 												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox2" value="option2"> 组织机构管理
+												  <input type="checkbox" id="inlineCheckbox2" value="option2" onClick="ensureEditGroup()"> 组织机构管理
 												</label>
 												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox3" value="option3"> 权限组管理
+												  <input type="checkbox" id="inlineCheckbox3" value="option3" onClick="ensureEditGroup()"> 权限组管理
 												</label>
 												<HR>
 												<label class="checkbox">
-  												<input type="checkbox" value="">
+  												<input type="checkbox" value="" onClick="ensureEditGroup()">
   													个人设置
 												</label>	
 												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox1" value="option1"> 密码修改
+												  <input type="checkbox" id="inlineCheckbox1" value="option1" onClick="ensureEditGroup()"> 密码修改
 												</label>
 												
 												<HR>
 												<label class="checkbox">
-  												<input type="checkbox" value="">
+  												<input type="checkbox" value="" onClick="ensureEditGroup()">
   													功能模块
 												</label>	
 												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox1" value="option1"> 权限控制点1
+												  <input type="checkbox" id="inlineCheckbox1" value="option1" onClick="ensureEditGroup()"> 权限控制点1
 												</label>
 												</label>	
 												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox1" value="option1"> 权限控制点2
+												  <input type="checkbox" id="inlineCheckbox1" value="option1" onClick="ensureEditGroup()"> 权限控制点2
 												</label>
 												<HR>
 											<div class="control-group">
 													<div class="controls">
-													<input type="button" class="btn btn-primary" onClick="ensureModify()" value="确认修改" />
-													<input type="button" class="btn btn-primary" onClick="cancelModify()" value="取消修改" />		
+													<input type="button" class="btn btn-primary" onClick="ensureModifyGroup()" value="确认修改" id="ensureEditGroupBtn" disabled="disabled"/>
+													<input type="button" class="btn btn-primary" onClick="cancelModifyGroup()" value="取消修改" />		
 													</div>									
 												</div>	
 											
@@ -192,4 +190,5 @@
 	</div>
 
 </body>
+<script src="<%=request.getContextPath()%>/client/platform/userInfo/js/groupManage.js"></script>
 </html>
