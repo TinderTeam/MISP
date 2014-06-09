@@ -16,6 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
+import stub.web.model.group.GroupModelStub;
 import stub.web.model.org.OrgModelStub;
 import stub.web.model.user.UserModelStub;
 
@@ -54,13 +55,13 @@ public class GroupManageAction extends MISPAction
 	Map<String, Object> parameters = actionContext.getParameters();
 	
 	
-	private OrgManageModel orgManageModel;
+	private GroupManageModel groupManageModel;
 	
 	public String execute()
 	{   
-		GroupManageModel groupManageModel =new GroupManageModel();
+		groupManageModel =new GroupManageModel();
 		
-		
+		groupManageModel.setGroupList(GroupModelStub.getGroupModelList());
 		session.put(SessionAttrNameConst.GROUP_MANAGE_MODEL, groupManageModel);
 		
 		setPage_pageName("权限组管理");
@@ -73,7 +74,7 @@ public class GroupManageAction extends MISPAction
 
 	public String ajaxSearchGroup() throws Exception
 	{   
-		log.info("Test");
+		log.info("test");
 	
 		return null;
 	}
