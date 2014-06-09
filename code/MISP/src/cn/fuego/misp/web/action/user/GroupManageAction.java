@@ -71,9 +71,9 @@ public class GroupManageAction extends MISPAction
 		return SUCCESS;
 	}
 
-	public String ajaxSearchOrg() throws Exception
+	public String ajaxSearchGroup() throws Exception
 	{   
-		
+		log.info("Test");
 	
 		return null;
 	}

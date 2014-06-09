@@ -104,7 +104,6 @@ public class OrgManageAction extends MISPAction
 		
 		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
 		ServletActionContext.getResponse().getWriter().print(jsonStr);
-		parameters.put("test","testValue");
 		return null;
 	}
 
@@ -112,7 +111,7 @@ public class OrgManageAction extends MISPAction
 	{   
 		
 		/*Modify the Org Information*/
-		
+		log.info("Action:AjaxOrgModify");
 		
 		//get paraData;
 		
@@ -120,6 +119,8 @@ public class OrgManageAction extends MISPAction
 		String newOrgBelone=getAjaxPara("newOrgBelone");
 		String newOrgName=getAjaxPara("newOrgName");
 			
+		
+		
 		try{
 			/* 
 			 * TODO: Implements Service Code
@@ -130,6 +131,7 @@ public class OrgManageAction extends MISPAction
 			 *  orgManageModel.setOrgList(OrgModelStub.getOrgModelList());
 			 * 	session.put(SessionAttrNameConst.ORG_MANAGE_MODEL, orgManageModel);
 			 */
+			
 			return SUCCESS;	//rejump to orgManage.action to refresh the page;
 
 		}catch(ServiceException ex){	
