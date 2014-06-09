@@ -8,7 +8,7 @@
 	<head>
 		<jsp:include page="../cbb/head.jsp"/>
 		<jsp:include page="../cbb/js.jsp"/>
-		<script src="<%=request.getContextPath()%>/client/platform/userInfo/js/onManage.js"></script>
+		<script src="<%=request.getContextPath()%>/client/platform/userInfo/js/orgManage.js"></script>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	</head>
 <body>
@@ -74,7 +74,8 @@
 													<div id="tab1" class="tab-pane active">
 														<div class="control-group">
 															<h5>新组织机构名</h5>
-															<input type="text" name="newAssetsName" class="span12"/>														</div>
+															<input type="text" name="newAssetsName" class="span12"/>		
+														</div>
 															<h6>组织机构描述</h6>		
 							
 														
@@ -120,7 +121,7 @@
 											<h6>组织机构名称	</h6>									
 												<div class="control-group">
 													<div class="controls">
-														<s:textfield id="orgInfoName" type="text" class="login_input" name="" placeholder="组织机构名称"/>												
+														<input id="orgInfoName" oninput="editOrg()" type="text" class="login_input" name="" placeholder="组织机构名称"/>												
 													</div>									
 												</div>
 										<HR>
@@ -177,10 +178,7 @@
 												<label class="control-label" id="staticInfo"></label>											
 										</div>
 											
-							
-							
-							
-									<input type="button" class="btn btn-primary" onClick="ensureModify()" value="确认修改" />
+									<input id="ensureModifyBtn" type="button" class="btn btn-primary" onClick="ensureModify()" value="确认修改"  disabled="disabled"/>
 									<input type="button" class="btn btn-primary" onClick="cancelModify()" value="取消修改" />
 									</div>	
 							</div>		

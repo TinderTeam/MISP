@@ -19,9 +19,11 @@ import org.apache.struts2.ServletActionContext;
 import stub.web.model.org.OrgModelStub;
 import stub.web.model.user.UserModelStub;
 
+import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.web.action.util.BreadTrail;
 import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
+import cn.fuego.misp.web.constant.UtilConstant;
 import cn.fuego.misp.web.model.org.OrgManageModel;
 
 import com.alibaba.fastjson.JSON;
@@ -58,7 +60,7 @@ public class OrgManageAction extends MISPAction
 		
 		/*
 		 *	TODO:
-		 *	服务获取无组织用户名单（用来进行组织成员安排）和组织机构列表 
+		 *	get unOrgUserName-list(for org member set up), and get orgList. 
 		 */
 		orgManageModel.setNoOrgUserList(UserModelStub.getUserModelList());
 		orgManageModel.setOrgList(OrgModelStub.getOrgModelList());
@@ -78,21 +80,24 @@ public class OrgManageAction extends MISPAction
 		/* 
 		 *  Ajax request return the BeloneInfo of ORG
 		 */
-		
 		/*
 		 * 
 		 *  TODO:
-		 *  这里调用OrgManageService的相关方法
-		 *  具体功能：
+		 *  here call function in 'OrgManageService'
+		 *  basic function：
 		 *  OrgManageModel getOrgBeloneInfoByOrgMame(String orgName);
-		 *  传入参数 orgName=(String[])parameters.get("orgName")[0]
-		 *  返回值：OrgManageModel OrgBeloneInfo格式为：
-		 *  "深圳孚思科技 - 研发部 - MISP项目组"
+		 *  Input Para: orgName=(String[])parameters.get("orgName")[0]
+		 *  Return ：OrgManageModel OrgBeloneInfo
+		 *  Formal：
+		 *  "root - branch - leaf"
 		 */
-	
+		
+		/*----Test code-----*/
 		OrgManageModel orgManageModel = new OrgManageModel();
 		orgManageModel.setOrgBeloneInfo("深圳孚思科技 - 研发部 - MISP项目组");
 		orgManageModel.setStaticInfo("MISP项目组有：子机构2个，成员用户2个");
+		/*----*/
+		
 		
 		String jsonStr = JSON.toJSONString(orgManageModel);
 		log.info(jsonStr);
@@ -103,7 +108,37 @@ public class OrgManageAction extends MISPAction
 		return null;
 	}
 
+	public String ajaxOrgModify() throws Exception
+	{   
+		
+		/*Modify the Org Information*/
+		
+		
+		//get paraData;
+		
+		String oldOrgName=getAjaxPara("oldOrgName");
+		String newOrgBelone=getAjaxPara("newOrgBelone");
+		String newOrgName=getAjaxPara("newOrgName");
+			
+		try{
+			/* 
+			 * TODO: Implements Service Code
+			 * 1.modify org Info.
+			 * service.modifyOrgInfo(String oldOrgName,String newOrgName,String new orgBelone);
+			 * 
+			 * 2. update 'orgManageModel' content (orgList & orgManageModel)
+			 *  orgManageModel.setOrgList(OrgModelStub.getOrgModelList());
+			 * 	session.put(SessionAttrNameConst.ORG_MANAGE_MODEL, orgManageModel);
+			 */
+			return SUCCESS;	//rejump to orgManage.action to refresh the page;
 
+		}catch(ServiceException ex){	
+			return UtilConstant.SYSTEM_ERR;
+		}
+			
+		
+		
+	}
 
 
 	public void setOrgManageModel(OrgManageModel orgManageModel)
