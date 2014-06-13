@@ -101,7 +101,7 @@
 												</select>
 												
 											
-								  			<input type="button" class="btn btn-primary" value="删除" onClick="deleteUser(this.value)"></input> 
+								  			<input type="button" class="btn btn-primary" value="删除" onClick="deleteUser()"></input> 
 								  			<a href="#addMumberModal" data-toggle="modal" class="btn btn-primary">新增</a>
 												<div id="addMumberModal" class="modal hide">
 													<div class="modal-header">
@@ -111,7 +111,7 @@
 												    <HR>
 													<div class="modal-body">
 													<select multiple="multiple" class="span12">
-														<option>1</option>
+														<option >1</option>
 														<option>2</option>
 														<option>3</option>
 														<option>4</option>

@@ -3,6 +3,8 @@
 	var modifyOrgName="";
 	var modifyOrgBelone="";
 	var searchGroupValue="";
+	var deleteUserNumber=0;  //删除的用户的个数
+	var deleteUserList = new Array();
     var allGroupName= allGroupNameInit();
 	
 	function allGroupNameInit()
@@ -79,8 +81,16 @@
 				success: function (str) { 
 								
 					var obj = eval ("(" + str + ")");
-			
-					showUserList(obj.userIDList);
+					var userSelectOption="";
+					selectGroupUserList = obj.userIDList;
+					for(var i=0;i<obj.userIDList.length;i++)
+					{
+						//将每一个用户ID配置成其本身，方便后续做删除处理
+						userSelectOption=userSelectOption+"<option id=\""+selectGroupUserList[i]+"\">"+selectGroupUserList[i]+"</option>";
+								
+					}
+					
+					document.getElementById("selectedUserList").innerHTML=userSelectOption;
 				}, 
 				error: function (XMLHttpRequest, textStatus, errorThrown) { 
 					alert(errorThrown); 
@@ -90,22 +100,7 @@
 		
 		
 	}
-	
-	//显示权限组用户列表
-	function showUserList(userList)
-	{
-		var userSelectOption="";
-					
-		for(var i=0;i<userList.length;i++)
-		{
-			userSelectOption=userSelectOption+"<option>"+userList[i]+"</option>";
-					
-		}
-		document.getElementById("selectedUserList").innerHTML=userSelectOption;
-		
-	}
-	
-	
+
 	//删除权限组
 	function deleteGroup()
 	{
@@ -121,7 +116,27 @@
 	//删除组成员
 	function deleteUser()
 	{
-		ensureEditGroup();
+		
+		var parent=document.getElementById("selectedUserList");
+		var child=document.getElementById(document.getElementById("selectedUserList").value);
+		if(child==null)
+		{
+			alert("请选择需要删除的用户");
+		}
+		else
+		{
+			
+			//deleteUserList 存放已经被删除的用户列表
+			deleteUserList[deleteUserNumber]=document.getElementById("selectedUserList").value;
+			deleteUserNumber++;	
+			
+			//删除选中的用户
+			parent.removeChild(child);
+			
+			//使能确认修改按钮
+			ensureEditGroup();
+		}
+		
 		
 	}
 	
