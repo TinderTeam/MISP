@@ -108,17 +108,33 @@
 														<button data-dismiss="modal" class="close" type="button">×</button>
 														<h3>增加权限组成员</h3>
 													</div>
-												    <HR>
+												
+																								    
 													<div class="modal-body">
-													<select multiple="multiple" class="span12">
-														<option >1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-													</select>
+														<div class="well">
+															<p  class="text-success"><id="selectedUser">未选择用户</p>
+														</div>
+														<h5>组织机构树：</h5>
+														<div class="tree well">
+															<ul>
+																<li>
+																	<span> <i class="icon-minus-sign"></i></span> <a>深圳市孚思科技有有限公司</a>
+																	<ul>
+																		<li>
+																			<span><i class="icon-minus-sign"></i></span> <a>研发部</a>
+																		</li>
+																	</ul>
+																	<ul>
+																		<li>
+																			<span><i class="icon-minus-sign"></i></span> <a>市场部</a>
+																		</li>
+																	</ul>
+																</li>
+															</ul>
+
+														</div>
 													</div>
-													<HR>
+													
 													<div class="modal-footer">
 																	
 														<input type="button" class="btn btn-primary" value="增加" onClick="ensureEditGroup()"></input> 
