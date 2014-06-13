@@ -75,7 +75,12 @@ public class GroupManageAction extends MISPAction
 	public String ajaxSearchGroup() throws Exception
 	{   
 		log.info("test");
-	
+		
+		String jsonStr = JSON.toJSONString(GroupModelStub.getGroupModel());
+		log.info(jsonStr);
+		
+		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		ServletActionContext.getResponse().getWriter().print(jsonStr);
 		return null;
 	}
 

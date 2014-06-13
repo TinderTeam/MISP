@@ -54,7 +54,7 @@
 								<div >
 							
 								  <input type="button" class="btn btn-primary tip-top" 
-								  onClick="serachOrg()" value="显示详细信息" data-original-title="点击查询在右侧显示组织详细信息"/>
+								  onClick="showDetail()" value="显示详细信息" data-original-title="点击显示详细信息在右侧显示组织详细信息"/>
 								  <button type="btn tip-top" class="btn btn-primary tip-top" data-original-title="删除组织机构后会删除组织机构下属所有机构及用户归属信息">删除</button> 
 								  <a href="#addGroupModal" data-toggle="modal" class="btn btn-primary">新增</a>
 								  
@@ -96,16 +96,12 @@
 													</div>									
 												</div>
 											<h6>权限组成员	</h6>									
-												<select multiple="multiple">
-													<option>1</option>
-													<option>2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
+												<select id="selectedUserList" multiple="multiple">
+												
 												</select>
 												
 											
-								  			<input type="button" class="btn btn-primary" value="删除" onClick="ensureEditGroup()" ></input> 
+								  			<input type="button" class="btn btn-primary" value="删除" onClick="deleteUser(this.value)"></input> 
 								  			<a href="#addMumberModal" data-toggle="modal" class="btn btn-primary">新增</a>
 												<div id="addMumberModal" class="modal hide">
 													<div class="modal-header">

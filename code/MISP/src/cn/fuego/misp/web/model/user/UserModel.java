@@ -25,8 +25,7 @@ public class UserModel
 	private String userID;
 	private String password;
 	private List<AttributeModel> attrList;
-	private List<UserGroupModel> userGroupList;
-
+	
 	public String getUserID()
 	{
 		return userID;
@@ -45,15 +44,7 @@ public class UserModel
 	{
 		this.password = password;
 	}
-	public List<UserGroupModel> getUserGroupList()
-	{
-		return userGroupList;
-	}
-	public void setUserGroupList(List<UserGroupModel> userGroupList)
-	{
-		this.userGroupList = userGroupList;
-	}
-
+	
 	public List<AttributeModel> getAttrList()
 	{
 		return attrList;
