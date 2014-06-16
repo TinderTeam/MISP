@@ -7,6 +7,7 @@
 <constant name="struts.ui.theme" value="simple" />
 <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
 <constant name="struts.ui.templateDir" value="template" />
+<constant  name="struts.custom.i18n.resources" value="package"></constant>   
 
 <constant name="struts.ui.templateSuffix" value="ftl" />
 	<package name="login" extends="struts-default">
@@ -22,7 +23,7 @@
 		<action name="ajaxDownloadDebug" class="cn.fuego.misp.web.action.debug.AjaxDownDebugAction">
 			<result type="dispatcher">/client/platform/debug/ajaxdown.jsp</result> 
 		</action>
-		
+
 		<action name="passwordConfig" class="cn.fuego.misp.web.action.user.PasswordConfigAction">	
 			<result type="dispatcher">/client/platform/login/login.jsp</result>	
 			<result type="dispatcher" name="ConfigFailed">/client/platform/userInfo/passwordConfig.jsp</result>	
@@ -36,8 +37,6 @@
 		<action name="groupManage" class="cn.fuego.misp.web.action.user.GroupManageAction">
 			<result type="dispatcher">/client/platform/userInfo/groupManage.jsp</result> 
 		</action>
-	</package>	
-
- 	
+ 	</package>
 </struts>
 

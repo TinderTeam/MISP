@@ -29,7 +29,8 @@
 		  <!---End 面包屑导航---->
 		  <!----内容页---->
 		  <div class="container-fluid">
-				<jsp:include page="../userInfo/userInfoList.jsp"/>		
+		        <c:set var="userInfo" value="${userManage}" scope="request"/>
+				<jsp:include page="./userInfoList.jsp"/>		
 					<!----内容页完---->
 					<!----尾部声明---->
 				<jsp:include page="../cbb/footer.jsp"/>

@@ -134,7 +134,7 @@ public class SystemMetaDataDaoImpl implements SystemMetaDataDao {
 
 			Criteria c = s.createCriteria(SystemMetaData.class);		
 			c.add(Restrictions.eq("tableName", tableName));
-			c.addOrder(Order.desc("sortOrder"));
+			c.addOrder(Order.asc("sortOrder"));
 		 
 			metaDataList = c.list();
 

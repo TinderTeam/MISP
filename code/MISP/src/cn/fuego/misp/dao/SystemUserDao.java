@@ -38,6 +38,6 @@ public interface SystemUserDao {
 	public List<SystemUser>	 getByFilter(List<String> userIDList,List<String> userNameList);
 	public List<SystemUser>	 getByFilter(SystemUser filter);
 
-	public SystemUser	 getByID(String id);
+	
   
 }

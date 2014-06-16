@@ -15,10 +15,12 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                     <th><s:text name="USER.USER_ID"></s:text></th>  
+                    <th><s:text name="USER_ID"></s:text></th>  
                     <c:forEach var="attrName"   items="${userInfo.extAttrNameList}"> 						 
-					   <th> ${attrName}</th>   
+					   <th>${attrName}</th>   
 					</c:forEach>
+					<th>修改</th>
+					<th>删除</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +30,8 @@
                     <c:forEach var="attr" items="${user.attrList}"> 
                       <td>${attr.attrValue}</td>
                     </c:forEach>
+                    <td><a href="<%=request.getContextPath()%>/QueryTransOperInfo.do?userID=${user.userID}">修改</a></td>
+					<td><a href="<%=request.getContextPath()%>/Index.do?userID=${user.userID}">删除</a></td>
                   </tr>   
 						 
 				</c:forEach>

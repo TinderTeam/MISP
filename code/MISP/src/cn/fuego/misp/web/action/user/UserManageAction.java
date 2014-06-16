@@ -12,6 +12,7 @@ import stub.web.util.forecom.table.MispTableStub;
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.datasource.AbstractDataSource;
+import cn.fuego.misp.util.validate.ValidatorUtil;
 import cn.fuego.misp.web.action.util.BreadTrail;
 import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
@@ -23,6 +24,7 @@ import cn.fuego.misp.web.model.user.UserModel;
 import cn.fuego.misp.web.util.forecom.table.MispTable;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import com.sun.xml.internal.ws.wsdl.writer.document.Service;
 
 /**
@@ -33,7 +35,7 @@ import com.sun.xml.internal.ws.wsdl.writer.document.Service;
  * @Edit Nan Bowen at 2014-03-23
  */
 
-public class UserManageAction extends MISPAction
+public class UserManageAction extends ActionSupport
 {
 	/**
 	 * 
@@ -52,29 +54,38 @@ public class UserManageAction extends MISPAction
 	{
 		 ActionContext actionContext = ActionContext.getContext();
 	     Map session = actionContext.getSession();
-	       
-	     /*
-	      * Get MenuList
-	      */
-	     menuTreeItem=(List<MenuTreeModel>) session.get(SessionAttrNameConst.MENU_TREE);
-	 
  
-		/*
-		 * This Code is Designed by Bowen. Which is means to config the basic page info. for instance, the name and the breadTrail
-		 * we mast try to do and design better on this fuction. 
-		 */
+	     menuTreeItem=(List<MenuTreeModel>) session.get(SessionAttrNameConst.MENU_TREE);
+ 
 	    AbstractDataSource<UserModel> userDataSource = userService.getUserListDataSourceByFilter(userManage.getFilter());
 	    userManage.getUserList().setDataSource(userDataSource);
-	    userManage.setExtAttrNameList(userService.getUserExtAttrNameList());
-	    setPage_pageName("用户管理");
+	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserExtAttrNameList()));
+	 
  
 		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
 		breadList.add(new BreadTrail("用户管理"));
-		setPage_breadList(breadList);
+ 
 		return SUCCESS;
 	}
-
 	
+	public String delete(String userID)
+	{
+		return "";
+	}
+
+	private List<String> convertToPageMessage(List<String> messageList)
+	{
+		List<String> resourceList = new ArrayList<String>();
+		if(!ValidatorUtil.isEmpty(messageList))
+		{
+			for(String message : messageList)
+			{
+				resourceList.add(this.getText(message));
+			}
+		}
+		return resourceList;
+
+	}
 
 
 	public void setMenuTreeItem(List<MenuTreeModel> menuTreeItem)

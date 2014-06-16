@@ -69,6 +69,8 @@ public class UserCache
 		cache = new HashMap<String, UserModel>();
 		List<SystemUser> userList = DaoContext.getInstance().getSystemUserDao().getByFilter(null, null);
 		List<UserExtAttr> extAtrrList = DaoContext.getInstance().getUserExtAttrDao().getByFilter(null,null);
+ 
+		
 		if (null == userList)
 		{
 			log.error("No users in Database.");
@@ -173,15 +175,15 @@ public class UserCache
 	{
 		List<AttributeModel> attrModelList = new ArrayList<AttributeModel>();
 
-		if (null != attrList)
+		List<String> attrNameList = SystemMetaDataCache.getInstance().getSortedAttrNameList(SystemMetaDataCache.USER_TABLE);
+		if (null != attrNameList)
 		{
-			for (UserExtAttr extAttr : attrList)
+ 			for (String attrName : attrNameList)
 			{
-				if (userID.equals(extAttr.getUserID()))
-				{
-					AttributeModel attrBean = new AttributeModel();
-					attrModelList.add(attrBean);
-				}
+				AttributeModel attrBean = new AttributeModel();
+				attrBean.setAttrName(attrName);
+				attrBean.setAttrValue(getExtAttrByUserIDAndAttrName(userID,attrName,attrList));
+				attrModelList.add(attrBean);
 			}
 
 		} else
@@ -190,6 +192,23 @@ public class UserCache
 		}
 
 		return attrModelList;
+	}
+	private String  getExtAttrByUserIDAndAttrName(String userID,String attrName,List<UserExtAttr> attrList)
+	{
+		if(!ValidatorUtil.isEmpty(attrList))
+		{	
+			for(UserExtAttr extAttr : attrList)
+			{
+				if(extAttr.getUserID().equals(userID) && extAttr.getAttrName().equals(attrName))
+				{
+					return extAttr.getAttrValue();
+				}
+			}
+		}
+		
+		log.warn("can not find the attribute value by user id and attribute name. user id="+userID+",attrName=" +attrName);
+		
+		return null;
 	}
 
 }
