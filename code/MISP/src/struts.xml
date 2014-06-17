@@ -16,9 +16,7 @@
 			<result type="dispatcher" name="LoginFailed">/client/platform/login/login.jsp</result>		    
 		</action>
 		
-		<action name="userManage" class="cn.fuego.misp.web.action.user.UserManageAction">
-			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>  
-		</action>
+
 		
 		<action name="ajaxDownloadDebug" class="cn.fuego.misp.web.action.debug.AjaxDownDebugAction">
 			<result type="dispatcher">/client/platform/debug/ajaxdown.jsp</result> 
@@ -38,5 +36,27 @@
 			<result type="dispatcher">/client/platform/userInfo/groupManage.jsp</result> 
 		</action>
  	</package>
+ 	
+ 	<package name="user" extends="struts-default">
+ 	    <action name="userManage" class="cn.fuego.misp.web.action.user.UserManageAction">
+			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
+			<result name="save">/client/platform/userInfo/userManage.jsp</result>
+            <result name="print">/result.jsp</result>  
+		</action>
+		<action name="delete" class="cn.fuego.misp.web.action.user.UserManageAction" method="delete">
+			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
+			<result name="save">/client/platform/userInfo/userManage.jsp</result>
+            <result name="print">/result.jsp</result>  
+		</action>
+		<action name="showUser" class="cn.fuego.misp.web.action.user.UserManageAction" method="showUser">
+			<result type="dispatcher">/client/platform/userInfo/userInfo.jsp</result>
+ 			
+		</action>
+		<action name="modify" class="cn.fuego.misp.web.action.user.UserManageAction" method="modify">
+			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
+ 			
+		</action>
+ 	</package>
+ 	
 </struts>
 

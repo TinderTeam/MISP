@@ -12,7 +12,9 @@
         <h5>Static table</h5>
     </div>
     <div class="widget-content nopadding">
-        <table class="table table-bordered table-striped">
+       	<table class="table table-striped table-bordered table-hover table-condensed">
+       
+        <!-- table class="table table-bordered table-striped">  -->
             <thead>
                 <tr>
                     <th><s:text name="USER_ID"></s:text></th>  
@@ -30,8 +32,11 @@
                     <c:forEach var="attr" items="${user.attrList}"> 
                       <td>${attr.attrValue}</td>
                     </c:forEach>
-                    <td><a href="<%=request.getContextPath()%>/QueryTransOperInfo.do?userID=${user.userID}">修改</a></td>
-					<td><a href="<%=request.getContextPath()%>/Index.do?userID=${user.userID}">删除</a></td>
+                    
+                    
+                    <td><a href="showUser.action?selectedID=${user.userID}">修改</a></td>
+ 					<td><a href="delete.action?selectedID=${user.userID}">删除</a></td>
+					
                   </tr>   
 						 
 				</c:forEach>

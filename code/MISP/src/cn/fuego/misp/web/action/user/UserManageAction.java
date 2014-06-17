@@ -8,24 +8,18 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import stub.web.util.forecom.table.MispTableStub;
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.datasource.AbstractDataSource;
 import cn.fuego.misp.util.validate.ValidatorUtil;
+import cn.fuego.misp.web.action.basic.TableAction;
 import cn.fuego.misp.web.action.util.BreadTrail;
-import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
-import cn.fuego.misp.web.model.page.PageModel;
-import cn.fuego.misp.web.model.user.UserFilterModel;
 import cn.fuego.misp.web.model.user.UserManageModel;
 import cn.fuego.misp.web.model.user.UserModel;
-import cn.fuego.misp.web.util.forecom.table.MispTable;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import com.sun.xml.internal.ws.wsdl.writer.document.Service;
 
 /**
  * @ClassName: LoginAction
@@ -35,17 +29,17 @@ import com.sun.xml.internal.ws.wsdl.writer.document.Service;
  * @Edit Nan Bowen at 2014-03-23
  */
 
-public class UserManageAction extends ActionSupport
+public class UserManageAction extends TableAction
 {
-	/**
-	 * 
-	 */
+	private static final String SHOW_USER = "showUser";
+
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(UserManageAction.class);
 	private List<MenuTreeModel> menuTreeItem;
 
 
-	private UserManageModel userManage = new UserManageModel();
+	
+	private UserManageModel userManage ;
  	
 	private UserManageService userService = ServiceContext.getInstance().getUserManagerService();
  
@@ -56,11 +50,8 @@ public class UserManageAction extends ActionSupport
 	     Map session = actionContext.getSession();
  
 	     menuTreeItem=(List<MenuTreeModel>) session.get(SessionAttrNameConst.MENU_TREE);
- 
-	    AbstractDataSource<UserModel> userDataSource = userService.getUserListDataSourceByFilter(userManage.getFilter());
-	    userManage.getUserList().setDataSource(userDataSource);
-	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserExtAttrNameList()));
-	 
+	     loadUserList();
+
  
 		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
 		breadList.add(new BreadTrail("用户管理"));
@@ -68,9 +59,43 @@ public class UserManageAction extends ActionSupport
 		return SUCCESS;
 	}
 	
-	public String delete(String userID)
+	public String delete()
 	{
-		return "";
+		log.info("delete user, user id is " + super.getSelectedID());
+		userService.delete(super.getSelectedID());
+		loadUserList();
+		return SUCCESS;
+	}
+	
+	public String modify()
+	{
+		userService.modify(userManage.getUser());
+		loadUserList();
+		return SUCCESS;
+	}
+	public String showUser()
+	{
+		log.info("show user");
+		if(null == userManage)
+		{
+			userManage = new UserManageModel();
+		}
+	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserExtAttrNameList()));
+
+		userManage.setUser(userService.getUserByID(getSelectedID()));
+		return SUCCESS;
+	}
+	
+	public void loadUserList()
+	{
+		if(null == userManage)
+		{
+			userManage = new UserManageModel();
+		}
+	    AbstractDataSource<UserModel> userDataSource = userService.getUserListDataSourceByFilter(userManage.getFilter());
+	    userManage.getUserList().setDataSource(userDataSource);
+	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserExtAttrNameList()));
+	 
 	}
 
 	private List<String> convertToPageMessage(List<String> messageList)

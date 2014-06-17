@@ -6,7 +6,6 @@ USE `MISPDB`;
 DROP TABLE IF EXISTS `d_system_user`;
 CREATE TABLE `d_system_user` (
   `USER_ID` varchar(255) NOT NULL COMMENT '用户名称:',
-  `USER_NAME` varchar(255) NOT NULL COMMENT '用户名称:',
   `PASSWORD` varchar(255) NOT NULL DEFAULT '123456' COMMENT '用户密码:',
   PRIMARY KEY (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -33,4 +32,11 @@ CREATE TABLE `s_system_meta_data` (
   `IS_FILTER` int(11) NOT NULL,
   `SORT_ORDER` int(11) NOT NULL,
   PRIMARY KEY (`TABLE_NAME`,`ATTR_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `d_user_ext_attr` (
+  `USER_ID` varchar(255) NOT NULL,
+  `ATTR_NAME` varchar(255) NOT NULL,
+  `ATTR_VALUE` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`USER_ID`,`ATTR_NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

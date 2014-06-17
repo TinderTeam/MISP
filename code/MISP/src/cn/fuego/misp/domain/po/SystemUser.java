@@ -20,7 +20,6 @@ package cn.fuego.misp.domain.po;
 public class SystemUser {
 
 	private String userID;
-	private String userName;
 	private String password;
 	public String getUserID() {
 		return userID;
@@ -28,12 +27,7 @@ public class SystemUser {
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+ 
 	public String getPassword() {
 		return password;
 	}
@@ -42,8 +36,7 @@ public class SystemUser {
 	}
 	@Override
 	public String toString() {
-		return "SystemUser [userID=" + userID + ", userName=" + userName
-				+ ", password=" + password + "]";
+		return "SystemUser [userID=" + userID + ", password=" + password + "]";
 	}
 	
 

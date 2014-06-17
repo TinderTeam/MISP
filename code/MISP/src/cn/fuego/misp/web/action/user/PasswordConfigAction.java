@@ -37,7 +37,7 @@ import com.opensymphony.xwork2.ActionSupport;
  *  
  */
 
-public class PasswordConfigAction extends MISPAction
+public class PasswordConfigAction extends ActionSupport
 {
 	/**
 	 * 
@@ -82,10 +82,7 @@ public class PasswordConfigAction extends MISPAction
 		
 		
 		session.put(SessionAttrNameConst.LOGIN_USER,null);
-		setPage_pageName("密码修改");
-		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
-		breadList.add(new BreadTrail("密码修改"));
-		setPage_breadList(breadList);
+ 
 		return SUCCESS;
 	}
 
