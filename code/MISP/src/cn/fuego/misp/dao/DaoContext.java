@@ -1,5 +1,6 @@
 package cn.fuego.misp.dao;
 
+import cn.fuego.misp.dao.impl.OrgDaoImpl;
 import cn.fuego.misp.dao.impl.SystemFunctionSetDaoImpl;
 import cn.fuego.misp.dao.impl.SystemMenuDaoImpl;
 import cn.fuego.misp.dao.impl.SystemMetaDataDaoImpl;
@@ -25,7 +26,7 @@ public class DaoContext
 	private SystemMetaDataDao systemMetaDataDao = null;
 	private UserGroupMapFunctionDao userGroupMapFunctionDao = null;
 	private SystemFunctionSetDao systemFunctionSetDao = null;
-
+	private OrgDao orgDao = null;
 	
 
 	private DaoContext()
@@ -91,5 +92,13 @@ public class DaoContext
 			systemFunctionSetDao = new SystemFunctionSetDaoImpl();
 		}
 		return systemFunctionSetDao;
+	}
+	public synchronized OrgDao getOrgDao() 
+	{
+		if (null == orgDao)
+		{
+			orgDao = new OrgDaoImpl();
+		}
+		return orgDao;
 	}
 }

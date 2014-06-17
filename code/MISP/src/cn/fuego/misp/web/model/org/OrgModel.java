@@ -5,6 +5,7 @@ import java.util.List;
 public class OrgModel
 {
 	private String orgName;
+	private String orgID;
 	private Boolean subOrgExist;
 	private List<OrgModel> subOrgList;
 	private String orgDescription;
@@ -57,6 +58,14 @@ public class OrgModel
 	public Boolean getSubOrgExist()
 	{
 		return subOrgExist;
+	}
+	public void setOrgID(String orgID)
+	{
+		this.orgID = orgID;
+	}
+	public String getOrgID()
+	{
+		return orgID;
 	}
 	
 	

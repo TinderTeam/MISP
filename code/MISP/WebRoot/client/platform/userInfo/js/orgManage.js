@@ -1,141 +1,156 @@
-	//全局参数
-	var modifyOrgName="";
-	var modifyOrgBelone="";
-	var searchOrgValue="";
 	
-	
-	
-	//通过Ajax 查询组织 
-	function serachOrg()
+	function addSubModal(id)
 	{
-		<!------- Search ORG ---->
+		//添加子组织机构
+	
 		
-		searchOrgValue =document.getElementById("selectedOrg").innerHTML;
-		if(searchOrgValue=="未选择组织机构"){
-			alert("请选择组织结构");
-		}
-		else{
+		$('#addSubGroup').modal('show');
+		document.getElementById("addSubOrgSubmit").value=id;
+	}
+	
+	function showMemModal(id)
+	{
+		//查询用户列表
+		
 			$.ajax({  
-				url: "orgManage!ajaxSearchOrg.action", 
-				dataType:"html",
-				
-				data:{
-					orgName:searchOrgValue,
-				},
-				success: function (str) { 
-								
-					var obj = eval ("(" + str + ")");
-					
-					//配置页面相关信息
-					document.getElementById("orgInfoName").value=searchOrgValue;
-					document.getElementById("beloneInfo").innerHTML="["+searchOrgValue+"]隶属于";
-					document.getElementById("beloneInfoContent").innerHTML=obj.orgBeloneInfo;
-					document.getElementById("staticInfo").innerHTML=obj.staticInfo;
-					//配置全局变量
-					modifyOrgName=searchOrgValue;
-					//禁用修改确认按钮
-					document.getElementById("ensureModifyBtn").disabled=true;
-					
-				}, 
-				error: function (XMLHttpRequest, textStatus, errorThrown) { 
-					alert(errorThrown); 
-				} 
-			});			
-		}
+					url: "orgManage!searchUserByID.action", 
+					dataType:"html",
+					data:{
+						orgID:id,
+					},
+					success: function (str) { 
+						var obj = eval ("(" + str + ")");
+						var userSelectOption="";
+						var users=obj;
+						for(var i=0;i<users.length;i++)
+						{
+							userSelectOption=userSelectOption+"<option>"+users[i].userID+"</option>";									
+						}
+						document.getElementById("userList").innerHTML=userSelectOption;
+						$('#showMemModal').modal('show');
+					}, 
+					error: function (XMLHttpRequest, textStatus, errorThrown) {
+						alert("error in ajax recieve");
+						alert(errorThrown); 
+					} 
+			});
+		
+	
 	}
 
-	//组织机构树节点单击选择
-	function treeSelect(str)
-	{
-
-		document.getElementById("selectedOrg").innerHTML=str;
-		document.getElementById("modal_orgName1").innerHTML=str;
-		document.getElementById("modal_orgName2").innerHTML=str;
-
-		
-	}	
 	
-	//调整组织机构归属
-	function changeOrgBelone()
+	function modifySubModal(id)
 	{
-
-		//选中的上级组织名称
-		var selectedName=document.getElementById("selectUpOrg").value;
+		//修改该组织机构
 		
-		if(searchOrgValue==""){
-			alert("请选择组织结构并点击左下角查询按钮，查询详细信息");
-		}
-		else if(selectedName==""){
-			alert("请选择需要变更的组织的上级组织");
-		}
-		else if(selectedName==searchOrgValue){		
-			alert("不能将自身设定为上级组织");
-		}
-		else{
-			//将全局变量更改为选中变量
-			modifyOrgBelone=selectedName;
-			document.getElementById("ensureModifyBtn").disabled=false;
-			document.getElementById("beloneInfoContent").innerHTML=modifyOrgBelone+"-"+modifyOrgName;
-			$('#modifyAlert').modal('hide')
-			
-		}
-	}	
-
-
-	//确认调整修改
-	function ensureModify()
+		
+		$.ajax({  
+					url: "orgManage!searchOrgInfoByID.action", 
+					dataType:"html",
+					data:{
+						orgID:id,
+					},
+					success: function (str) { 
+						var obj = eval ("(" + str + ")");
+						document.getElementById("modifyInput").value=obj.orgName;
+						document.getElementById("modifyDespInput").value=obj.orgDesp;
+						$('#modifySubGroup').modal('show');
+						document.getElementById("modifySubOrgSubmit").value=id;
+						
+					}, 
+					error: function (XMLHttpRequest, textStatus, errorThrown) {
+						alert("error in ajax recieve");
+						alert(errorThrown); 
+					} 
+			});
+	}
+	
+	function deleteSubModal(id)
 	{
-		var disabled=document.getElementById("ensureModifyBtn").disabled;
+		//删除
+		$('#warningModal').modal('show');
+		document.getElementById("deleteOrgbtn").value=id; 
+	}
+	
+	function addOrgSubmit(id)
+	{
+		//提交新增组织机构
+		var url="";
+		var newName=document.getElementById("addInput").value;
 		
-		if(disabled==false){
-			//可用状态
-			
-			var oldOrgName=searchOrgValue;
-			var newOrgName=document.getElementById("orgInfoName").value;
-			var newOrgBelone=modifyOrgBelone;
-			
+		if(newName==""){
+			alert("新增组织机构名称不可为空");
+		}else{
 			$.ajax({  
-				url: "orgManage!ajaxOrgModify.action", 
+				url: "orgManage!orgNameVerification.action", 
 				dataType:"html",
-				
 				data:{
-					oldOrgName:oldOrgName,
-					newOrgName:newOrgName,
-					newOrgBelone:newOrgBelone
+					newOrgName:newName,
 				},
-				success: function () { 
-					alert("修改成功");
-					window.location.href="orgManage.action"; 
+				success: function (str) { 
+					
+					if(str=="repeat"){
+						alert("用户名不可重复");
+					}
+					else if(str=="noRepeat"){
+						var fatherID=document.getElementById("addSubOrgSubmit").value;
+						url="orgManage!addSubOrg.action?newOrgName="+newName+"&fatherID="+fatherID;
+						 window.location.href=url; 
+					}else{
+						alert("error in ajax recieve:orgNameVerification= "+str);
+						return true;
+					}
 				}, 
-				error: function (XMLHttpRequest, textStatus, errorThrown) { 
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("error in ajax recieve");
 					alert(errorThrown); 
 				} 
-			});			
-			
+			});
 		}
-		else{
-			alert("不可用");
-			return;
-		}
+	}
 		
-	}	
-
-	//取消修改
-	function cancelModify()
+		
+	function deletOrgSubmit()
 	{
-		//清除全局变量
-		modifyOrgName="";
-		modifyOrgBelone="";
-		searchOrgValue="";
-		//清除页面查询的数据
+		//删除组织机构	
+			var deleteOrg = document.getElementById("deleteOrgbtn").value; 
+			$.ajax({  
+				url: "orgManage!deleteSubOrg.action", 
+				dataType:"html",
+				data:{
+					deleteOrg:deleteOrg,
+				},
+				success: function (str) { 
+					window.location.href="orgManage.action";
+				}, 
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("error in ajax recieve");
+					alert(errorThrown); 
+				} 
+			});
 		
-		document.getElementById("orgInfoName").value="";
-		document.getElementById("beloneInfo").innerHTML="";	
-		document.getElementById("beloneInfoContent").innerHTML="";
-		document.getElementById("staticInfo").innerHTML="";
-		document.getElementById("ensureModifyBtn").disabled=true;
-	}	
+		
+	}
 	
-	function editOrg(){
-		document.getElementById("ensureModifyBtn").disabled=false;
+	function modityOrgSubmit(){
+	//修改组织机构	
+			var orgID = document.getElementById("modifySubOrgSubmit").value; 
+			var newName = document.getElementById("modifyInput").value;
+			var dept=document.getElementById("modifyDespInput").value;
+			$.ajax({  
+				url: "orgManage!modifyOrg.action", 
+				dataType:"html",
+				data:{
+					orgID:orgID,
+					newName:newName,
+					dept:dept,
+				},
+				success: function (str) { 
+					window.location.href="orgManage.action";
+				}, 
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("error in ajax recieve");
+					alert(errorThrown); 
+				} 
+			});
 	}

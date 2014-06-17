@@ -16,15 +16,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
+import stub.web.model.group.GroupModelStub;
 import stub.web.model.org.OrgModelStub;
 import stub.web.model.user.UserModelStub;
 
+import cn.fuego.misp.domain.po.Org;
 import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.web.action.util.BreadTrail;
 import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
 import cn.fuego.misp.web.model.org.OrgManageModel;
+import cn.fuego.misp.web.model.user.UserModel;
 
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionContext;
@@ -106,32 +109,62 @@ public class OrgManageAction extends MISPAction
 		ServletActionContext.getResponse().getWriter().print(jsonStr);
 		return null;
 	}
-
-	public String ajaxOrgModify() throws Exception
+	
+	public String searchOrgInfoByID() throws Exception
 	{   
 		
 		/*Modify the Org Information*/
-		log.info("Action:AjaxOrgModify");
+		log.info("Action: getOrgInfoByID");
 		
 		//get paraData;
 		
-		String oldOrgName=getAjaxPara("oldOrgName");
-		String newOrgBelone=getAjaxPara("newOrgBelone");
-		String newOrgName=getAjaxPara("newOrgName");
+		String orgID=getAjaxPara("orgID");
+
+
 			
+		Org org =new Org();
+		org.setOrgDesp("描述信息");	
+		org.setOrgName("名称 ");
+		
+		String jsonStr = JSON.toJSONString(org);
+		log.info(jsonStr);
+		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		ServletActionContext.getResponse().getWriter().print(jsonStr);
+		return null;
 		
 		
-		try{
-			/* 
-			 * TODO: Implements Service Code
-			 * 1.modify org Info.
-			 * service.modifyOrgInfo(String oldOrgName,String newOrgName,String new orgBelone);
-			 * 
-			 * 2. update 'orgManageModel' content (orgList & orgManageModel)
-			 *  orgManageModel.setOrgList(OrgModelStub.getOrgModelList());
-			 * 	session.put(SessionAttrNameConst.ORG_MANAGE_MODEL, orgManageModel);
-			 */
+	}
+	
+	public String searchUserByID() throws Exception
+	{   
+		
+		log.info("Action: searchUserByID");
+		
+		//get paraData;
+		
+		String orgID=getAjaxPara("orgID");
+
+		List<UserModel> userList= UserModelStub.getUserModelList();
 			
+
+		
+		String jsonStr = JSON.toJSONString(userList);
+		log.info(jsonStr);
+		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		ServletActionContext.getResponse().getWriter().print(jsonStr);
+		return null;
+		
+		
+	}
+
+	public String addSubOrg() throws Exception
+	{   
+		
+		/*Add sub Org*/
+		log.info("addSubOrg");
+		
+		//get paraData;	
+		try{		
 			return SUCCESS;	//rejump to orgManage.action to refresh the page;
 
 		}catch(ServiceException ex){	
@@ -141,8 +174,70 @@ public class OrgManageAction extends MISPAction
 		
 		
 	}
+	
+	public String 	modifyOrg() throws Exception
+	{   
+		
+		/*modyfyOrg*/
+		log.info("modifyOrg");
+		String orgID=getAjaxPara("orgID");
+		String newName=getAjaxPara("newName");
+		String dept=getAjaxPara("dept");
+		log.info("上传的数据为："+orgID);
+		//get paraData;		
+		//Service
+		return null;
+	
+		
+		
+	}
+	
 
+	
+	public String deleteSubOrg() throws Exception
+	{   
+		log.info("deleteOrg Function");
+		
+		/*Add sub Org*/
+		String deleteOrg=getAjaxPara("deleteOrg");
+		
+		log.info("上传的数据为："+deleteOrg);
+		
+		//get paraData;	
+		try{		
+			return SUCCESS;	//rejump to orgManage.action to refresh the page;
 
+		}catch(ServiceException ex){	
+			return UtilConstant.SYSTEM_ERR;
+		}
+			
+		
+		
+	}
+	public String orgNameVerification() throws Exception
+	{   
+		
+		/*Modify the Org Information*/
+		log.info("orgNameVerification");
+		String verificationResult="";
+		//get paraData;
+		
+	
+			String newOrgName=getAjaxPara("newOrgName");
+			log.info(newOrgName);
+		//	if(service.orgNameVerification(newOrgName)){
+		//		verificationResult="noRepeat";	//new Org name not repeat
+		//	}else{
+				verificationResult="repeat";	//new Org name is repeat
+		//	}
+				ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+				ServletActionContext.getResponse().getWriter().print(verificationResult);
+			
+			return null;	
+
+		
+	}
+	
 	public void setOrgManageModel(OrgManageModel orgManageModel)
 	{
 		this.orgManageModel = orgManageModel;

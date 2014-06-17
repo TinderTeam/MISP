@@ -12,7 +12,11 @@
 			<c:if test="${!org.subOrgExist}">
 				<c:set var="icon" value="icon-th-large" scope="request"/>
 			</c:if>
-			<span><i class="${icon}"></i></span> <a href="#" onClick="treeSelect(this.innerHTML)")>${org.orgName}</a>
+			<span><i class="${icon}"></i>${org.orgName}</span>
+					<a id="${org.orgID}" class="tip-bottom" href="javascript:void(0);" title="增加子部门" onclick="addSubModal(this.id)"><i class="icon-plus"></i></a>
+					<a id="test" class="tip-bottom" href="javascript:void(0);" title="成员查看" onclick="showMemModal(this.id)"><i class="icon-user"></i></a>
+					<a id="${org.orgID}" class="tip-bottom" href="javascript:void(0);" title="编辑" onclick="modifySubModal(this.id)"><i class="icon-pencil"></i></a>
+					<a id="${org.orgID}" class="tip-bottom" href="javascript:void(0);" title="删除" onclick="deleteSubModal(this.id)"><i class="icon-remove"></i></a>
 			<c:if test="${org.subOrgExist}"> 
 						<!------>
 						<c:set var="orgItem" value="${org.subOrgList}" scope="request"/>

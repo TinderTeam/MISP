@@ -33,6 +33,7 @@
 	<mapping
 		resource="cn/fuego/misp/domain/po/UserGroupMapFunction.hbm.xml" />
 	<mapping resource="cn/fuego/misp/domain/po/SystemMenu.hbm.xml" />
+	<mapping resource="cn/fuego/misp/domain/po/Org.hbm.xml" />
 
 
 
