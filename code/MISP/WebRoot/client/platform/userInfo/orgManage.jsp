@@ -39,7 +39,7 @@
 								
 								
 									<div class="tree well">
-										<c:set var="orgItem" value="${orgManageModel.orgList}" scope="request"/>
+										<c:set var="orgList" value="${orgManageModel.orgList}" scope="request"/>
 										<jsp:include page="cbb/orgTree.jsp"/>
 									</div>
 				

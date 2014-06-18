@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
 
 import stub.web.util.BreadTrailStub;
 import cn.fuego.misp.service.ServiceContext;
-import cn.fuego.misp.service.login.exception.LoginServiceException;
+import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
@@ -58,7 +58,7 @@ public class LoginAction extends MISPAction
 	    	 ServiceContext.getInstance().getLoginService().userLogin(user);
 	    	 //Loading MenuTree
 	    	 menuTreeItem= ServiceContext.getInstance().getUserManagerService().loadMenuTreeByUserID(user.getUserID());	    	 
-	     }catch(LoginServiceException ex)
+	     }catch(ServiceException ex)
 	     {
 	    	 message=ex.getMessage();
 	    	 log.warn(ex.getMessage(),ex);

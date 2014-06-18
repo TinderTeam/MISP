@@ -9,8 +9,7 @@ import org.apache.struts2.StrutsTestCase;
 import org.junit.Test;
 
 import stub.web.model.user.UserModelStub;
-import cn.fuego.misp.service.login.exception.LoginServiceExceptionMsg;
-import cn.fuego.misp.web.constant.SessionAttrNameConst;
+import cn.fuego.misp.service.exception.msg.ExceptionMsg;
 import cn.fuego.misp.web.model.user.UserModel;
 
 import com.opensymphony.xwork2.ActionProxy;
@@ -57,7 +56,7 @@ public class LoginActionTest extends StrutsTestCase
 		test.setUser(userModel);
 		String result = proxy.execute();
 		assertEquals("LoginFailed", result);
-		assertEquals(test.getMessage(), LoginServiceExceptionMsg.PASSWORD_WRONG);
+		assertEquals(test.getMessage(), ExceptionMsg.PASSWORD_WRONG);
 	}
 	
 	@Test
@@ -72,6 +71,6 @@ public class LoginActionTest extends StrutsTestCase
 		test.setUser(userModel);
 		String result = proxy.execute();
 		assertEquals("LoginFailed", result);
-		assertEquals(test.getMessage(), LoginServiceExceptionMsg.USER_NOT_EXIST);
+		assertEquals(test.getMessage(), ExceptionMsg.USER_NOT_EXIST);
 	}
 }

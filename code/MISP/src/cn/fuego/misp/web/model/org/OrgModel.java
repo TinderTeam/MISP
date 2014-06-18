@@ -4,11 +4,12 @@ import java.util.List;
 
 public class OrgModel
 {
-	private String orgName;
+	
 	private String orgID;
-	private Boolean subOrgExist;
-	private List<OrgModel> subOrgList;
+	private String orgName;
 	private String orgDescription;
+	private String parentID;
+	private List<OrgModel> subOrgList;
 	/**
 	 * @return the orgName
 	 */
@@ -51,14 +52,6 @@ public class OrgModel
 	{
 		this.orgDescription = orgDescription;
 	}
-	public void setSubOrgExist(Boolean subOrgExist)
-	{
-		this.subOrgExist = subOrgExist;
-	}
-	public Boolean getSubOrgExist()
-	{
-		return subOrgExist;
-	}
 	public void setOrgID(String orgID)
 	{
 		this.orgID = orgID;
@@ -66,6 +59,14 @@ public class OrgModel
 	public String getOrgID()
 	{
 		return orgID;
+	}
+	public String getParentID()
+	{
+		return parentID;
+	}
+	public void setParentID(String parentID)
+	{
+		this.parentID = parentID;
 	}
 	
 	

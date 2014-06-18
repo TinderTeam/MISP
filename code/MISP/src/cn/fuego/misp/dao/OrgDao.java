@@ -8,6 +8,8 @@
 */ 
 package cn.fuego.misp.dao;
 
+import java.util.List;
+
 import cn.fuego.misp.domain.po.Org;
 
 /**   
@@ -25,4 +27,9 @@ public interface OrgDao {
 	public void saveOrUpdate(Org or);
 
 	public void delete(Org or);
+	public void delete(String orgID);
+
+	public List<Org> getOrgByParentID(String parentID);
+	public Org getOrgByOrgID(String orgID);
+
 }

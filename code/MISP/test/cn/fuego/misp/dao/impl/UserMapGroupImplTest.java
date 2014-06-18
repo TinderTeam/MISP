@@ -29,7 +29,7 @@ public class UserMapGroupImplTest {
 	public void testcreate() {
 		
 		map.setUserID("a");
-		map.setGroupID(001);
+		map.setGroupID("001");
 		mimpl.create(map);
 		
 	}
@@ -37,14 +37,14 @@ public class UserMapGroupImplTest {
 	@Test
 	public void testdelete(){
 		map.setUserID("a");
-		map.setGroupID(001);
+		map.setGroupID("001");
 		mimpl.delete(map);
 	}
 	
 	@Test
 	public void testsaveorupdate(){
 		map.setUserID("b");
-		map.setGroupID(002);
+		map.setGroupID("001");
 		mimpl.saveOrUpdate(map);
 	}
 }

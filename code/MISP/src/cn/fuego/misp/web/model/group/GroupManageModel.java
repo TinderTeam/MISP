@@ -7,13 +7,13 @@ import cn.fuego.misp.web.model.org.OrgModel;
 
 public class GroupManageModel
 {
-	private List<GroupModel> groupList;
+	private List<UserGroupModel> groupList;
 
-	public List<GroupModel> getGroupList() {
+	public List<UserGroupModel> getGroupList() {
 		return groupList;
 	}
 
-	public void setGroupList(List<GroupModel> groupList) {
+	public void setGroupList(List<UserGroupModel> groupList) {
 		this.groupList = groupList;
 	}
 }

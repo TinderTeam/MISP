@@ -28,7 +28,7 @@ public class UserGroupImplTest {
 	@Test
 	public void testcreate() {
 
-		group.setGroupID(01);
+		group.setGroupID("001");
 		group.setGroupName("aa");
 		group.setGroupDesp("aaa");
 		gimpl.create(group);
@@ -37,12 +37,12 @@ public class UserGroupImplTest {
 	@Test 
 	public void testdelete(){
 		
-		group.setGroupID(01);
+		group.setGroupID("001");
 		gimpl.delete(group);
 	}
 	@Test
 	public void testsaveorupdate(){
-		group.setGroupID(02);
+		group.setGroupID("001");
 		group.setGroupName("bb");
 		group.setGroupDesp("bbb");
 		gimpl.saveOrUpdate(group);		

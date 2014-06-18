@@ -18,21 +18,16 @@ package cn.fuego.misp.domain.po;
  */
 
 public class Org {
-	private int orgID;
+	private String orgID;
 	private String orgName;
 	private String orgDesp;
-	private String fatherID;
-	/**
-	 * @return the orgID
-	 */
-	public int getOrgID()
+	private String parentID;
+ 
+	public String getOrgID()
 	{
 		return orgID;
 	}
-	/**
-	 * @param orgID the orgID to set
-	 */
-	public void setOrgID(int orgID)
+	public void setOrgID(String orgID)
 	{
 		this.orgID = orgID;
 	}
@@ -64,21 +59,15 @@ public class Org {
 	{
 		this.orgDesp = orgDesp;
 	}
-	/**
-	 * @return the fatherID
-	 */
-	public String getFatherID()
+	public String getParentID()
 	{
-		return fatherID;
+		return parentID;
 	}
-	/**
-	 * @param fatherID the fatherID to set
-	 */
-	public void setFatherID(String fatherID)
+	public void setParentID(String parentID)
 	{
-		this.fatherID = fatherID;
+		this.parentID = parentID;
 	}
-	
+ 
 	
 
 }

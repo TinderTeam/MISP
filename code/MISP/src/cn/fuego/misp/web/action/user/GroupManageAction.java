@@ -17,18 +17,13 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import stub.web.model.group.GroupModelStub;
-import stub.web.model.org.OrgModelStub;
-import stub.web.model.user.UserModelStub;
-
 import cn.fuego.misp.web.action.util.BreadTrail;
 import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.model.group.GroupManageModel;
-import cn.fuego.misp.web.model.org.OrgManageModel;
 
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
 /** 
  * @ClassName: QueryUserAction 

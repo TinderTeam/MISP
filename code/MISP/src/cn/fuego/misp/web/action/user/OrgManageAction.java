@@ -21,6 +21,7 @@ import stub.web.model.org.OrgModelStub;
 import stub.web.model.user.UserModelStub;
 
 import cn.fuego.misp.domain.po.Org;
+import cn.fuego.misp.service.cache.OrgTreeCache;
 import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.web.action.util.BreadTrail;
 import cn.fuego.misp.web.action.util.MISPAction;
@@ -65,15 +66,13 @@ public class OrgManageAction extends MISPAction
 		 *	TODO:
 		 *	get unOrgUserName-list(for org member set up), and get orgList. 
 		 */
-		orgManageModel.setNoOrgUserList(UserModelStub.getUserModelList());
-		orgManageModel.setOrgList(OrgModelStub.getOrgModelList());
+ 
+		OrgTreeCache.getInstance().reload();
+		orgManageModel.setOrgList(OrgTreeCache.getInstance().getAllOrg());
 		
 		session.put(SessionAttrNameConst.ORG_MANAGE_MODEL, orgManageModel);
 		
-		setPage_pageName("组织机构管理");
-		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
-		breadList.add(new BreadTrail("组织机构管理"));
-		setPage_breadList(breadList);
+	 
 		return SUCCESS;
 	}
 
@@ -97,8 +96,7 @@ public class OrgManageAction extends MISPAction
 		
 		/*----Test code-----*/
 		OrgManageModel orgManageModel = new OrgManageModel();
-		orgManageModel.setOrgBeloneInfo("深圳孚思科技 - 研发部 - MISP项目组");
-		orgManageModel.setStaticInfo("MISP项目组有：子机构2个，成员用户2个");
+ 
 		/*----*/
 		
 		

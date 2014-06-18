@@ -25,8 +25,8 @@ CREATE TABLE `s_system_menu` (
   PRIMARY KEY (`MENU_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `s_system_meta_data` (
-  `TABLE_NAME` varchar(255) NOT NULL,
-  `ATTR_NAME` varchar(255) NOT NULL,
+  `TABLE_NAME` varchar(40) NOT NULL,
+  `ATTR_NAME` varchar(40) NOT NULL,
   `ATTR_DEFAULT_VALUE` varchar(255) DEFAULT NULL,
   `IS_DISPLAY` int(11) NOT NULL,
   `IS_FILTER` int(11) NOT NULL,
@@ -36,7 +36,27 @@ CREATE TABLE `s_system_meta_data` (
 
 CREATE TABLE `d_user_ext_attr` (
   `USER_ID` varchar(255) NOT NULL,
-  `ATTR_NAME` varchar(255) NOT NULL,
+  `ATTR_NAME` varchar(40) NOT NULL,
   `ATTR_VALUE` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`USER_ID`,`ATTR_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `d_org` (
+  `ORG_ID` varchar(40) NOT NULL,
+  `ORG_NAME` varchar(255) NOT NULL,
+  `ORG_DESP` varchar(255) DEFAULT NULL,
+  `PARENT_ID` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`ORG_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `d_system_id_type` (
+  `NAME` varchar(40) NOT NULL,
+  `STEP` int(11) NOT NULL,
+  `LENGTH` int(11) NOT NULL,
+  `INC_MODE` int(11) NOT NULL,
+  `CURRENT_ID` int(32) NOT NULL,
+  `PREFIX` varchar(10) DEFAULT NULL,
+  `SUFFIX` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

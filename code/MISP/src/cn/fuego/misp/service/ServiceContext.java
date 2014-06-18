@@ -1,5 +1,6 @@
 package cn.fuego.misp.service;
 
+import cn.fuego.misp.service.impl.id.CommonIDImpl;
 import cn.fuego.misp.service.impl.user.UserManageServiceImpl;
 import cn.fuego.misp.service.login.LoginService;
 import cn.fuego.misp.service.login.impl.LoginServiceImpl;
@@ -9,6 +10,7 @@ public class ServiceContext
 	private static ServiceContext instance;
 	private LoginService loginService=null;
 	private UserManageService userManagerService = null;
+	private IDCreateService idCreateService = null;
 	
 	  
 	private ServiceContext()
@@ -41,4 +43,11 @@ public class ServiceContext
 
 	
 
+	public IDCreateService getIDCreateService() {
+		if (null == idCreateService)
+		{
+			idCreateService = new CommonIDImpl();
+		}
+		return idCreateService;
+	}
 }

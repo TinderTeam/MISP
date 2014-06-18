@@ -11,6 +11,7 @@ package cn.fuego.misp.web.model.user;
 import java.util.List;
 
 import cn.fuego.misp.web.model.common.AttributeModel;
+import cn.fuego.misp.web.model.group.UserGroupModel;
 
 /** 
  * @ClassName: UserModel 

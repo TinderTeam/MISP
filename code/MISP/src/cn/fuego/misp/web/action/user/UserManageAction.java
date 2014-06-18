@@ -3,7 +3,6 @@ package cn.fuego.misp.web.action.user;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,14 +14,11 @@ import cn.fuego.misp.util.validate.ValidatorUtil;
 import cn.fuego.misp.web.action.basic.TableAction;
 import cn.fuego.misp.web.action.util.BreadTrail;
 import cn.fuego.misp.web.constant.OperateTypeConst;
-import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.model.common.AttributeModel;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
 import cn.fuego.misp.web.model.user.UserFilterModel;
 import cn.fuego.misp.web.model.user.UserManageModel;
 import cn.fuego.misp.web.model.user.UserModel;
-
-import com.opensymphony.xwork2.ActionContext;
 
 /**
  * @ClassName: LoginAction
@@ -34,8 +30,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 public class UserManageAction extends TableAction
 {
-	private static final String SHOW_USER = "showUser";
-
+ 
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(UserManageAction.class);
 	private List<MenuTreeModel> menuTreeItem;

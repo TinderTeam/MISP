@@ -6,20 +6,20 @@
 
 <ul>
 	
-		<c:forEach var="org" items="${orgItem}">
+		<c:forEach var="org" items="${orgList}">
 		<li>	
 			<c:set var="icon" value="icon-minus-sign" scope="request"/>
-			<c:if test="${!org.subOrgExist}">
+			<c:if test="${null != org.subOrgList}">
 				<c:set var="icon" value="icon-th-large" scope="request"/>
 			</c:if>
 			<span><i class="${icon}"></i>${org.orgName}</span>
-					<a id="${org.orgID}" class="tip-bottom" href="javascript:void(0);" title="Ôö¼Ó×Ó²¿ÃÅ" onclick="addSubModal(this.id)"><i class="icon-plus"></i></a>
-					<a id="test" class="tip-bottom" href="javascript:void(0);" title="³ÉÔ±²é¿´" onclick="showMemModal(this.id)"><i class="icon-user"></i></a>
-					<a id="${org.orgID}" class="tip-bottom" href="javascript:void(0);" title="±à¼­" onclick="modifySubModal(this.id)"><i class="icon-pencil"></i></a>
-					<a id="${org.orgID}" class="tip-bottom" href="javascript:void(0);" title="É¾³ý" onclick="deleteSubModal(this.id)"><i class="icon-remove"></i></a>
-			<c:if test="${org.subOrgExist}"> 
+					<a id="${org.orgID}" class="tip-bottom" href="javascript:void(0);" title="ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½" onclick="addSubModal(this.id)"><i class="icon-plus"></i></a>
+					<a id="test" class="tip-bottom" href="javascript:void(0);" title="ï¿½ï¿½Ô±ï¿½é¿´" onclick="showMemModal(this.id)"><i class="icon-user"></i></a>
+					<a id="${org.orgID}" class="tip-bottom" href="javascript:void(0);" title="ï¿½à¼­" onclick="modifySubModal(this.id)"><i class="icon-pencil"></i></a>
+					<a id="${org.orgID}" class="tip-bottom" href="javascript:void(0);" title="É¾ï¿½ï¿½" onclick="deleteSubModal(this.id)"><i class="icon-remove"></i></a>
+			<c:if test="${null != org.subOrgList}"> 
 						<!------>
-						<c:set var="orgItem" value="${org.subOrgList}" scope="request"/>
+						<c:set var="orgList" value="${org.subOrgList}" scope="request"/>
 						<jsp:include page="orgTree.jsp"/>
 						<!----  --->
 			</c:if>

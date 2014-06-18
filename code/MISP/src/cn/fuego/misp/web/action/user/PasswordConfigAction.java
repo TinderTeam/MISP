@@ -8,8 +8,6 @@
 */ 
 package cn.fuego.misp.web.action.user;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -19,9 +17,6 @@ import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.service.exception.msg.ExceptionMsg;
-import cn.fuego.misp.service.login.exception.LoginServiceExceptionMsg;
-import cn.fuego.misp.web.action.util.BreadTrail;
-import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
 import cn.fuego.misp.web.model.user.UserModel;
@@ -71,7 +66,7 @@ public class PasswordConfigAction extends ActionSupport
 			);
 			session.put(SessionAttrNameConst.LOGIN_USER, user);
 		}catch(ServiceException ex){
-			if(ex.getMessage().equals(LoginServiceExceptionMsg.PASSWORD_WRONG)||ex.getMessage().equals(ExceptionMsg.TWO_PASSWORD_WRONG)){
+			if(ex.getMessage().equals(ExceptionMsg.PASSWORD_WRONG)||ex.getMessage().equals(ExceptionMsg.TWO_PASSWORD_WRONG)){
 				errorMsg=ex.getMessage();
 				return CONFIG_FAILED;	
 			}

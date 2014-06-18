@@ -14,6 +14,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.domain.po.SystemIDType;
 import cn.fuego.misp.service.IDCreateService;
 
@@ -28,13 +29,11 @@ import cn.fuego.misp.service.IDCreateService;
 public class CommonIDImpl implements IDCreateService
 {	
 	Log log = LogFactory.getLog(IDCreateService.class);
-
-	private String idName;
-
+ 
 	public synchronized List<String> createIDList(int idCount)
 	{
 		//get id type by id name
-		SystemIDType idType = new SystemIDType();
+		SystemIDType idType = DaoContext.getInstance().getSystemIDTypeDao().getIDTypeByName(IDCreateService.ORG_ID_NAME);
 		
 		List<String> idList = new ArrayList<String>();
 

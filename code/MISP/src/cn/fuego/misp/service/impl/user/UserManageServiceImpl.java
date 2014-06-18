@@ -13,11 +13,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.opensymphony.xwork2.util.PropertiesReader;
-import com.sun.xml.internal.fastinfoset.sax.Properties;
-
 import cn.fuego.misp.dao.DaoContext;
-import cn.fuego.misp.dao.impl.SystemUserDaoImpl;
 import cn.fuego.misp.domain.po.SystemUser;
 import cn.fuego.misp.domain.po.UserExtAttr;
 import cn.fuego.misp.service.UserManageService;
@@ -28,7 +24,6 @@ import cn.fuego.misp.service.datasource.AbstractDataSource;
 import cn.fuego.misp.service.datasource.MemoryDataSourceImpl;
 import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.service.exception.msg.ExceptionMsg;
-import cn.fuego.misp.service.login.exception.LoginServiceExceptionMsg;
 import cn.fuego.misp.util.file.properties.PropertyItemNameConst;
 import cn.fuego.misp.util.file.properties.PropertyReader;
 import cn.fuego.misp.util.format.DataTypeConvert;
@@ -140,7 +135,7 @@ public class UserManageServiceImpl implements UserManageService
 		else if (!user.getPassword().equals(oldPassword))
 		{
 			// old password is wrong
-			throw new ServiceException(LoginServiceExceptionMsg.PASSWORD_WRONG);
+			throw new ServiceException(ExceptionMsg.PASSWORD_WRONG);
 		}
 		else
 		{
@@ -160,6 +155,7 @@ public class UserManageServiceImpl implements UserManageService
 		}
 
 	}
+	
 
 	/*
 	 * (non-Javadoc)

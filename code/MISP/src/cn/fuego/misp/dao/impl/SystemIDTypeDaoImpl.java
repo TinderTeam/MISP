@@ -8,14 +8,19 @@
 */ 
 package cn.fuego.misp.dao.impl;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import cn.fuego.misp.dao.SystemIDTypeDao;
 import cn.fuego.misp.dao.hibernate.util.HibernateUtil;
 import cn.fuego.misp.domain.po.SystemIDType;
+import cn.fuego.misp.domain.po.SystemMenu;
 
 /**   
  * @Title: SystemIDTypeDaoImpl.java 
@@ -104,5 +109,31 @@ public class SystemIDTypeDaoImpl implements SystemIDTypeDao {
 
 		log.debug("[DAO] Success!Delete the SystemIDType:" + id.toString());
 	 }
+	public SystemIDType getIDTypeByName(String name)
+	{
+		
+		log.debug("get the SystemIDType by name:" + name);
+		Session s = null;
+		SystemIDType idType;
+		try
+		{
+			s = HibernateUtil.getSession();
+			Criteria c = s.createCriteria(SystemIDType.class);
+			c.add(Restrictions.eq("ID_NAME", name));
+			idType =(SystemIDType) c.uniqueResult();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			// HibernateUtil.closeSession();
+			if (s != null)
+			{
+				s.close();
+			}
+		}
 
+		return idType;		
+
+	}
 }

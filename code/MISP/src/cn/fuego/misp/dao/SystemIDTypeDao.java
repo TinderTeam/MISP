@@ -9,6 +9,8 @@ public interface SystemIDTypeDao {
 
 	public void delete(SystemIDType id);
 	
+	public SystemIDType getIDTypeByName(String name);
+	
 	
 	
 }

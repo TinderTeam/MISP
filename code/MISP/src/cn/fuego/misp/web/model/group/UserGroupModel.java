@@ -1,26 +1,17 @@
-/**   
-* @Title: UserGroupModel.java 
-* @Package cn.fuego.misp.web.model 
-* @Description: TODO
-* @author Tang Jun   
-* @date 2014-3-16 下午11:04:24 
-* @version V1.0   
-*/ 
-package cn.fuego.misp.web.model.user;
+package cn.fuego.misp.web.model.group;
 
-/** 
- * @ClassName: UserGroupModel 
- * @Description: TODO
- * @author Tang Jun
- * @date 2014-3-16 下午11:04:24 
- *  
- */
+import java.util.List;
+
+import cn.fuego.misp.web.model.user.UserModel;
+
 
 public class UserGroupModel
 {
 	private String groupID;
 	private String groupName;
 	private String groupDesp;
+	private List<String> functionList;
+	private List<UserModel> userList;
 	public String getGroupID()
 	{
 		return groupID;
@@ -45,6 +36,22 @@ public class UserGroupModel
 	{
 		this.groupDesp = groupDesp;
 	}
- 
+	public List<String> getFunctionList()
+	{
+		return functionList;
+	}
+	public void setFunctionList(List<String> functionList)
+	{
+		this.functionList = functionList;
+	}
+	public List<UserModel> getUserList()
+	{
+		return userList;
+	}
+	public void setUserList(List<UserModel> userList)
+	{
+		this.userList = userList;
+	}
+	 
 
 }

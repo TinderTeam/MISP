@@ -34,7 +34,7 @@ public class FunctionCache
 	private Log log = LogFactory.getLog(FunctionCache.class);
  	private static FunctionCache instance;
  	private static List<SystemFunctionSet> functionSetCache = new ArrayList<SystemFunctionSet>();
-	private Map<Integer,List<Integer>> functionControlCache = new HashMap<Integer,List<Integer>>();
+	private Map<String,List<String>> functionControlCache = new HashMap<String,List<String>>();
 
 	private FunctionCache()
 	{
@@ -55,9 +55,9 @@ public class FunctionCache
 	 * @param groupID
 	 * @return
 	 */
-	public List<Integer> getFunctionIDListByGroupID(int groupID)
+	public List<String> getFunctionIDListByGroupID(String groupID)
 	{
-		List<Integer> functionIDList = this.functionControlCache.get(groupID);
+		List<String> functionIDList = this.functionControlCache.get(groupID);
 		if(null == functionIDList)
 		{
 			log.info("loading meta data of table " + groupID);
@@ -65,7 +65,7 @@ public class FunctionCache
 			List<UserGroupMapFunction> groupMapFunList = DaoContext.getInstance().getUserGroupMapFunctionDao().getByGroupID(groupID);
 			if(!ValidatorUtil.isEmpty(groupMapFunList))
 			{
-				functionIDList = new ArrayList<Integer>();
+				functionIDList = new ArrayList<String>();
 				for(UserGroupMapFunction groupMapFun : groupMapFunList)
 				{
 					functionIDList.add(groupMapFun.getFunctionID());
@@ -91,7 +91,7 @@ public class FunctionCache
 		
 		if(!ValidatorUtil.isEmpty(functionSetCache))
 		{
-			log.info("all the function set size is ");
+			log.info("all the function set size is " );
 		}
 		else
 		{
@@ -99,6 +99,7 @@ public class FunctionCache
 		}
 
 		log.info("clear all cache,then it will reload the cache");
+		log.info("the function set is " + functionSetCache);
 	}
 	
 	

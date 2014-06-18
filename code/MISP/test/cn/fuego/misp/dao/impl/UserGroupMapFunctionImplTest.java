@@ -30,20 +30,20 @@ public class UserGroupMapFunctionImplTest {
 	@Test
 	public void testcreate() {
 
-		umap.setGroupID(001);
-		umap.setFunctionID(100);
+		umap.setGroupID("001");
+		umap.setFunctionID("001");
 		umimpl.create(umap);
 	}
 	@Test
 	public void testdelete(){
-		umap.setGroupID(001);
-		umap.setFunctionID(100);
+		umap.setGroupID("001");
+		umap.setFunctionID("001");
 		umimpl.delete(umap);
 	}
 	@Test
 	public void testsaveorupdate(){
-		umap.setGroupID(011);
-		umap.setFunctionID(101);
+		umap.setGroupID("001");
+		umap.setFunctionID("001");
 		umimpl.saveOrUpdate(umap);
 	}
 }

@@ -13,7 +13,7 @@ public class OrgDaoImplTest
 	//@Test
 	public void testcreate() {
 
-		org.setOrgID(01);
+		org.setOrgID("01");
 		org.setOrgName("aa");
 		org.setOrgDesp("aaa");
 		gimpl.create(org);
@@ -22,12 +22,12 @@ public class OrgDaoImplTest
 	@Test 
 	public void testdelete(){
 		Org org=new Org();
-		org.setOrgID(01);
+		org.setOrgID("001");
 		gimpl.delete(org);
 	}
 	//@Test
 	public void testsaveorupdate(){
-		org.setOrgID(02);
+		org.setOrgID("002");
 		org.setOrgName("bb");
 		org.setOrgDesp("bbb");
 		gimpl.saveOrUpdate(org);		

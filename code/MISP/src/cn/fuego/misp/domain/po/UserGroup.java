@@ -18,13 +18,17 @@ package cn.fuego.misp.domain.po;
  */
 
 public class UserGroup {
-	private int groupID;
+	private String groupID;
 	private String groupName;
 	private String groupDesp;
-	public int getGroupID() {
+ 
+	
+	public String getGroupID()
+	{
 		return groupID;
 	}
-	public void setGroupID(int groupID) {
+	public void setGroupID(String groupID)
+	{
 		this.groupID = groupID;
 	}
 	public String getGroupName() {

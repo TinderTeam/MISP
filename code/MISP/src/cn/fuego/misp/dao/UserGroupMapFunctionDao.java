@@ -28,6 +28,6 @@ public interface UserGroupMapFunctionDao {
 	public void saveOrUpdate(UserGroupMapFunction usermap);
 
 	public void delete(UserGroupMapFunction usermap);
-	public List<UserGroupMapFunction> getByGroupID(int groupID);
+	public List<UserGroupMapFunction> getByGroupID(String groupID);
 
 }

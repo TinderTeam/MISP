@@ -2,11 +2,14 @@ package cn.fuego.misp.dao;
 
 import cn.fuego.misp.dao.impl.OrgDaoImpl;
 import cn.fuego.misp.dao.impl.SystemFunctionSetDaoImpl;
+import cn.fuego.misp.dao.impl.SystemIDTypeDaoImpl;
 import cn.fuego.misp.dao.impl.SystemMenuDaoImpl;
 import cn.fuego.misp.dao.impl.SystemMetaDataDaoImpl;
 import cn.fuego.misp.dao.impl.SystemUserDaoImpl;
 import cn.fuego.misp.dao.impl.UserExtAttrDaoImpl;
+import cn.fuego.misp.dao.impl.UserGroupDaoImpl;
 import cn.fuego.misp.dao.impl.UserGroupMapFunctionDaoImpl;
+import cn.fuego.misp.dao.impl.UserMapGroupDaoImpl;
 
 
 /**
@@ -27,6 +30,12 @@ public class DaoContext
 	private UserGroupMapFunctionDao userGroupMapFunctionDao = null;
 	private SystemFunctionSetDao systemFunctionSetDao = null;
 	private OrgDao orgDao = null;
+	private SystemIDTypeDao systemIDTypeDao = null;
+	private UserGroupDao userGroupDao = null;
+	
+	private UserMapGroupDao userMapGroupDao = null;
+
+
 	
 
 	private DaoContext()
@@ -100,5 +109,32 @@ public class DaoContext
 			orgDao = new OrgDaoImpl();
 		}
 		return orgDao;
+	}
+	
+	public synchronized SystemIDTypeDao getSystemIDTypeDao() 
+	{
+		if (null == systemIDTypeDao)
+		{
+			systemIDTypeDao = new SystemIDTypeDaoImpl();
+		}
+		return systemIDTypeDao;
+	}
+	
+	public synchronized UserGroupDao getUserGroupDao() 
+	{
+		if (null == userGroupDao)
+		{
+			userGroupDao = new UserGroupDaoImpl();
+		}
+		return userGroupDao;
+	}
+	
+	public synchronized UserMapGroupDao getUserMapGroupDao() 
+	{
+		if (null == userMapGroupDao)
+		{
+			userMapGroupDao = new UserMapGroupDaoImpl();
+		}
+		return userMapGroupDao;
 	}
 }
