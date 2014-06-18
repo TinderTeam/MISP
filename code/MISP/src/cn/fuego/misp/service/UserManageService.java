@@ -32,7 +32,11 @@ public interface UserManageService
 	public void delete(String userID);
 	
 	public void modify(UserModel userModel);
-	public List<String> getUserExtAttrNameList();
+	public void create(UserModel userModel);
+
+	public List<String> getUserDisAttrNameList();
+	public List<String> getUserFilterAttrNameList();
+
 	/**
 	 * get the menu tree by user id.
 	 * @param userID

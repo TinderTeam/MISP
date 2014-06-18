@@ -181,7 +181,7 @@ public class UserExtAttrDaoImpl implements UserExtAttrDao {
 				}
 				if (!ValidatorUtil.isEmpty(attr.getAttrValue()))
 				{
-					c.add(Restrictions.like("attrValue", attr.getAttrValue()));
+					c.add(Restrictions.like("attrValue", "%" + attr.getAttrValue() + "%"));
 				}				
 			}
 

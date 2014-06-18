@@ -22,8 +22,19 @@ public class TableAction extends ActionSupport
 {
 	private String selectedID;
 	private String[] selectedIDList;
+	private String operateType;
 
 	
+	public String getOperateType()
+	{
+		return operateType;
+	}
+
+	public void setOperateType(String operateType)
+	{
+		this.operateType = operateType;
+	}
+
 	public String[] getSelectedIDList()
 	{
 		return selectedIDList;

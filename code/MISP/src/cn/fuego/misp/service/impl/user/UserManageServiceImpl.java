@@ -13,6 +13,9 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.opensymphony.xwork2.util.PropertiesReader;
+import com.sun.xml.internal.fastinfoset.sax.Properties;
+
 import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.dao.impl.SystemUserDaoImpl;
 import cn.fuego.misp.domain.po.SystemUser;
@@ -26,6 +29,8 @@ import cn.fuego.misp.service.datasource.MemoryDataSourceImpl;
 import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.service.exception.msg.ExceptionMsg;
 import cn.fuego.misp.service.login.exception.LoginServiceExceptionMsg;
+import cn.fuego.misp.util.file.properties.PropertyItemNameConst;
+import cn.fuego.misp.util.file.properties.PropertyReader;
 import cn.fuego.misp.util.format.DataTypeConvert;
 import cn.fuego.misp.util.validate.ValidatorUtil;
 import cn.fuego.misp.web.model.common.AttributeModel;
@@ -111,13 +116,19 @@ public class UserManageServiceImpl implements UserManageService
 	 * @see cn.fuego.misp.service.UserManageService#getUserExtAttrNameList()
 	 */
 	@Override
-	public List<String> getUserExtAttrNameList()
+	public List<String> getUserDisAttrNameList()
 	{
 		List<String> extAttrNameList = SystemMetaDataCache.getInstance().getDisplayAttrNameList(SystemMetaDataCache.USER_TABLE);
 
 		return extAttrNameList;
 	}
+	@Override
+	public List<String> getUserFilterAttrNameList()
+	{
+		List<String> extAttrNameList = SystemMetaDataCache.getInstance().getFilterAttrNameList(SystemMetaDataCache.USER_TABLE);
 
+		return extAttrNameList;
+	}
 	@Override
 	public UserModel modifyPassword(UserModel user, String oldPassword, String confirmPassword, String newPassword)
 	{
@@ -168,14 +179,37 @@ public class UserManageServiceImpl implements UserManageService
 //		DaoContext.getInstance().getSystemUserDao().saveOrUpdate(systemUser);
 		
 		
+		updateUserExtAttr(userModel.getUserID(),userModel.getAttrList());
+ 
+		//reload the system user cache
+		UserCache.getInstance().reload();
+		
+	}
+	
+	public String getDefualPassword()
+	{
+		String password = PropertyReader.getInstance().getPropertyByName(PropertyItemNameConst.USER_DEFAULT_PASSWOARD);
+		
+		return password;
+	}
+	private void createNewUser(String userID)
+	{
+		SystemUser systemUser = new SystemUser();
+		systemUser.setUserID(userID);
+		systemUser.setPassword(getDefualPassword());
+		DaoContext.getInstance().getSystemUserDao().create(systemUser);
+	}
+
+	private void updateUserExtAttr(String userID,List<AttributeModel> attrList)
+	{
 		//update system user extend attribute information
-		if(!ValidatorUtil.isEmpty(userModel.getAttrList()))
+		if(!ValidatorUtil.isEmpty(attrList))
 		{
-			log.info("the user attribute is " + userModel.getAttrList());
-			for(AttributeModel attr : userModel.getAttrList())
+			log.info("the user attribute is " + attrList);
+			for(AttributeModel attr : attrList)
 			{
 				UserExtAttr extAttr = new UserExtAttr();
-				extAttr.setUserID(userModel.getUserID());
+				extAttr.setUserID(userID);
 				extAttr.setAttrName(attr.getAttrName());
 				extAttr.setAttrValue(attr.getAttrValue());
 				DaoContext.getInstance().getUserExtAttrDao().saveOrUpdate(extAttr);
@@ -183,12 +217,37 @@ public class UserManageServiceImpl implements UserManageService
 		}
 		else
 		{
-			log.warn("there is no attribute of user. the user id is " + userModel.getUserID());
+			log.warn("there is no attribute of user. the user id is " + userID);
 		}
 		
+
+	}
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.service.UserManageService#create(cn.fuego.misp.web.model.user.UserModel)
+	 */
+	@Override
+	public void create(UserModel userModel)
+	{
+		if(ValidatorUtil.isEmail(userModel.getUserID()))
+		{
+			log.error("the user id can not be eampty");
+			throw new ServiceException(ExceptionMsg.USER_NAME_EMPTY);
+		}
+		
+		if(null != UserCache.getInstance().getUserByUserID(userModel.getUserID()))
+		{	log.error("the user id exited. user id = " + userModel.getUserID());
+			throw new ServiceException(ExceptionMsg.USER_NAME_EXISTED);
+		}
+		
+		
+		//create a new user
+		createNewUser(userModel.getUserID());
+		
+		//update extend attribute
+		updateUserExtAttr(userModel.getUserID(),userModel.getAttrList());
+		 
 		//reload the system user cache
 		UserCache.getInstance().reload();
- 
 	}
 
 }

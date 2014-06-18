@@ -14,8 +14,11 @@ import cn.fuego.misp.service.datasource.AbstractDataSource;
 import cn.fuego.misp.util.validate.ValidatorUtil;
 import cn.fuego.misp.web.action.basic.TableAction;
 import cn.fuego.misp.web.action.util.BreadTrail;
+import cn.fuego.misp.web.constant.OperateTypeConst;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
+import cn.fuego.misp.web.model.common.AttributeModel;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
+import cn.fuego.misp.web.model.user.UserFilterModel;
 import cn.fuego.misp.web.model.user.UserManageModel;
 import cn.fuego.misp.web.model.user.UserModel;
 
@@ -38,7 +41,6 @@ public class UserManageAction extends TableAction
 	private List<MenuTreeModel> menuTreeItem;
 
 
-	
 	private UserManageModel userManage ;
  	
 	private UserManageService userService = ServiceContext.getInstance().getUserManagerService();
@@ -46,14 +48,9 @@ public class UserManageAction extends TableAction
 	
 	public String execute()
 	{
-		 ActionContext actionContext = ActionContext.getContext();
-	     Map session = actionContext.getSession();
- 
-	     menuTreeItem=(List<MenuTreeModel>) session.get(SessionAttrNameConst.MENU_TREE);
-	     loadUserList();
-
- 
-		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
+ 	    loadUserList();
+		
+ 	    List<BreadTrail> breadList= new ArrayList<BreadTrail>();
 		breadList.add(new BreadTrail("用户管理"));
  
 		return SUCCESS;
@@ -63,6 +60,13 @@ public class UserManageAction extends TableAction
 	{
 		log.info("delete user, user id is " + super.getSelectedID());
 		userService.delete(super.getSelectedID());
+		loadUserList();
+		return SUCCESS;
+	}
+	
+	public String create()
+	{
+		userService.create(userManage.getUser());
 		loadUserList();
 		return SUCCESS;
 	}
@@ -80,9 +84,18 @@ public class UserManageAction extends TableAction
 		{
 			userManage = new UserManageModel();
 		}
-	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserExtAttrNameList()));
-
-		userManage.setUser(userService.getUserByID(getSelectedID()));
+	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserDisAttrNameList()));
+ 
+	    if(OperateTypeConst.CREATE.equals(super.getOperateType()))
+	    {	
+			userManage.setUser(new UserModel());
+	    	userManage.getUser().setAttrList(getInitAttrList(userService.getUserFilterAttrNameList()));
+ 
+	    }
+	    else
+	    {
+			userManage.setUser(userService.getUserByID(getSelectedID()));
+	    }
 		return SUCCESS;
 	}
 	
@@ -90,12 +103,37 @@ public class UserManageAction extends TableAction
 	{
 		if(null == userManage)
 		{
+			log.warn("the user manage is null");
 			userManage = new UserManageModel();
 		}
+	    if(null == userManage.getFilter())
+	    {
+	    	log.warn("the userf filer is null");
+	    	userManage.setFilter(new UserFilterModel());
+ 
+	    	userManage.getFilter().setAttrList(getInitAttrList(userService.getUserFilterAttrNameList()));
+ 
+	    }
+	    
+    	userManage.getFilter().setFilterAttrNameList(convertToPageMessage(userService.getUserFilterAttrNameList()));
+
+    	
 	    AbstractDataSource<UserModel> userDataSource = userService.getUserListDataSourceByFilter(userManage.getFilter());
 	    userManage.getUserList().setDataSource(userDataSource);
-	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserExtAttrNameList()));
+	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserDisAttrNameList()));
 	 
+	}
+
+	private List<AttributeModel>  getInitAttrList(List<String> attrNameList)
+	{
+		List<AttributeModel> filterAttrList = new ArrayList<AttributeModel>();
+		for(String filterAttrName : attrNameList)
+		{	
+			AttributeModel attrModel = new AttributeModel();
+			attrModel.setAttrName(filterAttrName);
+			filterAttrList.add(attrModel);
+		}
+		return filterAttrList;
 	}
 
 	private List<String> convertToPageMessage(List<String> messageList)

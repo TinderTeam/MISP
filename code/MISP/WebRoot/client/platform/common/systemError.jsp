@@ -2,13 +2,13 @@
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<jsp:include page="../cbb/head.jsp"/>
 		<jsp:include page="../cbb/js.jsp"/>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	</head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
 <!-----标题栏----->
 <jsp:include page="../cbb/title.jsp"/>
@@ -29,17 +29,12 @@
 		  <!---End 面包屑导航---->
 		  <!----内容页---->
 		  <div class="container-fluid">
-		        <c:set var="userManage" value="${userManage}" scope="request"/>
-		        
-		        <jsp:include page="./userFilter.jsp"/>		
-		        
-				<jsp:include page="./userInfoList.jsp"/>		
+				<p><s:property value="exception"/></p>
 					<!----内容页完---->
 					<!----尾部声明---->
 				<jsp:include page="../cbb/footer.jsp"/>
 		   </div>
 	</div>
 	
-
 </body>
 </html>

@@ -18,7 +18,7 @@
             <thead>
                 <tr>
                     <th><s:text name="USER_ID"></s:text></th>  
-                    <c:forEach var="attrName"   items="${userInfo.extAttrNameList}"> 						 
+                    <c:forEach var="attrName"   items="${userManage.extAttrNameList}"> 						 
 					   <th>${attrName}</th>   
 					</c:forEach>
 					<th>修改</th>
@@ -26,16 +26,16 @@
                 </tr>
             </thead>
             <tbody>
-               <c:forEach var="user" items="${userInfo.userList.currentPageData}"> 						 
+               <c:forEach var="user" items="${userManage.userList.currentPageData}"> 						 
 				  <tr>
                     <td>${user.userID}</td>
                     <c:forEach var="attr" items="${user.attrList}"> 
                       <td>${attr.attrValue}</td>
                     </c:forEach>
                     
-                    
-                    <td><a href="showUser.action?selectedID=${user.userID}">修改</a></td>
- 					<td><a href="delete.action?selectedID=${user.userID}">删除</a></td>
+                    <td><a href="showUser.action?selectedID=${user.userID}&operateType=create">新增</a></td>
+                    <td><a href="showUser.action?selectedID=${user.userID}&operateType=modify">修改</a></td>
+ 					<td><a href="delete.action?selectedID=${user.userID}&operateType=delete">删除</a></td>
 					
                   </tr>   
 						 

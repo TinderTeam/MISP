@@ -139,16 +139,20 @@ public class UserCache
 		{
 		
 			AttributeBean attrBean = new AttributeBean(); 
+			attrBean.setAttrName(attr.getAttrName());
+			attrBean.setAttrValue(attr.getAttrValue());
 			extAttrList = DaoContext.getInstance().getUserExtAttrDao().getByFilter(userIDSet, attrBean);
-		}
- 		userIDSet = new HashSet<String>();
-		if(!ValidatorUtil.isEmpty(extAttrList))
-		{
-			for(UserExtAttr basicUser : extAttrList)
+			
+	 		userIDSet = new HashSet<String>();
+			if(!ValidatorUtil.isEmpty(extAttrList))
 			{
-				userIDSet.add(basicUser.getUserID());
+				for(UserExtAttr basicUser : extAttrList)
+				{
+					userIDSet.add(basicUser.getUserID());
+				}
 			}
 		}
+
 
  		return  userIDSet;
 	}

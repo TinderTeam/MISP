@@ -10,6 +10,22 @@
 <constant  name="struts.custom.i18n.resources" value="package"></constant>   
 
 <constant name="struts.ui.templateSuffix" value="ftl" />
+    
+    <package name="default" namespace="/" extends="struts-default">
+        
+        <global-results>
+            <result name="exception-system">/client/platform/common/systemError.jsp</result>
+ 
+            <result name="exception-service">/client/platform/common/operateError.jsp</result>
+        </global-results>
+             
+        <global-exception-mappings>
+            <exception-mapping result="exception-system" exception="cn.fuego.misp.service.exception.ServiceException"></exception-mapping>
+            
+            <exception-mapping result="exception-service" exception="cn.fuego.misp.service.exception.ServiceException"></exception-mapping>
+        </global-exception-mappings>    
+    </package>
+    
 	<package name="login" extends="struts-default">
 		<action name="login" class="cn.fuego.misp.web.action.login.LoginAction">
 			<result type="dispatcher">/client/platform/main/main.jsp</result>
@@ -37,16 +53,13 @@
 		</action>
  	</package>
  	
- 	<package name="user" extends="struts-default">
+ 	<package name="user" extends="default">
  	    <action name="userManage" class="cn.fuego.misp.web.action.user.UserManageAction">
 			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
-			<result name="save">/client/platform/userInfo/userManage.jsp</result>
-            <result name="print">/result.jsp</result>  
+ 
 		</action>
 		<action name="delete" class="cn.fuego.misp.web.action.user.UserManageAction" method="delete">
 			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
-			<result name="save">/client/platform/userInfo/userManage.jsp</result>
-            <result name="print">/result.jsp</result>  
 		</action>
 		<action name="showUser" class="cn.fuego.misp.web.action.user.UserManageAction" method="showUser">
 			<result type="dispatcher">/client/platform/userInfo/userInfo.jsp</result>
