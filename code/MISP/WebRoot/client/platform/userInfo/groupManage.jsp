@@ -39,32 +39,35 @@
                 <tr>
                     <th>用户组名称</th>
                     <th>用户组描述</th>
-					<th>修改</th>
-					<th>删除</th>
+					<th>用户列表</th>
+					<th style="width:60px">操作</th>
                 </tr>
             </thead>
             <tbody>
                <c:forEach var="userGroup" items="${groupManageModel.groupList}"> 						 
 				  <tr>
-                    <td>${userGroup.groupName}</td>
-                    <td>${userGroup.groupDesp}</td>
-                    <td>
+                    <td  style="text-align:center" >${userGroup.groupName}</td>
+                    <td  style="text-align:center" >${userGroup.groupDesp}</td>
+                    <td  style="text-align:center" >
                     <c:forEach var="user" items="${userGroup.userList}"> 
                       ${user.userID},
                     </c:forEach>
-                    </td>
+                    </td  >
                     
-                    <td><a href="showUser.action?selectedID=${user.userID}&operateType=create">新增</a></td>
-                    <td><a href="showUser.action?selectedID=${user.userID}&operateType=modify">修改</a></td>
- 					<td><a href="delete.action?selectedID=${user.userID}&operateType=delete">删除</a></td>
-					
+                    <td  style="text-align:center">
+                    	<span class="icon" ><a class="tip-bottom" href="" " title="权限查询"><i class="icon-search"></i></a></span>					
+						<span class="icon" ><a href="showUser.action?selectedID=${user.userID}&operateType=modify" title="编辑" class="tip-bottom"><i class="icon-pencil"></i></a></span>
+						<span class="icon" ><a class="tip-bottom" href="delete.action?selectedID=${user.userID}&operateType=delete" title="删除"><i class="icon-remove"></i></a></span>
+                    </td>		
                   </tr>   
 						 
 				</c:forEach>
          
             </tbody>
         </table>
-									</div>	
+        	<a class="btn btn-primary offset10"  href="showUser.action?selectedID=${user.userID}&operateType=create">新增</a>	
+									</div>
+									
 							</div>		
 						</div>	
 				

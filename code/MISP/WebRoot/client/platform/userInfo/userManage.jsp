@@ -8,6 +8,7 @@
 		<jsp:include page="../cbb/head.jsp"/>
 		<jsp:include page="../cbb/js.jsp"/>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		
 	</head>
 <body>
 <!-----标题栏----->
@@ -18,6 +19,7 @@
 <!---快捷操作栏---->
 <!----菜单栏--->
 <jsp:include page="../cbb/menu.jsp"/>
+
 <!----菜单栏--->
 <!----内容栏--->
 	<div id="content">
@@ -29,8 +31,7 @@
 		  <!---End 面包屑导航---->
 		  <!----内容页---->
 		  <div class="container-fluid">
-		        <c:set var="userManage" value="${userManage}" scope="request"/>
-		        
+		        <c:set var="userManage" value="${userManage}" scope="request"/>	  
 		        <jsp:include page="./userFilter.jsp"/>		
 		        
 				<jsp:include page="./userInfoList.jsp"/>		
