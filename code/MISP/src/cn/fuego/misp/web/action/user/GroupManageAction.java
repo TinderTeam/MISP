@@ -94,7 +94,21 @@ public class GroupManageAction extends TableAction
 		return null;
 	}
 
+	/**
+	 * @return the groupManageModel
+	 */
+	public GroupManageModel getGroupManageModel()
+	{
+		return groupManageModel;
+	}
 
+	/**
+	 * @param groupManageModel the groupManageModel to set
+	 */
+	public void setGroupManageModel(GroupManageModel groupManageModel)
+	{
+		this.groupManageModel = groupManageModel;
+	}
 
 	
 }

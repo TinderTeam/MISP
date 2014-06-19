@@ -54,7 +54,7 @@ public class OrgManageAction extends MISPAction
 	
 	public String execute()
 	{   
-		OrgManageModel orgManageModel =new OrgManageModel();
+		orgManageModel =new OrgManageModel();
 		
 		/*
 		 *	TODO:
