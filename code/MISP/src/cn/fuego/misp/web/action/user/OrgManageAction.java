@@ -63,8 +63,7 @@ public class OrgManageAction extends MISPAction
   
 		orgManageModel.setOrgList(ServiceContext.getInstance().getOrgManageService().getAllOrg());
 		
-		session.put(SessionAttrNameConst.ORG_MANAGE_MODEL, orgManageModel);
-		
+ 		
 	 
 		return SUCCESS;
 	}

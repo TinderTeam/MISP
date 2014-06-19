@@ -95,6 +95,7 @@ public class UserManageServiceImpl implements UserManageService
 		{
 			DaoContext.getInstance().getSystemUserDao().delete(DataTypeConvert.strToList(userID));
 			DaoContext.getInstance().getUserExtAttrDao().delete(DataTypeConvert.strToList(userID));
+			DaoContext.getInstance().getUserMapGroupDao().deleteByGroupID(userID);
 		}
 		catch (RuntimeException e)
 		{

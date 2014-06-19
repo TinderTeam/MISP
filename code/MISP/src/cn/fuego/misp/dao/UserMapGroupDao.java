@@ -28,5 +28,11 @@ public interface UserMapGroupDao {
 
 	public void delete(UserMapGroup map);
 	
+	public void deleteByGroupID(String groupID);
+	
+	public void deleteByUserID(String userID);
+
+	
 	public List<UserMapGroup> getByGroupID(String groupID);
+	public List<UserMapGroup> getAll();
 }

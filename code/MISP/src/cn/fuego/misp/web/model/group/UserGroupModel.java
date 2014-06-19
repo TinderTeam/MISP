@@ -2,6 +2,7 @@ package cn.fuego.misp.web.model.group;
 
 import java.util.List;
 
+import cn.fuego.misp.web.model.function.FunctionModel;
 import cn.fuego.misp.web.model.user.UserModel;
 
 
@@ -10,7 +11,7 @@ public class UserGroupModel
 	private String groupID;
 	private String groupName;
 	private String groupDesp;
-	private List<String> functionList;
+	private List<FunctionModel> functionList;
 	private List<UserModel> userList;
 	public String getGroupID()
 	{
@@ -36,11 +37,12 @@ public class UserGroupModel
 	{
 		this.groupDesp = groupDesp;
 	}
-	public List<String> getFunctionList()
+ 
+	public List<FunctionModel> getFunctionList()
 	{
 		return functionList;
 	}
-	public void setFunctionList(List<String> functionList)
+	public void setFunctionList(List<FunctionModel> functionList)
 	{
 		this.functionList = functionList;
 	}

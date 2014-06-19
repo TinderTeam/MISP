@@ -27,7 +27,8 @@ public interface UserGroupDao {
 	public void saveOrUpdate(UserGroup group);
 
 	public void delete(UserGroup group);
-	
+	public void delete(String groupID);
+
 	public List<UserGroup> getAll();
 	
 	public UserGroup getGroupByID(String groupID);

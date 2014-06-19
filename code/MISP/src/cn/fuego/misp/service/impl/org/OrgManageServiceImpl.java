@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.dao.OrgDao;
 import cn.fuego.misp.domain.po.Org;
+import cn.fuego.misp.service.IDCreateService;
 import cn.fuego.misp.service.OrgManageService;
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.impl.user.UserManageServiceImpl;
@@ -33,7 +34,7 @@ import cn.fuego.misp.web.model.org.OrgModel;
 
 public class OrgManageServiceImpl implements OrgManageService
 {
-	Log log = LogFactory.getLog(UserManageServiceImpl.class);
+	private Log log = LogFactory.getLog(OrgManageServiceImpl.class);
 
 	private OrgDao orgDao = DaoContext.getInstance().getOrgDao();
 
@@ -89,7 +90,7 @@ public class OrgManageServiceImpl implements OrgManageService
 		log.info("create the org." + orgModel);
 		
 		Org org = new Org();
-		List<String> idList = ServiceContext.getInstance().getIDCreateService().createIDList(1);
+		List<String> idList = ServiceContext.getInstance().getIDCreateService(IDCreateService.ORG_ID_NAME).createIDList(1);
 		org.setOrgID(idList.get(0));
 		org.setOrgName(orgModel.getOrgName());
 		org.setOrgDesp(orgModel.getOrgDescription());

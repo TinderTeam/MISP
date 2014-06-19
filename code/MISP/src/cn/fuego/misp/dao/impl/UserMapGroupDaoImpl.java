@@ -145,4 +145,105 @@ public class UserMapGroupDaoImpl implements UserMapGroupDao {
 		return groupFunctionList;	
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserMapGroupDao#getAll()
+	 */
+	@Override
+	public List<UserMapGroup> getAll()
+	{
+		Session s = null;
+		List<UserMapGroup> groupFunctionList;
+		try
+		{
+			s = HibernateUtil.getSession();
+			Criteria c = s.createCriteria(UserMapGroup.class);
+ 
+ 			groupFunctionList = c.list();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			// HibernateUtil.closeSession();
+			if (s != null)
+			{
+				s.close();
+			}
+		}
+
+		return groupFunctionList;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserMapGroupDao#deleteByGroupID(java.lang.String)
+	 */
+	@Override
+	public void deleteByGroupID(String groupID)
+	{
+		Session session = null;
+		Transaction tx = null;
+		String hql = null;
+		// SystemUser user = null;
+		try
+		{
+			session = HibernateUtil.getSession();
+
+			tx = session.beginTransaction();
+
+			hql = "delete from UserMapGroup where group_id=?";
+			Query query = session.createQuery(hql);
+			query.setString(0, groupID);
+
+			query.executeUpdate();
+
+			tx.commit();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			if(null != session)
+			{
+				session.close();
+			}
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserMapGroupDao#deleteByUserID(java.lang.String)
+	 */
+	@Override
+	public void deleteByUserID(String userID)
+	{
+		Session session = null;
+		Transaction tx = null;
+		String hql = null;
+		// SystemUser user = null;
+		try
+		{
+			session = HibernateUtil.getSession();
+
+			tx = session.beginTransaction();
+
+			hql = "delete from UserMapGroup where user_id=?";
+			Query query = session.createQuery(hql);
+			query.setString(0, userID);
+
+			query.executeUpdate();
+
+			tx.commit();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			if(null != session)
+			{
+				session.close();
+			}
+		}
+		
+	}
+
 }

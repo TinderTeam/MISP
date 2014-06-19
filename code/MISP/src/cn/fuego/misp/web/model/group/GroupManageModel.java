@@ -2,8 +2,6 @@ package cn.fuego.misp.web.model.group;
 
 import java.util.List;
 
-import cn.fuego.misp.web.model.org.OrgModel;
-
 
 public class GroupManageModel
 {

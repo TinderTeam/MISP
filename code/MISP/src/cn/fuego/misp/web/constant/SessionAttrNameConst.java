@@ -19,9 +19,6 @@ package cn.fuego.misp.web.constant;
 public class SessionAttrNameConst
 { 
 	public static final String LOGIN_USER = "loginUser";
-	public static final String ERR_MSG = "errMsg";
-	public static final String MENU_TREE = "menuTreeItem";
-	public static final String ORG_MANAGE_MODEL = "orgManageModel";
-	public static final String GROUP_MANAGE_MODEL = "groupManageModel";
-
+ 	public static final String MENU_TREE = "menuTreeItem";
+ 
 }

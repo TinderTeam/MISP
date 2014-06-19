@@ -8,8 +8,6 @@
 */ 
 package cn.fuego.misp.web.action.user;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -17,9 +15,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import stub.web.model.group.GroupModelStub;
-import cn.fuego.misp.web.action.util.BreadTrail;
-import cn.fuego.misp.web.action.util.MISPAction;
-import cn.fuego.misp.web.constant.SessionAttrNameConst;
+import cn.fuego.misp.service.ServiceContext;
+import cn.fuego.misp.service.UserGroupManageService;
+import cn.fuego.misp.web.action.basic.TableAction;
 import cn.fuego.misp.web.model.group.GroupManageModel;
 
 import com.alibaba.fastjson.JSON;
@@ -33,7 +31,7 @@ import com.opensymphony.xwork2.ActionContext;
  *  
  */
 
-public class GroupManageAction extends MISPAction
+public class GroupManageAction extends TableAction
 {
  
 	/**
@@ -43,25 +41,44 @@ public class GroupManageAction extends MISPAction
 
 	private Log log = LogFactory.getLog(GroupManageAction.class);
 	
-	ActionContext actionContext = ActionContext.getContext();
-	Map<String, Object> session = actionContext.getSession();
-	Map<String, Object> parameters = actionContext.getParameters();
+ 
 	
+	private UserGroupManageService groupService = ServiceContext.getInstance().getUserGroupManageService();
 	
 	private GroupManageModel groupManageModel;
 	
 	public String execute()
 	{   
-		groupManageModel =new GroupManageModel();
 		
-		groupManageModel.setGroupList(GroupModelStub.getGroupModelList());
-		session.put(SessionAttrNameConst.GROUP_MANAGE_MODEL, groupManageModel);
-		
-		setPage_pageName("权限组管理");
-		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
-		breadList.add(new BreadTrail("用户管理"));
-		breadList.add(new BreadTrail("权限组管理"));
-		setPage_breadList(breadList);
+ 		
+		loadList();
+ 
+		return SUCCESS;
+	}
+	
+	public void loadList()
+	{
+		if(null == groupManageModel)
+		{	
+			groupManageModel =new GroupManageModel();
+		}
+
+		groupManageModel.setGroupList(groupService.getAll());
+
+	}
+	public String delete()
+	{
+		log.info("delete user, user id is " + super.getSelectedID());
+		groupService.delete(super.getSelectedID());
+		loadList();
+		return SUCCESS;
+	}
+	public String create()
+	{
+		return SUCCESS;
+	}
+	public String modify()
+	{
 		return SUCCESS;
 	}
 

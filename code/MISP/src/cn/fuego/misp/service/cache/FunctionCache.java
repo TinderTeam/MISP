@@ -8,7 +8,6 @@
 */ 
 package cn.fuego.misp.service.cache;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +17,7 @@ import org.apache.commons.logging.LogFactory;
 
 import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.domain.po.SystemFunctionSet;
-import cn.fuego.misp.domain.po.UserGroupMapFunction;
-import cn.fuego.misp.util.validate.ValidatorUtil;
+import cn.fuego.misp.web.model.function.FunctionModel;
 
 /** 
  * @ClassName: SystemMetaDataCache 
@@ -33,9 +31,8 @@ public class FunctionCache
 {
 	private Log log = LogFactory.getLog(FunctionCache.class);
  	private static FunctionCache instance;
- 	private static List<SystemFunctionSet> functionSetCache = new ArrayList<SystemFunctionSet>();
-	private Map<String,List<String>> functionControlCache = new HashMap<String,List<String>>();
-
+ 	private static Map<String,FunctionModel> functionSetCache = new HashMap<String,FunctionModel>();
+ 
 	private FunctionCache()
 	{
  
@@ -50,56 +47,27 @@ public class FunctionCache
 		return instance;
 	}
 	
-	/**
-	 * get function id by user group id 
-	 * @param groupID
-	 * @return
-	 */
-	public List<String> getFunctionIDListByGroupID(String groupID)
+	public FunctionModel getFunctionByFunctionID(String funcitonID)
 	{
-		List<String> functionIDList = this.functionControlCache.get(groupID);
-		if(null == functionIDList)
-		{
-			log.info("loading meta data of table " + groupID);
-
-			List<UserGroupMapFunction> groupMapFunList = DaoContext.getInstance().getUserGroupMapFunctionDao().getByGroupID(groupID);
-			if(!ValidatorUtil.isEmpty(groupMapFunList))
-			{
-				functionIDList = new ArrayList<String>();
-				for(UserGroupMapFunction groupMapFun : groupMapFunList)
-				{
-					functionIDList.add(groupMapFun.getFunctionID());
-				}
-				this.functionControlCache.put(groupID, functionIDList);
-
-				log.info(functionIDList);
-			}
-			else
-			{
-				log.warn("there is no function for the user group id " + groupID);
-			}
-
-		}
-		
-		return functionIDList;
+		return functionSetCache.get(funcitonID);
 	}
+	
+	 
 	
 	public void reload()
 	{
-		functionControlCache.clear();
-		functionSetCache = DaoContext.getInstance().getSystemFunctionSetDao().getByFilter(null);
-		
-		if(!ValidatorUtil.isEmpty(functionSetCache))
-		{
-			log.info("all the function set size is " );
-		}
-		else
-		{
-			log.warn("there is no funciton set");
-		}
-
-		log.info("clear all cache,then it will reload the cache");
-		log.info("the function set is " + functionSetCache);
+ 		List<SystemFunctionSet> systemFunctionSet = DaoContext.getInstance().getSystemFunctionSetDao().getByFilter(null);
+ 		
+ 		for(SystemFunctionSet function : systemFunctionSet)
+ 		{	
+ 			FunctionModel functionModel = new  FunctionModel();
+ 			functionModel.setFunctionID(function.getFunctionID());
+ 			functionModel.setFunctionName(function.getFunctionName());
+ 			functionModel.setFunctionType(function.getFunctionType());
+ 			functionModel.setFunctionDesp(function.getFunctionDesp());
+ 			functionSetCache.put(function.getFunctionID(), functionModel);
+ 		}
+ 		log.info("the function set is " + functionSetCache);
 	}
 	
 	

@@ -106,7 +106,35 @@ public class UserGroupDaoImpl implements UserGroupDao {
 		log.debug("[DAO] Success!Delete the UserGroup:" + group.toString());
 
 	}
+	@Override
+	public void delete(String groupID) {
+		log.debug("[DAO] Delete the UserGroup:" + groupID);
 
+		Session session = null;
+		Transaction tx = null;
+		try
+		{
+			session = HibernateUtil.getSession();
+			tx = session.beginTransaction();
+
+			Object classObj = session.load(UserGroup.class, groupID);
+
+			session.delete(classObj);
+
+			tx.commit();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			if (session != null)
+			{
+				session.close();
+			}
+		}
+ 
+
+	}
 	/* (non-Javadoc)
 	 * @see cn.fuego.misp.dao.UserGroupDao#getAll()
 	 */

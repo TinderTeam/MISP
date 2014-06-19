@@ -1,5 +1,8 @@
 package cn.fuego.misp.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import cn.fuego.misp.service.impl.id.CommonIDImpl;
 import cn.fuego.misp.service.impl.org.OrgManageServiceImpl;
 import cn.fuego.misp.service.impl.user.UserGroupManageServiceImpl;
@@ -12,9 +15,11 @@ public class ServiceContext
 	private static ServiceContext instance;
 	private LoginService loginService=null;
 	private UserManageService userManagerService = null;
-	private IDCreateService idCreateService = null;
 	private OrgManageService orgManageService = null;
 	private UserGroupManageService userGroupManageService = null;
+	
+	private Map<String,IDCreateService> idCreateServiceMap = new HashMap<String,IDCreateService>();
+
 
 	
 	
@@ -31,7 +36,7 @@ public class ServiceContext
 		}
 		return instance;
 	}
-	public LoginService getLoginService() {
+	public synchronized  LoginService getLoginService() {
 		if (null == loginService)
 		{
 			loginService = new LoginServiceImpl();
@@ -39,7 +44,7 @@ public class ServiceContext
 		return loginService;
 	}
 
-	public UserManageService getUserManagerService() {
+	public  synchronized UserManageService getUserManagerService() {
 		if (null == userManagerService)
 		{
 			userManagerService = new UserManageServiceImpl();
@@ -49,7 +54,7 @@ public class ServiceContext
 
 	
 
-	public OrgManageService getOrgManageService() {
+	public  synchronized OrgManageService getOrgManageService() {
 		if (null == orgManageService)
 		{
 			orgManageService = new OrgManageServiceImpl();
@@ -57,15 +62,17 @@ public class ServiceContext
 		return orgManageService;
 	}
 	
-	public IDCreateService getIDCreateService() {
-		if (null == idCreateService)
+	public synchronized IDCreateService getIDCreateService(String IDName) {
+		
+		if(null == idCreateServiceMap.get(IDName))
 		{
-			idCreateService = new CommonIDImpl();
+			idCreateServiceMap.put(IDName, new CommonIDImpl(IDName));
 		}
-		return idCreateService;
+		
+		return idCreateServiceMap.get(IDName);
 	}
 	
-	public UserGroupManageService getUserGroupManageService() {
+	public synchronized UserGroupManageService getUserGroupManageService() {
 		if (null == userGroupManageService)
 		{
 			userGroupManageService = new UserGroupManageServiceImpl();

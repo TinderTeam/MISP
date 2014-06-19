@@ -30,10 +30,15 @@ public class CommonIDImpl implements IDCreateService
 {	
 	Log log = LogFactory.getLog(IDCreateService.class);
  
+	private String IDName;
+	public CommonIDImpl(String IDName)
+	{
+		this.IDName = IDName;
+	}
 	public synchronized List<String> createIDList(int idCount)
 	{
 		//get id type by id name
-		SystemIDType idType = DaoContext.getInstance().getSystemIDTypeDao().getIDTypeByName(IDCreateService.ORG_ID_NAME);
+		SystemIDType idType = DaoContext.getInstance().getSystemIDTypeDao().getIDTypeByName(this.IDName);
 		
 		List<String> idList = new ArrayList<String>();
 
