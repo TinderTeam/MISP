@@ -56,7 +56,7 @@
                     
                     <td  style="text-align:center">
                     	<span class="icon" ><a class="tip-bottom" href="" " title="权限查询"><i class="icon-search"></i></a></span>					
-						<span class="icon" ><a href="showUser.action?selectedID=${user.userID}&operateType=modify" title="编辑" class="tip-bottom"><i class="icon-pencil"></i></a></span>
+						<span class="icon" ><a class="tip-bottom" href="showUser.action?selectedID=${user.userID}&operateType=modify" title="编辑" ><i class="icon-pencil"></i></a></span>
 						<span class="icon" ><a class="tip-bottom" href="delete.action?selectedID=${user.userID}&operateType=delete" title="删除"><i class="icon-remove"></i></a></span>
                     </td>		
                   </tr>   

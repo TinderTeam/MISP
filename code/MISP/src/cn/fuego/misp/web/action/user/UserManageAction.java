@@ -33,6 +33,8 @@ public class UserManageAction extends TableAction
  
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(UserManageAction.class);
+	
+	private static final String SHOW_USER="showUser";
 	private List<MenuTreeModel> menuTreeItem;
 
 
@@ -91,7 +93,7 @@ public class UserManageAction extends TableAction
 	    {
 			userManage.setUser(userService.getUserByID(getSelectedID()));
 	    }
-		return SUCCESS;
+		return SHOW_USER;
 	}
 	
 	public void loadUserList()

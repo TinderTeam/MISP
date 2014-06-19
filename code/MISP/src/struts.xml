@@ -56,20 +56,11 @@
  	<package name="user" extends="default">
  	    <action name="userManage" class="cn.fuego.misp.web.action.user.UserManageAction">
 			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
+            <result name="showUser" type="dispatcher">/client/platform/userInfo/userInfo.jsp</result>
+		</action>
  
-		</action>
-		<action name="delete" class="cn.fuego.misp.web.action.user.UserManageAction" method="delete">
-			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
-		</action>
-		<action name="showUser" class="cn.fuego.misp.web.action.user.UserManageAction" method="showUser">
-			<result type="dispatcher">/client/platform/userInfo/userInfo.jsp</result>
- 			
-		</action>
-		<action name="modify" class="cn.fuego.misp.web.action.user.UserManageAction" method="modify">
-			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
- 			
-		</action>
  	</package>
  	
+ 
 </struts>
 
