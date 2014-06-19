@@ -62,7 +62,7 @@ public class UserGroupBatchData
 	{
 		Map<String,List<FunctionModel>>  groupIDMapFunction = new HashMap<String,List<FunctionModel>> ();
  		List<UserGroupMapFunction> userMapGroupList =  DaoContext.getInstance().getUserGroupMapFunctionDao().getAll();
- 		log.info("all user group count is " + userMapGroupList.size());
+ 		log.info("all user group map function count is " + userMapGroupList.size());
 		for(UserGroupMapFunction map : userMapGroupList)
 		{
 			List<FunctionModel> userList = groupIDMapFunction.get(map.getGroupID());

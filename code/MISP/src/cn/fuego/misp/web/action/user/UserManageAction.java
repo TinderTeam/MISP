@@ -46,9 +46,6 @@ public class UserManageAction extends TableAction
 	public String execute()
 	{
  	    loadUserList();
-		
- 	    List<BreadTrail> breadList= new ArrayList<BreadTrail>();
-		breadList.add(new BreadTrail("用户管理"));
  
 		return SUCCESS;
 	}
@@ -79,6 +76,8 @@ public class UserManageAction extends TableAction
 		log.info("show user");
 		if(null == userManage)
 		{
+			log.warn("the user manage is null");
+
 			userManage = new UserManageModel();
 		}
 	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserDisAttrNameList()));

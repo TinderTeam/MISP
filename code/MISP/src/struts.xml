@@ -48,9 +48,7 @@
 			<result type="dispatcher">/client/platform/userInfo/orgManage.jsp</result> 
 		</action>
 		
-		<action name="groupManage" class="cn.fuego.misp.web.action.user.GroupManageAction">
-			<result type="dispatcher">/client/platform/userInfo/groupManage.jsp</result> 
-		</action>
+
  	</package>
  	
  	<package name="user" extends="default">
@@ -58,7 +56,10 @@
 			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
             <result name="showUser" type="dispatcher">/client/platform/userInfo/userInfo.jsp</result>
 		</action>
- 
+ 		<action name="groupManage" class="cn.fuego.misp.web.action.user.GroupManageAction">
+			<result type="dispatcher">/client/platform/userInfo/groupManage.jsp</result>
+			<result name="showInfo" type="dispatcher">/client/platform/userInfo/userGroupInfo.jsp</result> 
+		</action>
  	</package>
  	
  

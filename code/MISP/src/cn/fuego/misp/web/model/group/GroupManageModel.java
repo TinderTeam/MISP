@@ -6,6 +6,18 @@ import java.util.List;
 public class GroupManageModel
 {
 	private List<UserGroupModel> groupList;
+	private UserGroupModel userGroup;
+
+	
+	public UserGroupModel getUserGroup()
+	{
+		return userGroup;
+	}
+
+	public void setUserGroup(UserGroupModel userGroup)
+	{
+		this.userGroup = userGroup;
+	}
 
 	public List<UserGroupModel> getGroupList() {
 		return groupList;

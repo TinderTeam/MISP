@@ -119,7 +119,7 @@ public class SystemIDTypeDaoImpl implements SystemIDTypeDao {
 		{
 			s = HibernateUtil.getSession();
 			Criteria c = s.createCriteria(SystemIDType.class);
-			c.add(Restrictions.eq("ID_NAME", name));
+			c.add(Restrictions.eq("name", name));
 			idType =(SystemIDType) c.uniqueResult();
 		} catch (RuntimeException re)
 		{

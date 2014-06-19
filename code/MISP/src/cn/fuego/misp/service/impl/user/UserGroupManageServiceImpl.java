@@ -70,7 +70,7 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 
 		userGroup.setGroupName(userGroupModel.getGroupName());
 		userGroup.setGroupDesp(userGroupModel.getGroupDesp());
-		
+		userGroupDao.saveOrUpdate(userGroup);
 	}
 
 	/* (non-Javadoc)

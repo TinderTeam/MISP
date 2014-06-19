@@ -225,7 +225,7 @@ public class UserManageServiceImpl implements UserManageService
 	@Override
 	public void create(UserModel userModel)
 	{
-		if(ValidatorUtil.isEmail(userModel.getUserID()))
+		if(ValidatorUtil.isEmpty(userModel.getUserID()))
 		{
 			log.error("the user id can not be eampty");
 			throw new ServiceException(ExceptionMsg.USER_NAME_EMPTY);

@@ -44,7 +44,7 @@
                 </tr>
             </thead>
             <tbody>
-               <c:forEach var="userGroup" items="${groupManageModel.groupList}"> 						 
+               <c:forEach var="userGroup" items="${groupManage.groupList}"> 						 
 				  <tr>
                     <td  style="text-align:center" >${userGroup.groupName}</td>
                     <td  style="text-align:center" >${userGroup.groupDesp}</td>
@@ -56,8 +56,8 @@
                     
                     <td  style="text-align:center">
                     	<span class="icon" ><a class="tip-bottom" href="" " title="权限查询"><i class="icon-search"></i></a></span>					
-						<span class="icon" ><a class="tip-bottom" href="showUser.action?selectedID=${user.userID}&operateType=modify" title="编辑" ><i class="icon-pencil"></i></a></span>
-						<span class="icon" ><a class="tip-bottom" href="delete.action?selectedID=${user.userID}&operateType=delete" title="删除"><i class="icon-remove"></i></a></span>
+						<span class="icon" ><a class="tip-bottom" href="groupManage!show.action?selectedID=${userGroup.groupID}&operateType=modify" title="编辑" ><i class="icon-pencil"></i></a></span>
+						<span class="icon" ><a class="tip-bottom" href="groupManage!delete.action?selectedID=${userGroup.groupID}&operateType=delete" title="删除"><i class="icon-remove"></i></a></span>
                     </td>		
                   </tr>   
 						 
@@ -65,7 +65,7 @@
          
             </tbody>
         </table>
-        	<a class="btn btn-primary offset10"  href="showUser.action?selectedID=${user.userID}&operateType=create">新增</a>	
+        	<a class="btn btn-primary offset10"  href="groupManage!show.action?selectedID=${userGroup.groupID}&operateType=create">新增</a>	
 									</div>
 									
 							</div>		
@@ -74,9 +74,6 @@
 					<!----内容页完---->
 					<!----尾部声明---->
 				<jsp:include page="../cbb/footer.jsp"/>
-		   </div>
-	</div>
-
+ 
 </body>
-<script src="<%=request.getContextPath()%>/client/platform/userInfo/js/groupManage.js"></script>
-</html>
+ </html>
