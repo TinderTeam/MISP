@@ -1,6 +1,8 @@
 package cn.fuego.misp.service;
 
 import cn.fuego.misp.service.impl.id.CommonIDImpl;
+import cn.fuego.misp.service.impl.org.OrgManageServiceImpl;
+import cn.fuego.misp.service.impl.user.UserGroupManageServiceImpl;
 import cn.fuego.misp.service.impl.user.UserManageServiceImpl;
 import cn.fuego.misp.service.login.LoginService;
 import cn.fuego.misp.service.login.impl.LoginServiceImpl;
@@ -11,6 +13,10 @@ public class ServiceContext
 	private LoginService loginService=null;
 	private UserManageService userManagerService = null;
 	private IDCreateService idCreateService = null;
+	private OrgManageService orgManageService = null;
+	private UserGroupManageService userGroupManageService = null;
+
+	
 	
 	  
 	private ServiceContext()
@@ -43,11 +49,27 @@ public class ServiceContext
 
 	
 
+	public OrgManageService getOrgManageService() {
+		if (null == orgManageService)
+		{
+			orgManageService = new OrgManageServiceImpl();
+		}
+		return orgManageService;
+	}
+	
 	public IDCreateService getIDCreateService() {
 		if (null == idCreateService)
 		{
 			idCreateService = new CommonIDImpl();
 		}
 		return idCreateService;
+	}
+	
+	public UserGroupManageService getUserGroupManageService() {
+		if (null == userGroupManageService)
+		{
+			userGroupManageService = new UserGroupManageServiceImpl();
+		}
+		return userGroupManageService;
 	}
 }

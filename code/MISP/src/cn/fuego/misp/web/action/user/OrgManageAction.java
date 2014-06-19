@@ -8,7 +8,6 @@
 */ 
 package cn.fuego.misp.web.action.user;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,14 +15,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
-import stub.web.model.group.GroupModelStub;
-import stub.web.model.org.OrgModelStub;
 import stub.web.model.user.UserModelStub;
-
 import cn.fuego.misp.domain.po.Org;
-import cn.fuego.misp.service.cache.OrgTreeCache;
+import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.exception.ServiceException;
-import cn.fuego.misp.web.action.util.BreadTrail;
 import cn.fuego.misp.web.action.util.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
@@ -32,7 +27,6 @@ import cn.fuego.misp.web.model.user.UserModel;
 
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
 /** 
  * @ClassName: QueryUserAction 
@@ -66,9 +60,8 @@ public class OrgManageAction extends MISPAction
 		 *	TODO:
 		 *	get unOrgUserName-list(for org member set up), and get orgList. 
 		 */
- 
-		OrgTreeCache.getInstance().reload();
-		orgManageModel.setOrgList(OrgTreeCache.getInstance().getAllOrg());
+  
+		orgManageModel.setOrgList(ServiceContext.getInstance().getOrgManageService().getAllOrg());
 		
 		session.put(SessionAttrNameConst.ORG_MANAGE_MODEL, orgManageModel);
 		
