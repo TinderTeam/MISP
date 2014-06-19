@@ -7,6 +7,7 @@
 	<head>
 		<jsp:include page="../cbb/head.jsp"/>
 		<jsp:include page="../cbb/js.jsp"/>
+		<script src="<%=request.getContextPath()%>/client/platform/userInfo/js/userManage.js"></script>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		
 	</head>

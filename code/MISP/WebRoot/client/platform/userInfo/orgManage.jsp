@@ -109,7 +109,7 @@
 							</div>
 					  </div>
 					  <div class="modal-footer">
-					  		<button class="btn btn-primary" onclick="modityOrgSubmit()" id="modifySubOrgSubmit" value="">提交</a>
+					  		<button class="btn btn-primary" onclick="modityOrgSubmit()" id="modifySubOrgSubmit" value="">提交</button>
 							<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
 						
 					  </div>
