@@ -56,7 +56,7 @@ CREATE TABLE `d_user_group` (
   PRIMARY KEY (`GROUP_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `d_user_group` (
+CREATE TABLE `d_system_function_set` (
   `FUNCTION_ID` varchar(40) NOT NULL,
   `FUNCTION_NAME` varchar(255) NOT NULL,
   `FUNCTION_TYPE` int(11) DEFAULT NULL,
