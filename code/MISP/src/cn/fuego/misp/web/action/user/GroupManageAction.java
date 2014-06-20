@@ -64,7 +64,8 @@ public class GroupManageAction extends TableAction
 	    {
 	    	groupManage.setUserGroup(groupService.getGroupByID(getSelectedID()));
 	    }
-		return SHOW_INFO;
+	    groupManage.getUserGroup().setTableExtAttrNameList(super.convertToPageMessage(ServiceContext.getInstance().getUserManagerService().getUserDisAttrNameList()));
+ 		return SHOW_INFO;
 	}
 
 	public String delete()

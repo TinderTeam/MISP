@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.domain.po.SystemIDType;
 import cn.fuego.misp.service.IDCreateService;
+import cn.fuego.misp.util.validate.ValidatorUtil;
 
 /** 
  * @ClassName: BasicIDImpl 
@@ -60,6 +61,7 @@ public class CommonIDImpl implements IDCreateService
 		}
 		// update current id
 		idType.setCurrentID(currentID);
+		DaoContext.getInstance().getSystemIDTypeDao().saveOrUpdate(idType);
 		log.info("id count is " + idCount);
 		log.info("now current id is " + currentID);
 		return idList;
@@ -70,8 +72,16 @@ public class CommonIDImpl implements IDCreateService
 	{
 		String curID = "";
 		curID = String.valueOf(currentID);
-		curID = prefix + getZeroStr(length-curID.length()) + curID + sufix;
-
+		curID = curID + getZeroStr(length-curID.length());
+		if(!ValidatorUtil.isEmpty(prefix))
+		{
+			curID = prefix + curID;
+		}
+		if(!ValidatorUtil.isEmpty(sufix))
+		{
+			curID = curID + sufix;
+		}
+ 
 		return curID;
 
 	}

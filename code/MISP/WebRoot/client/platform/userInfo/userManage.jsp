@@ -35,6 +35,8 @@
 		        <c:set var="userManage" value="${userManage}" scope="request"/>	  
 		        <jsp:include page="./userFilter.jsp"/>		
 		        
+		        <c:set var="tableExtAttrNameList" value="${userManage.extAttrNameList}" scope="request"/>	  
+		        <c:set var="userList" value="${userManage.userList.currentPageData}" scope="request"/>	  
 				<jsp:include page="./userInfoList.jsp"/>		
 					<!----内容页完---->
 					<!----尾部声明---->

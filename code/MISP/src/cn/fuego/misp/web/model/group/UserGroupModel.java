@@ -12,7 +12,20 @@ public class UserGroupModel
 	private String groupName;
 	private String groupDesp;
 	private List<FunctionModel> functionList;
+	
+	private List<String> tableExtAttrNameList;
 	private List<UserModel> userList;
+	
+	
+ 
+	public List<String> getTableExtAttrNameList()
+	{
+		return tableExtAttrNameList;
+	}
+	public void setTableExtAttrNameList(List<String> tableExtAttrNameList)
+	{
+		this.tableExtAttrNameList = tableExtAttrNameList;
+	}
 	public String getGroupID()
 	{
 		return groupID;

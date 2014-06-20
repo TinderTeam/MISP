@@ -9,6 +9,8 @@ public class ExceptionMsg
 	public static final String SELECT_ONE_USER = "请选择一个用户";
 	
 	public static final String USER_NAME_EMPTY = "用户名不能为空";
+	public static final String USER_GROUP_NAME_EMPTY = "用户组名不能为空";
+
 	public static final String USER_NAME_EXISTED = "用户名已经存在";
 
 	

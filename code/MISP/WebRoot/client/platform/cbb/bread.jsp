@@ -8,9 +8,7 @@
 		
 			<div id="breadcrumb">				
 				<a href="<%=request.getContextPath()%>/client/platform/login/login.action" title="返回主页" class="tip-bottom"><i class="icon-home"></i>主页</a>
-				<c:if test="${null!=page_breadList}"> 
-					<c:forEach var="bread" items="${page_breadList}">	
-						<a href="${bread.url}" class="current">${bread.value}</a>
+ 					<c:forEach var="menuHead" items="${menuHeadList}">	
+						<a href="${menuHead.url}" class="current">${menuHead.value}</a>
 					</c:forEach>
-				</c:if>
-			</div>
+ 			</div>

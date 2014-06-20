@@ -8,7 +8,10 @@
 */ 
 package cn.fuego.misp.web.action.basic;
 
-import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.fuego.misp.util.validate.ValidatorUtil;
 
 /** 
  * @ClassName: TableAction 
@@ -18,13 +21,27 @@ import com.opensymphony.xwork2.ActionSupport;
  *  
  */
 
-public class TableAction extends ActionSupport
+public class TableAction extends MISPAction
 {
+	private String jumpActionName;
 	private String selectedID;
 	private String[] selectedIDList;
 	private String operateType;
 
 	
+	public List<String> convertToPageMessage(List<String> messageList)
+	{
+		List<String> resourceList = new ArrayList<String>();
+		if(!ValidatorUtil.isEmpty(messageList))
+		{
+			for(String message : messageList)
+			{
+				resourceList.add(this.getText(message));
+			}
+		}
+		return resourceList;
+
+	}
 	public String getOperateType()
 	{
 		return operateType;
@@ -53,6 +70,14 @@ public class TableAction extends ActionSupport
 	public void setSelectedID(String selectedID)
 	{
 		this.selectedID = selectedID;
+	}
+	public String getJumpActionName()
+	{
+		return jumpActionName;
+	}
+	public void setJumpActionName(String jumpActionName)
+	{
+		this.jumpActionName = jumpActionName;
 	}
 	
 

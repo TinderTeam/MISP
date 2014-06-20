@@ -17,7 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import stub.web.util.BreadTrailStub;
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.exception.ServiceException;
-import cn.fuego.misp.web.action.util.MISPAction;
+import cn.fuego.misp.web.action.basic.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
@@ -50,8 +50,7 @@ public class LoginAction extends MISPAction
 	     try
 	     {
 	    	 if(session.get(SessionAttrNameConst.LOGIN_USER)!=null){
-	    		 setPage_pageName(UtilConstant.HomeValue);	
-	    		 return SUCCESS;
+ 	    		 return SUCCESS;
 	    	 }
 	    	 	    	 
 	    	 //User Login
@@ -72,9 +71,7 @@ public class LoginAction extends MISPAction
 		 * This Code is Designed by Bowen. Which is means to config the basic page info. for instance, the name and the breadTrail
 		 * we mast try to do and design better on this fuction. 
 		 */
-		setPage_pageName(UtilConstant.HomeValue);		
-		setPage_breadList(BreadTrailStub.getTwoOrderBreadTrailStub());
-		
+ 
 		return SUCCESS;
 	}
 

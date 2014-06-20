@@ -14,7 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
-import cn.fuego.misp.web.action.util.MISPAction;
+import cn.fuego.misp.web.action.basic.MISPAction;
 
 /**
  * @ClassName: LoginAction

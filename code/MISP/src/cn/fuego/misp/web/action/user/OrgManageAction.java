@@ -19,7 +19,7 @@ import stub.web.model.user.UserModelStub;
 import cn.fuego.misp.domain.po.Org;
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.exception.ServiceException;
-import cn.fuego.misp.web.action.util.MISPAction;
+import cn.fuego.misp.web.action.basic.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
 import cn.fuego.misp.web.model.org.OrgManageModel;

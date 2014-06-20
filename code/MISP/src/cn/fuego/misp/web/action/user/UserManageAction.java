@@ -132,19 +132,7 @@ public class UserManageAction extends TableAction
 		return filterAttrList;
 	}
 
-	private List<String> convertToPageMessage(List<String> messageList)
-	{
-		List<String> resourceList = new ArrayList<String>();
-		if(!ValidatorUtil.isEmpty(messageList))
-		{
-			for(String message : messageList)
-			{
-				resourceList.add(this.getText(message));
-			}
-		}
-		return resourceList;
 
-	}
 
 
 	public void setMenuTreeItem(List<MenuTreeModel> menuTreeItem)

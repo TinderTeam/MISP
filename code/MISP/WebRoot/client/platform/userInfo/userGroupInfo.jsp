@@ -75,7 +75,14 @@
 		                   	 </div>
 	                    </s:form>
 					</div>
-  
+					
+					<c:set var="functionList" value="${groupManage.userGroup.functionList}" scope="request"/>	  
+		        	<jsp:include page="./functionList.jsp"/>	
+                     <c:set var="userList" value="${groupManage.userGroup.userList}" scope="request"/>
+                     <c:set var="tableExtAttrNameList" value="${groupManage.userGroup.tableExtAttrNameList}" scope="request"/>	  
+                    	<div class="container-fluid">		 	  
+		        	<jsp:include page="./userInfoList.jsp"/>	
+		        	</div>
 			</div>
 		</div>
     </div>

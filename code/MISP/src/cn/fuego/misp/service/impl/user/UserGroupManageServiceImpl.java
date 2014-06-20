@@ -11,7 +11,6 @@ package cn.fuego.misp.service.impl.user;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -22,15 +21,16 @@ import cn.fuego.misp.dao.UserGroupDao;
 import cn.fuego.misp.dao.UserGroupMapFunctionDao;
 import cn.fuego.misp.dao.UserMapGroupDao;
 import cn.fuego.misp.domain.po.UserGroup;
-import cn.fuego.misp.domain.po.UserGroupMapFunction;
 import cn.fuego.misp.domain.po.UserMapGroup;
 import cn.fuego.misp.service.IDCreateService;
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserGroupManageService;
 import cn.fuego.misp.service.cache.UserCache;
 import cn.fuego.misp.service.cache.UserGroupBatchData;
+import cn.fuego.misp.service.exception.ServiceException;
+import cn.fuego.misp.service.exception.msg.ExceptionMsg;
+import cn.fuego.misp.util.validate.ValidatorUtil;
 import cn.fuego.misp.web.model.group.UserGroupModel;
-import cn.fuego.misp.web.model.user.UserModel;
 
 /** 
  * @ClassName: UserGroupManageImpl 
@@ -82,8 +82,16 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 		List<String> IDList = ServiceContext.getInstance().getIDCreateService(IDCreateService.USER_GROUP_ID_NAME).createIDList(1);
 		UserGroup userGroup = new UserGroup();
 		userGroup.setGroupID(IDList.get(0));
+		if(ValidatorUtil.isEmpty(userGroupModel.getGroupName()))
+		{
+			log.error("the user group name is empty");
+			throw new ServiceException(ExceptionMsg.USER_GROUP_NAME_EMPTY);
+		}
 		userGroup.setGroupName(userGroupModel.getGroupName());
 		userGroup.setGroupDesp(userGroupModel.getGroupDesp());
+		
+		log.info("create new user group. " + userGroup);
+
 		this.userGroupDao.create(userGroup);
 	}
 

@@ -14,7 +14,7 @@
 		            <thead>
 		                <tr>
 		                    <th><s:text name="USER_ID"></s:text></th>  
-		                    <c:forEach var="attrName"   items="${userManage.extAttrNameList}"> 						 
+		                    <c:forEach var="attrName"   items="${tableExtAttrNameList}"> 						 
 							   <th>${attrName}</th>   
 							</c:forEach>
 						
@@ -22,7 +22,7 @@
 		                </tr>
 		            </thead>
 		            <tbody>
-		               <c:forEach var="user" items="${userManage.userList.currentPageData}"> 						 
+		               <c:forEach var="user" items="${userList}"> 						 
 						  <tr>
 		                    <td style="text-align:center">${user.userID}</td>
 		                    <c:forEach var="attr" items="${user.attrList}"> 
@@ -46,7 +46,7 @@
 									)
 								"><i class="icon-remove"></i></a>
 		                 	</td>
-		                  
+		                 
 		                  </tr>   
 								 
 						</c:forEach>

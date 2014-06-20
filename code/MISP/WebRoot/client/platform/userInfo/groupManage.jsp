@@ -74,9 +74,6 @@
 					<!----内容页完---->
 					<!----尾部声明---->
 				<jsp:include page="../cbb/footer.jsp"/>
-		   </div>
-	</div>
-
+ 
 </body>
-<script src="<%=request.getContextPath()%>/client/platform/userInfo/js/groupManage.js"></script>
-</html>
+ </html>
