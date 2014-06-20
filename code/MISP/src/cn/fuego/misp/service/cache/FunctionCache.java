@@ -8,6 +8,7 @@
 */ 
 package cn.fuego.misp.service.cache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,12 @@ public class FunctionCache
 	
 	public List<FunctionModel> getAllFunction()
 	{
-		return (List<FunctionModel>) functionSetCache.values();
+		if(functionSetCache.isEmpty())
+		{
+			log.warn("the function set is empty");
+			return new ArrayList<FunctionModel>();
+		}
+		return  new ArrayList<FunctionModel>(functionSetCache.values());
 	}
 	 
 	
