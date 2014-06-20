@@ -24,9 +24,7 @@
 <!----菜单栏--->
 <!----内容栏--->
 	<div id="content">
-		  <div id="content-header">
-			<h1>${page_pageName}</h1>
-		  </div>
+		  
 		  <!---面包屑导航---->
 		  <jsp:include page="../cbb/bread.jsp"/>
 		  <!---End 面包屑导航---->

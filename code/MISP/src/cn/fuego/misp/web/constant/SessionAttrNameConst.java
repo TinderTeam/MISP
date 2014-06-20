@@ -20,5 +20,6 @@ public class SessionAttrNameConst
 { 
 	public static final String LOGIN_USER = "loginUser";
  	public static final String MENU_TREE = "menuTreeItem";
+	public static final String SELECTED_MENU_ID = "selectedSessionMenuID";
  
 }

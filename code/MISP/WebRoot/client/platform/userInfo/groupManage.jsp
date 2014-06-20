@@ -22,9 +22,7 @@
 	<!----菜单栏--->
 	<!----内容栏--->
 	<div id="content">
-		<div id="content-header">
-			<h1>${page_pageName}</h1>
-		</div>
+	
 		  <!---面包屑导航---->
 		<jsp:include page="../cbb/bread.jsp"/>
 		  <!---End 面包屑导航---->
@@ -57,7 +55,13 @@
                     <td  style="text-align:center">
                     	<span class="icon" ><a class="tip-bottom" href="" " title="权限查询"><i class="icon-search"></i></a></span>					
 						<span class="icon" ><a class="tip-bottom" href="groupManage!show.action?selectedID=${userGroup.groupID}&operateType=modify" title="编辑" ><i class="icon-pencil"></i></a></span>
-						<span class="icon" ><a class="tip-bottom" href="groupManage!delete.action?selectedID=${userGroup.groupID}&operateType=delete" title="删除"><i class="icon-remove"></i></a></span>
+						<a id="${userGroup.groupID}" class="tip-bottom" href="javascript:void(0);" title="删除" onclick="
+								warnModal(
+									'删除用户',
+									'您确定要删除组   ${userGroup.groupName}  吗？',
+									'groupManage!delete.action?selectedID=${userGroup.groupID}&operateType=delete'
+									)
+								"><i class="icon-remove"></i></a>
                     </td>		
                   </tr>   
 						 
@@ -79,4 +83,5 @@
 
 </body>
 <script src="<%=request.getContextPath()%>/client/platform/userInfo/js/groupManage.js"></script>
+<jsp:include page="../cbb/widget/warnModal.jsp"/>	
 </html>

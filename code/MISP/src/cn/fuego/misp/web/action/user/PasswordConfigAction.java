@@ -17,6 +17,7 @@ import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.service.exception.msg.ExceptionMsg;
+import cn.fuego.misp.web.action.basic.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
 import cn.fuego.misp.web.model.user.UserModel;
@@ -32,7 +33,7 @@ import com.opensymphony.xwork2.ActionSupport;
  *  
  */
 
-public class PasswordConfigAction extends ActionSupport
+public class PasswordConfigAction extends MISPAction
 {
 	/**
 	 * 
@@ -47,12 +48,16 @@ public class PasswordConfigAction extends ActionSupport
 	private String newPassword;
 	private String oldPassword;
 	private String confirmPassword;
-	private String errorMsg= "密码修改完成";
-	private static final String CONFIG_FAILED = "ConfigFailed";
+	private String errorMsg= "";
+	private static final String CONFIG_FAILED = "Page";
 	
 	public String execute()
 	{   
-		
+		return "Page";
+	}
+
+	public String modifyPassword()
+	{
 		ActionContext actionContext = ActionContext.getContext();
 		Map<String, Object> session = actionContext.getSession();
 		
@@ -72,15 +77,11 @@ public class PasswordConfigAction extends ActionSupport
 			}
 			else{
 				return UtilConstant.SYSTEM_ERR;
-			}	
-		}
-		
-		
+			}
+		}	
 		session.put(SessionAttrNameConst.LOGIN_USER,null);
- 
 		return SUCCESS;
 	}
-
 
 	/**
 	 * @return the newPassword

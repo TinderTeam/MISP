@@ -52,7 +52,16 @@ public class MISPAction extends ActionSupport
 
 	public List<MenuModel> getMenuHeadList()
 	{
+		
 		ActionContext actionContext = ActionContext.getContext();
+
+		if(0==selectedMenuID)
+		{
+			selectedMenuID=(Integer) actionContext.getSession().get(SessionAttrNameConst.SELECTED_MENU_ID);
+		}else
+		{
+			actionContext.getSession().put(SessionAttrNameConst.SELECTED_MENU_ID,selectedMenuID);
+		}
 
 		List<MenuTreeModel> menuTreeList = (List<MenuTreeModel>) actionContext.getSession().get(SessionAttrNameConst.MENU_TREE);
 		
