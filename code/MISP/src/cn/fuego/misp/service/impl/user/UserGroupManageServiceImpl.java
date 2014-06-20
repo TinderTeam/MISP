@@ -16,20 +16,25 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.google.common.base.Function;
+
 import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.dao.UserGroupDao;
 import cn.fuego.misp.dao.UserGroupMapFunctionDao;
 import cn.fuego.misp.dao.UserMapGroupDao;
+import cn.fuego.misp.domain.po.SystemFunctionSet;
 import cn.fuego.misp.domain.po.UserGroup;
 import cn.fuego.misp.domain.po.UserMapGroup;
 import cn.fuego.misp.service.IDCreateService;
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserGroupManageService;
+import cn.fuego.misp.service.cache.FunctionCache;
 import cn.fuego.misp.service.cache.UserCache;
 import cn.fuego.misp.service.cache.UserGroupBatchData;
 import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.service.exception.msg.ExceptionMsg;
 import cn.fuego.misp.util.validate.ValidatorUtil;
+import cn.fuego.misp.web.model.function.FunctionModel;
 import cn.fuego.misp.web.model.group.UserGroupModel;
 
 /** 
@@ -153,6 +158,16 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 		groupModel.setGroupDesp(userGroup.getGroupDesp());
 		
 		return groupModel;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.service.UserGroupManageService#getAllFunction()
+	 */
+	@Override
+	public List<FunctionModel> getAllFunction()
+	{
+		
+		return FunctionCache.getInstance().getAllFunction();
 	}
 
 }

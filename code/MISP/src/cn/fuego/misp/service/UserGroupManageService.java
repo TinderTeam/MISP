@@ -10,6 +10,7 @@ package cn.fuego.misp.service;
 
 import java.util.List;
 
+import cn.fuego.misp.web.model.function.FunctionModel;
 import cn.fuego.misp.web.model.group.UserGroupModel;
 
 /** 
@@ -27,4 +28,7 @@ public interface UserGroupManageService
 	public void create(UserGroupModel userGroupModel);
 	public List<UserGroupModel> getAll();
 	public UserGroupModel getGroupByID(String groupID);
+	
+	public List<FunctionModel>  getAllFunction();
+	
 }

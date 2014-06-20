@@ -52,6 +52,10 @@ public class FunctionCache
 		return functionSetCache.get(funcitonID);
 	}
 	
+	public List<FunctionModel> getAllFunction()
+	{
+		return (List<FunctionModel>) functionSetCache.values();
+	}
 	 
 	
 	public void reload()

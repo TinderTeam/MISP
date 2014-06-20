@@ -23,7 +23,7 @@ import cn.fuego.misp.util.validate.ValidatorUtil;
 
 public class DataTypeConvert
 {
-	public static List strToList(Object str)
+	public static List objectToList(Object str)
 	{
 		List strList = new ArrayList<Object>();
 		if(null != str)

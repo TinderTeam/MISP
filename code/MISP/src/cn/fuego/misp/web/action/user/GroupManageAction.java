@@ -65,6 +65,8 @@ public class GroupManageAction extends TableAction
 	    	groupManage.setUserGroup(groupService.getGroupByID(getSelectedID()));
 	    }
 	    groupManage.getUserGroup().setTableExtAttrNameList(super.convertToPageMessage(ServiceContext.getInstance().getUserManagerService().getUserDisAttrNameList()));
+	    groupManage.setUserList(ServiceContext.getInstance().getUserManagerService().getUserListDataSourceByFilter(null).getAllPageData());
+	    groupManage.setAllFunctionList(ServiceContext.getInstance().getUserGroupManageService().getAllFunction());
  		return SHOW_INFO;
 	}
 
@@ -90,6 +92,22 @@ public class GroupManageAction extends TableAction
 		this.loadList();
 		return SUCCESS;
 	}
+	
+ 
+	public String deleteFunction()
+	{
+    	groupManage.setUserGroup(groupService.getGroupByID(groupManage.getUserGroup().getGroupID()));
+
+		return SHOW_INFO;
+	}
+	
+	public String addFunction()
+	{
+    	groupManage.setUserGroup(groupService.getGroupByID(groupManage.getUserGroup().getGroupID()));
+
+		return SHOW_INFO;
+	}
+ 
  
 	private void loadList()
 	{
