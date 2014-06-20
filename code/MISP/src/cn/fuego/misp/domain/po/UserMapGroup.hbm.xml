@@ -9,8 +9,8 @@
 	<class name="UserMapGroup" table="D_USER_MAP_GROUP">
 		<composite-id>
 	       
-           <key-property name="userID" column="USER_ID"  type="string"></key-property>
-           <key-property name="groupID" column="GROUP_ID"  type="integer"></key-property>
+           <key-property name="userID" column="USER_ID"  type="java.lang.String"></key-property>
+           <key-property name="groupID" column="GROUP_ID"  type="java.lang.String"></key-property>
            
 	    </composite-id>
 

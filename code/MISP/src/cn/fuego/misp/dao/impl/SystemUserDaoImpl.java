@@ -213,16 +213,45 @@ public class SystemUserDaoImpl implements SystemUserDao
 		return userList;	
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.SystemUserDao#delete(java.util.List)
+	 */
 	@Override
-	public SystemUser getByID(String id)
+	public void delete(List<String> userIDList)
 	{
-		SystemUser filter = new SystemUser();
-		filter.setUserID(id);
-		List<SystemUser> list =getByFilter(filter);
-		/*
-		 * 默认
-		 */
-		return list.get(0);
+		// TODO Auto-generated method stub		log.debug("Delete the User by ID List:" + userIDList);
+ 
+		
+		Session session = null;
+		Transaction tx = null;
+		try
+		{
+			session = HibernateUtil.getSession();
+			tx = (Transaction) session.beginTransaction();
+			for(String userID : userIDList)
+			{
+				Object classObj = session.load(SystemUser.class, userID);
+				SystemUser user = (SystemUser) classObj;
+				if(null != user.getUserID())
+				{
+	 				session.delete(classObj);
+				}
+			 
+			}
+
+			tx.commit();
+			
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			if (session != null)
+			{
+				session.close();
+			}
+		}
+		
 	}
 
 }

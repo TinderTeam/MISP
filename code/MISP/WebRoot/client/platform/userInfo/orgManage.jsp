@@ -22,9 +22,7 @@
 	<!----菜单栏--->
 	<!----内容栏--->
 	<div id="content">
-		<div id="content-header">
-			<h1>${page_pageName}</h1>
-		</div>
+	
 		  <!---面包屑导航---->
 		<jsp:include page="../cbb/bread.jsp"/>
 		  <!---End 面包屑导航---->
@@ -32,163 +30,110 @@
 		<div class="container-fluid">		
 			<div class="row-fluid">
 					
-						<div class="span5"> 
-							<div class="well">
-								<h5>选中的组织：</h5>
-								<div class="well">
-									<p  class="text-success"><strong id="selectedOrg">未选择组织机构</strong></p>
-								</div>
-							
+						<div class="span12"> 
+						
+	
 								<h5>组织机构树：</h5>
 								
 								
 									<div class="tree well">
-										<c:set var="orgItem" value="${orgManageModel.orgList}" scope="request"/>
+										<c:set var="orgList" value="${orgManageModel.orgList}" scope="request"/>
 										<jsp:include page="cbb/orgTree.jsp"/>
 									</div>
-								
-								<HR>
-								<div >
-							
-								  <input type="button" class="btn btn-primary tip-top" 
-								  onClick="serachOrg()" value="查询" data-original-title="点击查询在右侧显示组织详细信息"/>
-								  <button type="btn tip-top" class="btn btn-primary tip-top" data-original-title="删除组织机构后会删除组织机构下属所有机构及用户归属信息">删除</button> 
-								  <a href="#myAlert" data-toggle="modal" class="btn btn-primary">新增机构/用户</a>
-								  
-								  
-								  
-									<div id="myAlert" class="modal hide">
-										<div class="modal-header">
-											<button data-dismiss="modal" class="close" type="button">×</button>
-											<h3>新增组织机构或用户</h3>
-										</div>
-										<div class="modal-body">
-											<div class="widget-box">
-												<div class="widget-title">
-													<ul class="nav nav-tabs">
-														<li class="active"><a data-toggle="tab" href="#tab1">组织机构</a></li>
-														<li><a data-toggle="tab" href="#tab2">用户</a></li>											
-													</ul>
-												</div>
-												<div class="widget-content tab-content">
-													<div id="tab1" class="tab-pane active">
-														<div class="control-group">
-															<h5>新组织机构名</h5>
-															<input type="text" name="newAssetsName" class="span12"/>		
-														</div>
-															<h6>组织机构描述</h6>		
-							
-														
-
-															<input type="text" name="newAssetsName" class="span12"/>																																			
-															
-															</div>	
-
-													<div id="tab2" class="tab-pane">
-														<h6>选择需要加入的用户</h6>		
-														<div class="control-group">
-															<h5>选择未分配组织机构的用户：</h5>
-															<select multiple="multiple" style="height:100px"  class="span12">
-																<c:forEach var="userModel" items="${orgManageModel.noOrgUserList}">	
-																<option>${userModel.userID}</option>													
-																</c:forEach>
-															</select>
-														</div>													</div>	
-														
-													</div>                            
-												</div>
-
-	
-											</div>
-											<div class="modal-footer">
-													
-												<button type="submit" class="btn btn-primary" name ="submit" value="addNew">添加</button>
-												<a data-dismiss="modal" class="btn" href="#">返回</a>
-											</div>
-										</div>
-								  
-								  
-								  
-								</div>	
-							</div>		
-						 </div>	 
-						 
-						 <div class="span7"> 
-								<div class="well">	
-									
-									<h5>组织机构详细信息</h5>
-										<HR>
-											<h6>组织机构名称	</h6>									
-												<div class="control-group">
-													<div class="controls">
-														<input id="orgInfoName" oninput="editOrg()" type="text" class="login_input" name="" placeholder="组织机构名称"/>												
-													</div>									
-												</div>
-										<HR>
-							
-											<h6>隶属关系</h6>		
-												<strong id = "beloneInfo"></strong>					
-												<p id = "beloneInfoContent"></p>
-												
-												
-												
-												  <a id="modifyOrgBelone" href="#modifyAlert" data-toggle="modal" class="btn btn-primary">修改</a>
-								  
-								  
-								  
-									<div id="modifyAlert" class="modal hide">
-											<div class="modal-header">
-												<button data-dismiss="modal" class="close" type="button">×</button>
-												<h3>调整组织机构隶属关系</h3>
-											</div>
-											<div class="modal-body">
-												<div class="control-group">
-													<h6>调整"<strong id="modal_orgName1"></strong>"隶属关系</h6>	
-														<div class="well">	
-															<label class="control-label">隶属关系调整后，部门内子机构的隶属关系一并调整。</label>											
-														</div>			
-														<div class="control-group">
-															<h5>选择"<strong id="modal_orgName2"></strong>"部门的上属部门</h5>
-															<select id="selectUpOrg" multiple="multiple" style="height:100px"  class="span12">
-																<c:set var="orgAllItem" value="${orgManageModel.orgList}" scope="request"/>
-																<jsp:include page="cbb/orgList.jsp"/>
-															</select>
-														</div>
-													
-												</div>
-	
-											</div>
-											<div class="modal-footer">
-													
-												 <input type="button" class="btn btn-primary" onClick="changeOrgBelone()" value="调整" />
-												<a data-dismiss="modal" class="btn" href="#">返回</a>
-											</div>
-										</div>
-								  
-								  
-												
-												
-																		
-										<HR>
-							
-							
-								<h6>统计信息</h6>		
-							
-										<div class="well">	
-												<label class="control-label" id="staticInfo"></label>											
-										</div>
-											
-									<input id="ensureModifyBtn" type="button" class="btn btn-primary" onClick="ensureModify()" value="确认修改"  disabled="disabled"/>
-									<input type="button" class="btn btn-primary" onClick="cancelModify()" value="取消修改" />
-									</div>	
-							</div>		
-						</div>	
 				
+								
+						 </div>	 
+						
+						</div>				
 					<!----内容页完---->
 					<!----尾部声明---->
 				<jsp:include page="../cbb/footer.jsp"/>
+				
 		   </div>
 	</div>
-
-</body>
+<!-- Button to trigger modal -->
+		<!-- add Modal -->
+					<div id="addSubGroup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="myModalLabel">新增组织结构</h3>
+					  </div>
+					  <div class="modal-body">
+							<div class="control-group">
+								<label class="control-label">新组织机构名称</label>
+								<div class="controls">
+									<input  id="addInput" value ="" type="password" />							
+								</div>									
+							</div>
+					  </div>
+					  <div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+						<button class="btn btn-primary" onclick="addOrgSubmit()" id="addSubOrgSubmit" value="" name="addSubOrg_FatherID">提交</a>
+					  </div>
+					</div>			
+				<!-- Warning Modal -->
+					<div id="warningModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="myModalLabel">删除组织机构</h3>
+					  </div>
+					  <div class="modal-body">
+						<p>删除组织机构会删除该组织内所有用户的组织机构信息。确认继续删除吗？</p>
+					  </div>
+					  <div class="modal-footer">
+						
+						<button id="deleteOrgbtn" value=" " class="btn btn-danger" onClick="deletOrgSubmit()">删除</button>
+						<button class="btn" data-dismiss="modal" aria-hidden="true" >关闭</button>
+					  </div>
+					</div> 
+					
+					<div id="modifySubGroup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="myModalLabel">修改组织结构信息</h3>
+					  </div>
+					  <div class="modal-body">
+							<div class="control-group">
+								<label class="control-label">组织机构名称</label>
+								<div class="controls">		
+									<input style="width:520px" id="modifyInput" type="text" placeholder="组织机构名称" value ="" >					
+								</div>									
+							</div>
+							<div class="control-group">
+								<label class="control-label">组织机构描述</label>
+								<div class="controls">
+									<textarea style="width:520px" class="span12" id="modifyDespInput" rows="3"></textarea>					
+								</div>									
+							</div>
+					  </div>
+					  <div class="modal-footer">
+					  		<button class="btn btn-primary" onclick="modityOrgSubmit()" id="modifySubOrgSubmit" value="">提交</button>
+							<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+						
+					  </div>
+					</div>		
+					
+					
+					<div id="showMemModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="myModalLabel">查看组织成员</h3>
+					  </div>
+					  <div class="modal-body">
+							<select multiple="multiple" style="width:520px"
+							id="userList">
+							  <option>1</option>
+							  <option>2</option>
+							  <option>3</option>
+							  <option>4</option>
+							  <option>5</option>
+							</select>
+							
+					  </div>
+					  <div class="modal-footer">				  	
+							<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+						
+					  </div>
+					</div>	
+				</body>
 </html>

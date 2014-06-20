@@ -65,6 +65,17 @@ public class SystemMetaDataCache
 		
 		return metaDataList;
 	}
+	
+	public List<String> getSortedAttrNameList(String tableName)
+	{
+		List<String> extAttrNameList = new ArrayList<String>();
+		List<SystemMetaData> metaDataList = this.getMetaDataByTableName(tableName);
+		for(SystemMetaData metaData : metaDataList)
+		{
+			extAttrNameList.add(metaData.getAttrName()); 
+		}
+		return extAttrNameList;
+	}
 	public List<String> getDisplayAttrNameList(String tableName)
 	{
 		List<String> extAttrNameList = new ArrayList<String>();

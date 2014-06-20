@@ -7,37 +7,63 @@
 <constant name="struts.ui.theme" value="simple" />
 <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
 <constant name="struts.ui.templateDir" value="template" />
+<constant  name="struts.custom.i18n.resources" value="package"></constant>   
 
 <constant name="struts.ui.templateSuffix" value="ftl" />
+    
+    <package name="default" namespace="/" extends="struts-default">
+        
+        <global-results>
+            <result name="exception-system">/client/platform/common/systemError.jsp</result>
+ 
+            <result name="exception-service">/client/platform/common/operateError.jsp</result>
+        </global-results>
+             
+        <global-exception-mappings>
+            <exception-mapping result="exception-system" exception="cn.fuego.misp.service.exception.ServiceException"></exception-mapping>
+            
+            <exception-mapping result="exception-service" exception="cn.fuego.misp.service.exception.ServiceException"></exception-mapping>
+        </global-exception-mappings>    
+    </package>
+    
 	<package name="login" extends="struts-default">
 		<action name="login" class="cn.fuego.misp.web.action.login.LoginAction">
 			<result type="dispatcher">/client/platform/main/main.jsp</result>
 			<result type="dispatcher" name="LoginFailed">/client/platform/login/login.jsp</result>		    
 		</action>
 		
-		<action name="userManage" class="cn.fuego.misp.web.action.user.UserManageAction">
-			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>  
-		</action>
+
 		
 		<action name="ajaxDownloadDebug" class="cn.fuego.misp.web.action.debug.AjaxDownDebugAction">
 			<result type="dispatcher">/client/platform/debug/ajaxdown.jsp</result> 
 		</action>
+
+
 		
-		<action name="passwordConfig" class="cn.fuego.misp.web.action.user.PasswordConfigAction">	
-			<result type="dispatcher">/client/platform/login/login.jsp</result>	
-			<result type="dispatcher" name="ConfigFailed">/client/platform/userInfo/passwordConfig.jsp</result>	
-			<result type="dispatcher" name="SystemError">/client/platform/common/systemError.jsp</result>		    
-		</action>	
 		
 		<action name="orgManage" class="cn.fuego.misp.web.action.user.OrgManageAction">
 			<result type="dispatcher">/client/platform/userInfo/orgManage.jsp</result> 
 		</action>
 		
-		<action name="groupManage" class="cn.fuego.misp.web.action.user.GroupManageAction">
-			<result type="dispatcher">/client/platform/userInfo/groupManage.jsp</result> 
-		</action>
-	</package>	
 
+ 	</package>
  	
+ 	<package name="user" extends="default">
+ 	    <action name="userManage" class="cn.fuego.misp.web.action.user.UserManageAction">
+			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
+            <result name="showUser" type="dispatcher">/client/platform/userInfo/userInfo.jsp</result>
+		</action>
+ 		<action name="groupManage" class="cn.fuego.misp.web.action.user.GroupManageAction">
+			<result type="dispatcher">/client/platform/userInfo/groupManage.jsp</result>
+			<result name="showInfo" type="dispatcher">/client/platform/userInfo/userGroupInfo.jsp</result> 
+		</action>
+
+		<action name="passwordConfig" class="cn.fuego.misp.web.action.user.PasswordConfigAction">	
+			<result type="dispatcher">/client/platform/login/login.jsp</result>		
+			<result type="dispatcher" name="Page">/client/platform/userInfo/passwordConfig.jsp</result>			    
+		</action>	
+ 	</package>
+ 	
+ 
 </struts>
 

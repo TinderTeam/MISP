@@ -26,29 +26,30 @@ public class UserGroupMapFunction implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int groupID;
-	private int functionID;
-	public int getGroupID() {
+	private String groupID;
+	private String functionID;
+	public String getGroupID()
+	{
 		return groupID;
 	}
-	public void setGroupID(int groupID) {
+	public void setGroupID(String groupID)
+	{
 		this.groupID = groupID;
 	}
-	public int getFunctionID() {
+	public String getFunctionID()
+	{
 		return functionID;
 	}
-	public void setFunctionID(int functionID) {
+	public void setFunctionID(String functionID)
+	{
 		this.functionID = functionID;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	@Override
-	public String toString() {
-		return "UserGroupMapFunction [groupID=" + groupID + ", functionID="
-				+ functionID + "]";
+	public String toString()
+	{
+		return "UserGroupMapFunction [groupID=" + groupID + ", functionID=" + functionID + "]";
 	}
-
+ 
 
 
 }

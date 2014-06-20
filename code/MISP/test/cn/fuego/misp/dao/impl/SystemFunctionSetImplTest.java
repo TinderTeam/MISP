@@ -30,19 +30,19 @@ public class SystemFunctionSetImplTest {
 	@Test
 	public void testcreate() {
 		
-		function.setFunctionID(001);
+		function.setFunctionID("001");
 		function.setFunctionName("add");
 		function.setFunctionType(0);
 		fimpl.create(function);
 	}
 	@Test
 	public void testdelete(){
-		function.setFunctionID(001);
+		function.setFunctionID("001");
 		fimpl.delete(function);
 	}
 	@Test
 	public void testsaveorupdate(){
-		function.setFunctionID(002);
+		function.setFunctionID("002");
 		function.setFunctionName("save");
 		function.setFunctionType(3);
 		fimpl.saveOrUpdate(function);

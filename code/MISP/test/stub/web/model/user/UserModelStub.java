@@ -40,8 +40,12 @@ public class UserModelStub
 	public static List<UserModel> getUserModelList()
 	{
 		List<UserModel> list = new ArrayList<UserModel>();
-		list.add(getUserModel("user1", "USER1", "1234"));
-		list.add(getUserModel("user2", "USER2", "1234"));
+		for(int i=0;i<100;i++)
+		{
+			list.add(getUserModel("user1", "USER1", "1234"));
+			list.add(getUserModel("user2", "USER2", "1234"));
+		}
+
 		return list;
 
 	}

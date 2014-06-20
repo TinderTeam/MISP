@@ -22,9 +22,7 @@
 <!----菜单栏--->
 <!----内容栏--->
 	<div id="content">
-		  <div id="content-header">
-			<h1>${page_pageName}</h1>
-		  </div>
+		  
 		  <!---面包屑导航---->
 		  <jsp:include page="../cbb/bread.jsp"/>
 		  <!---End 面包屑导航---->
@@ -40,7 +38,7 @@
 								</span>
 								<h5>密码修改</h5>
 							</div>
-						<s:form action="userInfo/passwordConfig" method="POST">	
+						<s:form action="user/passwordConfig" method="POST">	
 							<div class="widget-content nopadding">	
 								<div class="form-horizontal">
 									<div class="control-group">
@@ -64,7 +62,7 @@
 									</div>
 									
 									<div class="form-actions">
-										<input type="submit" name="submit" class="btn btn-success" value="提交" />
+										<s:submit cssClass="btn btn-primary" name="submit" value="提交" method="modifyPassword"/>
 										<input type="submit" name="submit" class="btn btn-success" value="取消" />
 										<p  style="color:red" >${errorMsg}</p>
 									</div>

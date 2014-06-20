@@ -22,9 +22,7 @@
 	<!----菜单栏--->
 	<!----内容栏--->
 	<div id="content">
-		<div id="content-header">
-			<h1>${page_pageName}</h1>
-		</div>
+	
 		  <!---面包屑导航---->
 		<jsp:include page="../cbb/bread.jsp"/>
 		  <!---End 面包屑导航---->
@@ -32,154 +30,48 @@
 		<div class="container-fluid">		
 			<div class="row-fluid">
 					
-						<div class="span5"> 
-							<div class="well">
-								<h5>选中的权限：</h5>
-								<div class="well">
-									<p  class="text-success"><strong id="selectedGroup">未选择权限组</strong></p>
-								</div>
-						        <form class="form-search">
-  									<input id="keyword" type="text" class="input-medium search-query" oninput="ensureSearchGroup()" value="">
-									<input type="button" class="btn" value="查找" onClick="searchGroupResult()" id="ensureSearchGroupBtn" disabled="disabled"></input> 
-								</form>	
-								<h5>权限组列表：</h5>
-								<select id="selectedGroupList" multiple="multiple" onChange="selectGroup(this.value)">
-  									<c:forEach var="group" items="${groupManageModel.groupList}">
-										<option>${group.groupName}</option>
-									</c:forEach>
-								</select>
-
-								
-								<HR>
-								<div >
-							
-								  <input type="button" class="btn btn-primary tip-top" 
-								  onClick="serachOrg()" value="显示详细信息" data-original-title="点击查询在右侧显示组织详细信息"/>
-								  <button type="btn tip-top" class="btn btn-primary tip-top" data-original-title="删除组织机构后会删除组织机构下属所有机构及用户归属信息">删除</button> 
-								  <a href="#addGroupModal" data-toggle="modal" class="btn btn-primary">新增</a>
-								  
-								  
-								  
-									<div id="addGroupModal" class="modal hide">
-										<div class="modal-header">
-											<button data-dismiss="modal" class="close" type="button">×</button>
-											<h3>增加权限组</h3>
-										</div>
-										<div class="modal-body">
-											<h6>新权限组名称:</h6>									
-											<input type="text" name="新权限组名称" class="span12"/>
-											<h6>新建完成后请通过查询该权限组进行修改</h6>
-	
-										</div>
-										<div class="modal-footer">
-													
-												<button type="submit" class="btn btn-primary" name ="submit" value="addNew">增加</button>
-												<a data-dismiss="modal" class="btn" href="#">取消</a>
-										</div>
-									</div>
-								  
-								  
-								  
-								</div>	
-							</div>		
-						 </div>	 
+						<table class="table table-striped table-bordered table-hover table-condensed">
+       
+        <!-- table class="table table-bordered table-striped">  -->
+            <thead>
+                <tr>
+                    <th>用户组名称</th>
+                    <th>用户组描述</th>
+					<th>用户列表</th>
+					<th style="width:60px">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+               <c:forEach var="userGroup" items="${groupManage.groupList}"> 						 
+				  <tr>
+                    <td  style="text-align:center" >${userGroup.groupName}</td>
+                    <td  style="text-align:center" >${userGroup.groupDesp}</td>
+                    <td  style="text-align:center" >
+                    <c:forEach var="user" items="${userGroup.userList}"> 
+                      ${user.userID},
+                    </c:forEach>
+                    </td  >
+                    
+                    <td  style="text-align:center">
+                    	<span class="icon" ><a class="tip-bottom" href="" " title="权限查询"><i class="icon-search"></i></a></span>					
+						<span class="icon" ><a class="tip-bottom" href="groupManage!show.action?selectedID=${userGroup.groupID}&operateType=modify" title="编辑" ><i class="icon-pencil"></i></a></span>
+						<a id="${userGroup.groupID}" class="tip-bottom" href="javascript:void(0);" title="删除" onclick="
+								warnModal(
+									'删除用户',
+									'您确定要删除组   ${userGroup.groupName}  吗？',
+									'groupManage!delete.action?selectedID=${userGroup.groupID}&operateType=delete'
+									)
+								"><i class="icon-remove"></i></a>
+                    </td>		
+                  </tr>   
 						 
-						 <div class="span7"> 
-								<div class="well">	
+				</c:forEach>
+         
+            </tbody>
+        </table>
+        	<a class="btn btn-primary offset10"  href="groupManage!show.action?selectedID=${userGroup.groupID}&operateType=create">新增</a>	
+									</div>
 									
-									<h5>权限组详细信息</h5>
-										<HR>
-											<h6>权限组名称	</h6>									
-												<div class="control-group">
-													<div class="controls">
-														<input id="groupInfoName" type="text" class="login_input" name="" placeholder="权限组名称" oninput="ensureEditGroup()"/>												
-													</div>									
-												</div>
-											<h6>权限组成员	</h6>									
-												<select multiple="multiple">
-													<option>1</option>
-													<option>2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
-												</select>
-												
-											
-								  			<input type="button" class="btn btn-primary" value="删除" onClick="ensureEditGroup()" ></input> 
-								  			<a href="#addMumberModal" data-toggle="modal" class="btn btn-primary">新增</a>
-												<div id="addMumberModal" class="modal hide">
-													<div class="modal-header">
-														<button data-dismiss="modal" class="close" type="button">×</button>
-														<h3>增加权限组成员</h3>
-													</div>
-												    <HR>
-													<div class="modal-body">
-													<select multiple="multiple" class="span12">
-														<option>1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-													</select>
-													</div>
-													<HR>
-													<div class="modal-footer">
-																	
-														<input type="button" class="btn btn-primary" value="增加" onClick="ensureEditGroup()"></input> 
-														<a data-dismiss="modal" class="btn" href="#">取消</a>
-													</div>
-												</div>
-												
-												
-												
-								  			<h6>权限选择	</h6>
-								  				<label class="checkbox">
-  												<input type="checkbox" value="" onClick="ensureEditGroup()">
-  													系统配置
-												</label>	
-												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox1" value="option1" onClick="ensureEditGroup()"> 用户管理
-												</label>
-												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox2" value="option2" onClick="ensureEditGroup()"> 组织机构管理
-												</label>
-												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox3" value="option3" onClick="ensureEditGroup()"> 权限组管理
-												</label>
-												<HR>
-												<label class="checkbox">
-  												<input type="checkbox" value="" onClick="ensureEditGroup()">
-  													个人设置
-												</label>	
-												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox1" value="option1" onClick="ensureEditGroup()"> 密码修改
-												</label>
-												
-												<HR>
-												<label class="checkbox">
-  												<input type="checkbox" value="" onClick="ensureEditGroup()">
-  													功能模块
-												</label>	
-												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox1" value="option1" onClick="ensureEditGroup()"> 权限控制点1
-												</label>
-												</label>	
-												<label class="checkbox inline">
-												  <input type="checkbox" id="inlineCheckbox1" value="option1" onClick="ensureEditGroup()"> 权限控制点2
-												</label>
-												<HR>
-											<div class="control-group">
-													<div class="controls">
-													<input type="button" class="btn btn-primary" onClick="ensureModifyGroup()" value="确认修改" id="ensureEditGroupBtn" disabled="disabled"/>
-													<input type="button" class="btn btn-primary" onClick="cancelModifyGroup()" value="取消修改" />		
-													</div>									
-												</div>	
-											
-													
-											</div>
-							
-									
-									</div>	
 							</div>		
 						</div>	
 				
@@ -191,4 +83,5 @@
 
 </body>
 <script src="<%=request.getContextPath()%>/client/platform/userInfo/js/groupManage.js"></script>
+<jsp:include page="../cbb/widget/warnModal.jsp"/>	
 </html>

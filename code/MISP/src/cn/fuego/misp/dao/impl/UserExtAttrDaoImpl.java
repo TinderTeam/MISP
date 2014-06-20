@@ -58,7 +58,42 @@ public class UserExtAttrDaoImpl implements UserExtAttrDao {
 		log.debug("[DAO] Success! -Create a UserExtAttr:" + attr.toString());
 
 	}
-
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserExtAttrDao#create(java.util.List)
+	 */
+	@Override
+	public void create(List<UserExtAttr> attrList)
+	{
+		if(ValidatorUtil.isEmpty(attrList))
+		{	
+			log.warn("the attr list is empty");
+			return;
+		}
+		Session session = null;
+		Transaction tx = null;
+		try
+		{
+			session = HibernateUtil.getSession();
+			tx = session.beginTransaction();
+			for(UserExtAttr attr : attrList)
+			{
+				session.save(attr);
+			}
+ 			tx.commit();
+			
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			//  HibernateUtil.closeSession();
+			if (session != null)
+			{
+				session.close();
+			}
+		}
+		
+	}
 	/* (non-Javadoc)
 	 * @see cn.fuego.misp.dao.UserExtAttrDao#saveOrUpdate(cn.fuego.misp.domain.po.UserExtAttr)
 	 */
@@ -146,7 +181,7 @@ public class UserExtAttrDaoImpl implements UserExtAttrDao {
 				}
 				if (!ValidatorUtil.isEmpty(attr.getAttrValue()))
 				{
-					c.add(Restrictions.like("attrValue", attr.getAttrValue()));
+					c.add(Restrictions.like("attrValue", "%" + attr.getAttrValue() + "%"));
 				}				
 			}
 
@@ -166,6 +201,56 @@ public class UserExtAttrDaoImpl implements UserExtAttrDao {
 		return extList;
 		
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserExtAttrDao#delete(java.util.List)
+	 */
+	@Override
+	public void delete(List<String> userIDList)
+	{
+		log.debug("delete by user id list. " + userIDList );
+
+		if(ValidatorUtil.isEmpty(userIDList))
+		{
+			log.warn("the user id lis is empty");
+			return;
+		}
+		
+		Session session = null;
+		Transaction tx = null;
+		String hql = null;
+		// SystemUser user = null;
+		try
+		{
+			session = HibernateUtil.getSession();
+
+			tx = session.beginTransaction();
+
+ 
+			for(String userID : userIDList)
+			{	
+				hql = "delete from UserExtAttr where user_id =?";
+				Query query = session.createQuery(hql);
+				query.setString(0, userID);
+				query.executeUpdate();
+			}
+ 
+			tx.commit();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			if (session != null)
+			{
+				session.close();
+			}
+		}
+
+		
+	}
+
+
 	
 
 

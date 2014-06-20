@@ -12,7 +12,7 @@ public class OrgModelStub
 
 		OrgModel o = new OrgModel();
 		o.setOrgName(name);
-		o.setSubOrgExist(subOrgExist);
+ 
 		o.setSubOrgList(subOrgList);
 		o.setOrgDescription(desc);
 		

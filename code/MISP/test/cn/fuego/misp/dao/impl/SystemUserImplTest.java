@@ -38,8 +38,7 @@ public class SystemUserImplTest
 	{
 		user.setUserID("a");
 		user.setPassword("123456");
-		user.setUserName("admin");
-
+ 
 		userImpl.create(user);
 	}
 
@@ -55,8 +54,7 @@ public class SystemUserImplTest
 	{
 		user.setUserID("b");
 		user.setPassword("1234");
-		user.setUserName("admin");
-
+ 
 		userImpl.saveOrUpdate(user);
 	}
 	@Test
@@ -66,16 +64,13 @@ public class SystemUserImplTest
 		ArrayList<String> NameList=new ArrayList<String>();
 
 		user.setUserID("1");
-		user.setUserName("a");
-		user.setPassword("1234");
+ 		user.setPassword("1234");
 		userImpl.saveOrUpdate(user);
 		user.setUserID("2");
-		user.setUserName("b");
-		user.setPassword("4321");
+ 		user.setPassword("4321");
 		userImpl.saveOrUpdate(user);
 		user.setUserID("3");
-		user.setUserName("c");
-		user.setPassword("1111");
+ 		user.setPassword("1111");
 		userImpl.saveOrUpdate(user);
 
 		//IDList.add("1");

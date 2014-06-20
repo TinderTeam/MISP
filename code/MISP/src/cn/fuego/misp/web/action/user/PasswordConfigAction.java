@@ -8,8 +8,6 @@
 */ 
 package cn.fuego.misp.web.action.user;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -19,9 +17,7 @@ import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.exception.ServiceException;
 import cn.fuego.misp.service.exception.msg.ExceptionMsg;
-import cn.fuego.misp.service.login.exception.LoginServiceExceptionMsg;
-import cn.fuego.misp.web.action.util.BreadTrail;
-import cn.fuego.misp.web.action.util.MISPAction;
+import cn.fuego.misp.web.action.basic.MISPAction;
 import cn.fuego.misp.web.constant.SessionAttrNameConst;
 import cn.fuego.misp.web.constant.UtilConstant;
 import cn.fuego.misp.web.model.user.UserModel;
@@ -52,12 +48,16 @@ public class PasswordConfigAction extends MISPAction
 	private String newPassword;
 	private String oldPassword;
 	private String confirmPassword;
-	private String errorMsg= "密码修改完成";
-	private static final String CONFIG_FAILED = "ConfigFailed";
+	private String errorMsg= "";
+	private static final String CONFIG_FAILED = "Page";
 	
 	public String execute()
 	{   
-		
+		return "Page";
+	}
+
+	public String modifyPassword()
+	{
 		ActionContext actionContext = ActionContext.getContext();
 		Map<String, Object> session = actionContext.getSession();
 		
@@ -71,24 +71,17 @@ public class PasswordConfigAction extends MISPAction
 			);
 			session.put(SessionAttrNameConst.LOGIN_USER, user);
 		}catch(ServiceException ex){
-			if(ex.getMessage().equals(LoginServiceExceptionMsg.PASSWORD_WRONG)||ex.getMessage().equals(ExceptionMsg.TWO_PASSWORD_WRONG)){
+			if(ex.getMessage().equals(ExceptionMsg.PASSWORD_WRONG)||ex.getMessage().equals(ExceptionMsg.TWO_PASSWORD_WRONG)){
 				errorMsg=ex.getMessage();
 				return CONFIG_FAILED;	
 			}
 			else{
 				return UtilConstant.SYSTEM_ERR;
-			}	
-		}
-		
-		
+			}
+		}	
 		session.put(SessionAttrNameConst.LOGIN_USER,null);
-		setPage_pageName("密码修改");
-		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
-		breadList.add(new BreadTrail("密码修改"));
-		setPage_breadList(breadList);
 		return SUCCESS;
 	}
-
 
 	/**
 	 * @return the newPassword

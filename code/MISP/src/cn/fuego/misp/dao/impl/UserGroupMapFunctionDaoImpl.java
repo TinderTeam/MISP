@@ -12,12 +12,15 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import cn.fuego.misp.dao.UserGroupMapFunctionDao;
 import cn.fuego.misp.dao.hibernate.util.HibernateUtil;
+import cn.fuego.misp.domain.po.UserGroup;
 import cn.fuego.misp.domain.po.UserGroupMapFunction;
 
 /**   
@@ -91,8 +94,8 @@ public class UserGroupMapFunctionDaoImpl implements UserGroupMapFunctionDao {
 
 			hql = "delete from UserGroupMapFunction where group_id=? and function_id = ?";
 			Query query = session.createQuery(hql);
-			query.setInteger(0,usermap.getGroupID());
-			query.setInteger(1,usermap.getFunctionID());
+			query.setString(0,usermap.getGroupID());
+			query.setString(1,usermap.getFunctionID());
 
 
 			query.executeUpdate();
@@ -117,10 +120,97 @@ public class UserGroupMapFunctionDaoImpl implements UserGroupMapFunctionDao {
 	 * @see cn.fuego.misp.dao.UserGroupMapFunctionDao#getByGroupID(int)
 	 */
 	@Override
-	public List<UserGroupMapFunction> getByGroupID(int groupID)
+	public List<UserGroupMapFunction> getByGroupID(String groupID)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Session s = null;
+		List<UserGroupMapFunction> groupFunctionList;
+		try
+		{
+			s = HibernateUtil.getSession();
+			Criteria c = s.createCriteria(UserGroupMapFunction.class);
+			c.add(Restrictions.eq("groupID", groupID));
+
+ 			groupFunctionList = c.list();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			// HibernateUtil.closeSession();
+			if (s != null)
+			{
+				s.close();
+			}
+		}
+
+		return groupFunctionList;	
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserGroupMapFunctionDao#getAll()
+	 */
+	@Override
+	public List<UserGroupMapFunction> getAll()
+	{
+		Session s = null;
+		List<UserGroupMapFunction> groupFunctionList;
+		try
+		{
+			s = HibernateUtil.getSession();
+			Criteria c = s.createCriteria(UserGroupMapFunction.class);
+ 
+ 			groupFunctionList = c.list();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			// HibernateUtil.closeSession();
+			if (s != null)
+			{
+				s.close();
+			}
+		}
+
+		return groupFunctionList;	
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserGroupMapFunctionDao#deleteByGroupID(java.lang.String)
+	 */
+	@Override
+	public void deleteByGroupID(String groupID)
+	{
+		Session session = null;
+		Transaction tx = null;
+		String hql = null;
+		// SystemUser user = null;
+		try
+		{
+			session = HibernateUtil.getSession();
+
+			tx = session.beginTransaction();
+
+			hql = "delete from UserGroupMapFunction where group_id=?";
+			Query query = session.createQuery(hql);
+			query.setString(0, groupID);
+
+			query.executeUpdate();
+
+			tx.commit();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			if(null != session)
+			{
+				session.close();
+			}
+		}
+		
+	}
+	
+	
 
 }

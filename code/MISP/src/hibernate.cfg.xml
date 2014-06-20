@@ -15,7 +15,7 @@
 		org.hibernate.dialect.MySQLDialect
 	</property>
 	<property name="hbm2ddl.auto">update</property>
-	<property name="show_sql">false</property>
+	<property name="show_sql">true</property>
 	<property name="hibernate.c3p0.max_size">500</property>
 	<property name="hibernate.c3p0.min_size">10</property>
 	<property name="hibernate.c3p0.acquire_increment">1</property>
@@ -33,6 +33,7 @@
 	<mapping
 		resource="cn/fuego/misp/domain/po/UserGroupMapFunction.hbm.xml" />
 	<mapping resource="cn/fuego/misp/domain/po/SystemMenu.hbm.xml" />
+	<mapping resource="cn/fuego/misp/domain/po/Org.hbm.xml" />
 
 
 

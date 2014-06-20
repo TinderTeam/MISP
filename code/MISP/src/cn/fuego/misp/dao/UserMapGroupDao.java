@@ -8,6 +8,8 @@
 */ 
 package cn.fuego.misp.dao;
 
+import java.util.List;
+
 import cn.fuego.misp.domain.po.UserMapGroup;
 
 /**   
@@ -25,4 +27,12 @@ public interface UserMapGroupDao {
 	public void saveOrUpdate(UserMapGroup map);
 
 	public void delete(UserMapGroup map);
+	
+	public void deleteByGroupID(String groupID);
+	
+	public void deleteByUserID(String userID);
+
+	
+	public List<UserMapGroup> getByGroupID(String groupID);
+	public List<UserMapGroup> getAll();
 }

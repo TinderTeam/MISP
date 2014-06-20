@@ -7,7 +7,9 @@
 	<head>
 		<jsp:include page="../cbb/head.jsp"/>
 		<jsp:include page="../cbb/js.jsp"/>
+		<script src="<%=request.getContextPath()%>/client/platform/userInfo/js/userManage.js"></script>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		
 	</head>
 <body>
 <!-----标题栏----->
@@ -18,18 +20,22 @@
 <!---快捷操作栏---->
 <!----菜单栏--->
 <jsp:include page="../cbb/menu.jsp"/>
+
 <!----菜单栏--->
 <!----内容栏--->
 	<div id="content">
-		  <div id="content-header">
-			<h1>${page_pageName}</h1>
-		  </div>
+		  
 		  <!---面包屑导航---->
 		  <jsp:include page="../cbb/bread.jsp"/>
 		  <!---End 面包屑导航---->
 		  <!----内容页---->
 		  <div class="container-fluid">
-				<jsp:include page="../userInfo/userInfoList.jsp"/>		
+		        <c:set var="userManage" value="${userManage}" scope="request"/>	  
+		        <jsp:include page="./userFilter.jsp"/>		
+		        
+		        <c:set var="tableExtAttrNameList" value="${userManage.extAttrNameList}" scope="request"/>	  
+		        <c:set var="userList" value="${userManage.userList.currentPageData}" scope="request"/>	  
+				<jsp:include page="./userInfoList.jsp"/>		
 					<!----内容页完---->
 					<!----尾部声明---->
 				<jsp:include page="../cbb/footer.jsp"/>

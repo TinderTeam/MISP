@@ -29,6 +29,8 @@ public interface SystemUserDao {
 
 	public void delete(SystemUser user);
 	
+	public void delete(List<String> userIDList);
+	
 	/**
 	 * when filter is null, return all users
 	 * @param userIDList
@@ -38,6 +40,6 @@ public interface SystemUserDao {
 	public List<SystemUser>	 getByFilter(List<String> userIDList,List<String> userNameList);
 	public List<SystemUser>	 getByFilter(SystemUser filter);
 
-	public SystemUser	 getByID(String id);
+	
   
 }

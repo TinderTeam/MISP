@@ -22,10 +22,22 @@ import cn.fuego.misp.web.model.common.AttributeModel;
 
 public class UserFilterModel
 {
+	private List<String> filterAttrNameList;
 	private String userID;
 	private List<AttributeModel> attrList;
 
 	
+	
+	public List<String> getFilterAttrNameList()
+	{
+		return filterAttrNameList;
+	}
+
+	public void setFilterAttrNameList(List<String> filterAttrNameList)
+	{
+		this.filterAttrNameList = filterAttrNameList;
+	}
+
 	public String getUserID()
 	{
 		return userID;

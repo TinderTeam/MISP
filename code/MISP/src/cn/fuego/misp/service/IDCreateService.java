@@ -23,6 +23,9 @@ public interface IDCreateService
 	public static final String USER_ID_NAME = "USER_ID";
 	public static final String USER_GROUP_ID_NAME = "USER_GROUP_ID";
 	
+	public static final String ORG_ID_NAME = "ORG_ID";
+
+	
 	public static int INCREASE_MODE = 1;
 	public static int DECREASE_MODE = 0;
 	

@@ -17,7 +17,7 @@ import cn.fuego.misp.domain.po.SystemUser;
 * @author Nan Bowen
 * @date 2014-3-26 下午11:55:40 
 *
- */
+*/
 public class SystemUserStub {
 	public static SystemUser getAdminUser(){
 		
@@ -27,8 +27,7 @@ public class SystemUserStub {
 	public static SystemUser getUser(String id,String name,String password){
 		SystemUser user= new SystemUser();
 		user.setUserID(id);
-		user.setUserName(name);
-		user.setPassword(password);
+ 		user.setPassword(password);
 		return user;	
 	}
 }

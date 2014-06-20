@@ -3,27 +3,22 @@ package cn.fuego.misp.web.action.user;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import stub.web.util.forecom.table.MispTableStub;
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserManageService;
 import cn.fuego.misp.service.datasource.AbstractDataSource;
+import cn.fuego.misp.util.validate.ValidatorUtil;
+import cn.fuego.misp.web.action.basic.TableAction;
 import cn.fuego.misp.web.action.util.BreadTrail;
-import cn.fuego.misp.web.action.util.MISPAction;
-import cn.fuego.misp.web.constant.SessionAttrNameConst;
+import cn.fuego.misp.web.constant.OperateTypeConst;
+import cn.fuego.misp.web.model.common.AttributeModel;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
-import cn.fuego.misp.web.model.page.PageModel;
 import cn.fuego.misp.web.model.user.UserFilterModel;
 import cn.fuego.misp.web.model.user.UserManageModel;
 import cn.fuego.misp.web.model.user.UserModel;
-import cn.fuego.misp.web.util.forecom.table.MispTable;
-
-import com.opensymphony.xwork2.ActionContext;
-import com.sun.xml.internal.ws.wsdl.writer.document.Service;
 
 /**
  * @ClassName: LoginAction
@@ -33,48 +28,111 @@ import com.sun.xml.internal.ws.wsdl.writer.document.Service;
  * @Edit Nan Bowen at 2014-03-23
  */
 
-public class UserManageAction extends MISPAction
+public class UserManageAction extends TableAction
 {
-	/**
-	 * 
-	 */
+ 
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(UserManageAction.class);
+	
+	private static final String SHOW_USER="showUser";
 	private List<MenuTreeModel> menuTreeItem;
 
 
-	private UserManageModel userManage = new UserManageModel();
+	private UserManageModel userManage ;
  	
 	private UserManageService userService = ServiceContext.getInstance().getUserManagerService();
  
 	
 	public String execute()
 	{
-		 ActionContext actionContext = ActionContext.getContext();
-	     Map session = actionContext.getSession();
-	       
-	     /*
-	      * Get MenuList
-	      */
-	     menuTreeItem=(List<MenuTreeModel>) session.get(SessionAttrNameConst.MENU_TREE);
-	 
+ 	    loadUserList();
  
-		/*
-		 * This Code is Designed by Bowen. Which is means to config the basic page info. for instance, the name and the breadTrail
-		 * we mast try to do and design better on this fuction. 
-		 */
-	    AbstractDataSource<UserModel> userDataSource = userService.getUserListDataSourceByFilter(userManage.getFilter());
-	    userManage.getUserList().setDataSource(userDataSource);
-	    userManage.setExtAttrNameList(userService.getUserExtAttrNameList());
-	    setPage_pageName("用户管理");
- 
-		List<BreadTrail> breadList= new ArrayList<BreadTrail>();
-		breadList.add(new BreadTrail("用户管理"));
-		setPage_breadList(breadList);
 		return SUCCESS;
 	}
-
 	
+	public String delete()
+	{
+		log.info("delete user, user id is " + super.getSelectedID());
+		userService.delete(super.getSelectedID());
+		loadUserList();
+		return SUCCESS;
+	}
+	
+	public String create()
+	{
+		userService.create(userManage.getUser());
+		loadUserList();
+		return SUCCESS;
+	}
+	
+	public String modify()
+	{
+		userService.modify(userManage.getUser());
+		loadUserList();
+		return SUCCESS;
+	}
+	public String showUser()
+	{
+		log.info("show user");
+		if(null == userManage)
+		{
+			log.warn("the user manage is null");
+
+			userManage = new UserManageModel();
+		}
+	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserDisAttrNameList()));
+ 
+	    if(OperateTypeConst.CREATE.equals(super.getOperateType()))
+	    {	
+			userManage.setUser(new UserModel());
+	    	userManage.getUser().setAttrList(getInitAttrList(userService.getUserFilterAttrNameList()));
+ 
+	    }
+	    else
+	    {
+			userManage.setUser(userService.getUserByID(getSelectedID()));
+	    }
+		return SHOW_USER;
+	}
+	
+	public void loadUserList()
+	{
+		if(null == userManage)
+		{
+			log.warn("the user manage is null");
+			userManage = new UserManageModel();
+		}
+	    if(null == userManage.getFilter())
+	    {
+	    	log.warn("the userf filer is null");
+	    	userManage.setFilter(new UserFilterModel());
+ 
+	    	userManage.getFilter().setAttrList(getInitAttrList(userService.getUserFilterAttrNameList()));
+ 
+	    }
+	    
+    	userManage.getFilter().setFilterAttrNameList(convertToPageMessage(userService.getUserFilterAttrNameList()));
+
+    	
+	    AbstractDataSource<UserModel> userDataSource = userService.getUserListDataSourceByFilter(userManage.getFilter());
+	    userManage.getUserList().setDataSource(userDataSource);
+	    userManage.setExtAttrNameList(convertToPageMessage(userService.getUserDisAttrNameList()));
+	 
+	}
+
+	private List<AttributeModel>  getInitAttrList(List<String> attrNameList)
+	{
+		List<AttributeModel> filterAttrList = new ArrayList<AttributeModel>();
+		for(String filterAttrName : attrNameList)
+		{	
+			AttributeModel attrModel = new AttributeModel();
+			attrModel.setAttrName(filterAttrName);
+			filterAttrList.add(attrModel);
+		}
+		return filterAttrList;
+	}
+
+
 
 
 	public void setMenuTreeItem(List<MenuTreeModel> menuTreeItem)

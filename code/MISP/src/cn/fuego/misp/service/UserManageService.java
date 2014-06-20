@@ -28,7 +28,15 @@ public interface UserManageService
 	public UserModel getUserByID(String userID);
 	
 	public AbstractDataSource<UserModel> getUserListDataSourceByFilter(UserFilterModel filterModel);
-	public List<String> getUserExtAttrNameList();
+	
+	public void delete(String userID);
+	
+	public void modify(UserModel userModel);
+	public void create(UserModel userModel);
+
+	public List<String> getUserDisAttrNameList();
+	public List<String> getUserFilterAttrNameList();
+
 	/**
 	 * get the menu tree by user id.
 	 * @param userID

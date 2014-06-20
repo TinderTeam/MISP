@@ -27,10 +27,13 @@ public interface UserExtAttrDao
 {
 
 	public void create(UserExtAttr attr);
+	
+	public void create(List<UserExtAttr> attr);
 
 	public void saveOrUpdate(UserExtAttr attr);
 
 	public void delete(UserExtAttr attr);
+	public void delete(List<String> userIDList);
 	
 	public List<UserExtAttr> getByFilter(Set<String> userIDList,AttributeBean attr);
 	

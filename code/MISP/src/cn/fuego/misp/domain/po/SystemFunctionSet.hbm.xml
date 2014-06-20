@@ -7,7 +7,7 @@
 <hibernate-mapping
 	package="cn.fuego.misp.domain.po">
 	<class name="SystemFunctionSet" table="S_SYSTEM_FUNCTION_SET">
-			<id name="functionID" column="FUNCTION_ID"  type="int">
+			<id name="functionID" column="FUNCTION_ID"  type="java.lang.String">
 			<generator class="assigned"/>
 			</id>
         

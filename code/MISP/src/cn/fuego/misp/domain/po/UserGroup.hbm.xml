@@ -7,7 +7,7 @@
 <hibernate-mapping
 	package="cn.fuego.misp.domain.po">
 	<class name="UserGroup" table="D_USER_GROUP">
-			<id name="groupID" column="GROUP_ID"  type="int">
+			<id name="groupID" column="GROUP_ID"  type="java.lang.String">
 			<generator class="assigned"/>
 			</id>
         
