@@ -46,7 +46,7 @@
 									)
 								"><i class="icon-remove"></i></a>
 		                 	</td>
-		                 
+		                  
 		                  </tr>   
 								 
 						</c:forEach>
@@ -55,20 +55,5 @@
 		        </table>     
 		<a class="btn btn-primary offset10" href="userManage!showUser.action?operateType=create">新增</a>
 </div>
+<jsp:include page="../cbb/widget/warnModal.jsp"/>		
 	
-	<div id="WarningModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="ModalTitle"></h3>
-		</div>
-		
-		<div class="modal-body">
-			<p id="WarningText"></p>
-		</div>
-		
-		<div class="modal-footer">				  	
-			
-			<a id="ConformBtn" class="btn btn-danger" href="">确认</a>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-		</div>
-	</div>	
