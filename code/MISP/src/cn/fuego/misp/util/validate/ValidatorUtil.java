@@ -59,6 +59,18 @@ public class ValidatorUtil
 		}
 		return false;
 	}
+	public static boolean isEmpty(String[] str)
+	{
+		if(null == str)
+		{
+			return true;
+		}
+		if(0 == str.length)
+		{
+			return true;
+		}
+		return false;
+	}
     public static boolean isChinese(String str) //检验输入为中文方法1，繁琐！
     {
 

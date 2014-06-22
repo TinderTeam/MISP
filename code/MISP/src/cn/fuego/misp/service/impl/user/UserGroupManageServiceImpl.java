@@ -16,13 +16,10 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.google.common.base.Function;
-
 import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.dao.UserGroupDao;
 import cn.fuego.misp.dao.UserGroupMapFunctionDao;
 import cn.fuego.misp.dao.UserMapGroupDao;
-import cn.fuego.misp.domain.po.SystemFunctionSet;
 import cn.fuego.misp.domain.po.UserGroup;
 import cn.fuego.misp.domain.po.UserMapGroup;
 import cn.fuego.misp.service.IDCreateService;
@@ -129,8 +126,7 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 	{
  		UserGroupModel groupModel = convertGroupToGroupUserModel(userGroupDao.getGroupByID(groupID));
 		
- 		
- 		userMapFunctionDao.getByGroupID(groupID);
+ 	
 		
  		//update group user list
  		List<UserMapGroup> userMapGroupList = userMapGroupDao.getByGroupID(groupID);
@@ -168,6 +164,38 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 	{
 		
 		return FunctionCache.getInstance().getAllFunction();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.service.UserGroupManageService#deleteMember(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void deleteMember(String groupID, String userID)
+	{
+		UserMapGroup map = new UserMapGroup();
+		map.setGroupID(groupID);
+		map.setUserID(userID);
+		this.userMapGroupDao.delete(map);
+	}
+	@Override
+	public void addMember(String groupID,  List<String> userIDList)
+	{ 
+ 		
+		List<UserMapGroup> existMapList = this.userMapGroupDao.getByGroupID(groupID);
+		List<UserMapGroup> newMapList = new ArrayList<UserMapGroup>();
+		for(String userID : userIDList)
+		{
+			UserMapGroup map = new UserMapGroup();
+			map.setGroupID(groupID);
+			map.setUserID(userID);
+			if(!existMapList.contains(map))
+			{
+	 			newMapList.add(map);
+			}
+		}
+		
+		this.userMapGroupDao.create(newMapList);
+ 
 	}
 
 }

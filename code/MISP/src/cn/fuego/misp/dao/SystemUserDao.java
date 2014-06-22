@@ -37,7 +37,9 @@ public interface SystemUserDao {
 	 * @param userNameList
 	 * @return
 	 */
-	public List<SystemUser>	 getByFilter(List<String> userIDList,List<String> userNameList);
+	public SystemUser	 getByUserID(String userID);
+
+	public List<SystemUser>	 getByUserIDList(List<String> userIDList);
 	public List<SystemUser>	 getByFilter(SystemUser filter);
 
 	

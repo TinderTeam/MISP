@@ -57,7 +57,13 @@ public class UserManageAction extends TableAction
 		loadUserList();
 		return SUCCESS;
 	}
-	
+	public String resetPassword()
+	{
+		userService.delete(super.getSelectedID());
+		loadUserList();
+
+		return SUCCESS;
+	}
 	public String create()
 	{
 		userService.create(userManage.getUser());

@@ -6,24 +6,24 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<jsp:include page="../cbb/head.jsp"/>
-		<jsp:include page="../cbb/js.jsp"/>
+		<jsp:include page="../../cbb/head.jsp"/>
+		<jsp:include page="../../cbb/js.jsp"/>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
 <!-----标题栏----->
-<jsp:include page="../cbb/title.jsp"/>
+<jsp:include page="../../cbb/title.jsp"/>
 
 <!---快捷信息操作栏---->
-<jsp:include page="../cbb/info.jsp"/>
+<jsp:include page="../../cbb/info.jsp"/>
 <!---快捷操作栏---->
 <!----菜单栏--->
-<jsp:include page="../cbb/menu.jsp"/>
+<jsp:include page="../../cbb/menu.jsp"/>
 <!----菜单栏--->
 <!----内容栏--->
 	<div id="content">
 		  
 		  <!---面包屑导航---->
-		  <jsp:include page="../cbb/bread.jsp"/>
+		  <jsp:include page="../../cbb/bread.jsp"/>
 		  <!---End 面包屑导航---->
 	<div class="row-fluid">
 		<div class="span12">
@@ -35,9 +35,9 @@
 		       		<h5>用户信息</h5>
 		   		</div>
 
+             <s:form action="user/groupManage" method="POST" theme="simple">	
  
    					<div class="widget-content nopadding">	
-       					<s:form action="user/groupManage" method="POST" theme="simple">	
 	       					<div class="form-horizontal">
 	       						<div class="control-group">
 	       						    <s:hidden name="groupManage.userGroup.groupID"  value="%{groupManage.userGroup.groupID}"/>
@@ -72,7 +72,7 @@
 		                 			</div>
 			                    </div>
 		                   	 </div>
-	                    </s:form>
+
 					</div>
 					
  					<div class="container-fluid">		
@@ -105,24 +105,21 @@
         	         <a class="btn btn-primary offset10"  href="groupManage!show.action?selectedID=${userGroup.groupID}&operateType=create">新增</a>	
 									</div>
 					</div>
-							
-							
-                     <c:set var="userList" value="${groupManage.userGroup.userList}" scope="request"/>
-                     <c:set var="tableExtAttrNameList" value="${groupManage.userGroup.tableExtAttrNameList}" scope="request"/>	  
-                    	<div class="container-fluid">		 	  
-		        	<jsp:include page="./userInfoList.jsp"/>	
-		        	</div>
+		       </s:form>
 			</div>
 		</div>
     </div>
      
+      
+		</div>	
+					
 		  <!---End 面包屑导航---->
 		  <!----内容页---->
 		  <div class="container-fluid">
 				
 					<!----内容页完---->
 					<!----尾部声明---->
-				<jsp:include page="../cbb/footer.jsp"/>
+				<jsp:include page="../../cbb/footer.jsp"/>
 		   </div>
 	</div>
 	

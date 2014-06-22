@@ -6,25 +6,25 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<jsp:include page="../cbb/head.jsp"/>
-		<jsp:include page="../cbb/js.jsp"/>
+		<jsp:include page="../../cbb/head.jsp"/>
+		<jsp:include page="../../cbb/js.jsp"/>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	</head>
 <body>
 <!-----标题栏----->
-<jsp:include page="../cbb/title.jsp"/>
+<jsp:include page="../../cbb/title.jsp"/>
 
 <!---快捷信息操作栏---->
-<jsp:include page="../cbb/info.jsp"/>
+<jsp:include page="../../cbb/info.jsp"/>
 <!---快捷操作栏---->
 <!----菜单栏--->
-<jsp:include page="../cbb/menu.jsp"/>
+<jsp:include page="../../cbb/menu.jsp"/>
 <!----菜单栏--->
 <!----内容栏--->
 	<div id="content">
 		  
 		  <!---面包屑导航---->
-		  <jsp:include page="../cbb/bread.jsp"/>
+		  <jsp:include page="../../cbb/bread.jsp"/>
 		  <!---End 面包屑导航---->
 		  <!----内容页---->
 		  <div class="container-fluid">
@@ -74,7 +74,7 @@
 				 </div>	 	 
 					<!----内容页完---->
 					<!----尾部声明---->
-				<jsp:include page="../cbb/footer.jsp"/>
+				<jsp:include page="../../cbb/footer.jsp"/>
 		   </div>
 	</div>
 

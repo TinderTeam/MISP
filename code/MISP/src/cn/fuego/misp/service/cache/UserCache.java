@@ -67,7 +67,7 @@ public class UserCache
 	public void reload()
 	{
 		cache = new HashMap<String, UserModel>();
-		List<SystemUser> userList = DaoContext.getInstance().getSystemUserDao().getByFilter(null, null);
+		List<SystemUser> userList = DaoContext.getInstance().getSystemUserDao().getByFilter(null);
 		List<UserExtAttr> extAtrrList = DaoContext.getInstance().getUserExtAttrDao().getByFilter(null,null);
  
 		

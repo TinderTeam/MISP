@@ -29,7 +29,7 @@ public class AuthenticationFilter implements Filter
 {
 
 	private static final String LOGIN_URL_FLAG = "login";
-	private static final  String INDEX_PAGE = "index.jsp";
+	private static final  String LOGIN_PAGE = "client/platform/login/login.jsp";
 
  
 
@@ -47,7 +47,7 @@ public class AuthenticationFilter implements Filter
 		     UserModel loginUser = (UserModel) session.getAttribute(SessionAttrNameConst.LOGIN_USER);
 			 if(null == loginUser || ValidatorUtil.isEmpty(loginUser.getUserID()))
 			 {
-				 httpResponse.sendRedirect(httpRequest.getContextPath()+"/"+INDEX_PAGE);
+				 httpResponse.sendRedirect(httpRequest.getContextPath()+"/"+LOGIN_PAGE);
 			 }
 		 }
 		 

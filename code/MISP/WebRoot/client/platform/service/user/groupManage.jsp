@@ -6,25 +6,25 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<jsp:include page="../cbb/head.jsp"/>
-		<jsp:include page="../cbb/js.jsp"/>
+		<jsp:include page="../../cbb/head.jsp"/>
+		<jsp:include page="../../cbb/js.jsp"/>
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	</head>
 <body>
 	<!-----标题栏----->
-	<jsp:include page="../cbb/title.jsp"/>
+	<jsp:include page="../../cbb/title.jsp"/>
 	<!---快捷信息操作栏---->
-	<jsp:include page="../cbb/info.jsp"/>
+	<jsp:include page="../../cbb/info.jsp"/>
 	<!---快捷操作栏---->
 	<!----菜单栏--->
-	<jsp:include page="../cbb/menu.jsp"/>
+	<jsp:include page="../../cbb/menu.jsp"/>
 	<!----菜单栏--->
 	<!----内容栏--->
 	<div id="content">
 	
 		  <!---面包屑导航---->
-		<jsp:include page="../cbb/bread.jsp"/>
+		<jsp:include page="../../cbb/bread.jsp"/>
 		  <!---End 面包屑导航---->
 		  <!----内容页---->
 		<div class="container-fluid">		
@@ -53,7 +53,7 @@
                     </td  >
                     
                     <td  style="text-align:center">
-                    	<span class="icon" ><a class="tip-bottom" href="" " title="权限查询"><i class="icon-search"></i></a></span>					
+                    	<span class="icon" ><a class="tip-bottom" href="groupManage!showMember.action?selectedID=${userGroup.groupID}" " title="成员维护"><i class="icon-search"></i></a></span>					
 						<span class="icon" ><a class="tip-bottom" href="groupManage!show.action?selectedID=${userGroup.groupID}&operateType=modify" title="编辑" ><i class="icon-pencil"></i></a></span>
 						<a id="${userGroup.groupID}" class="tip-bottom" href="javascript:void(0);" title="删除" onclick="
 								warnModal(
@@ -77,11 +77,11 @@
 				
 					<!----内容页完---->
 					<!----尾部声明---->
-				<jsp:include page="../cbb/footer.jsp"/>
+				<jsp:include page="../../cbb/footer.jsp"/>
 		   </div>
 	</div>
 
 </body>
 <script src="<%=request.getContextPath()%>/client/platform/userInfo/js/groupManage.js"></script>
-<jsp:include page="../cbb/widget/warnModal.jsp"/>	
+<jsp:include page="../../cbb/widget/warnModal.jsp"/>	
 </html>

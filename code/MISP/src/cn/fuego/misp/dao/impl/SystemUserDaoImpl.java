@@ -131,10 +131,9 @@ public class SystemUserDaoImpl implements SystemUserDao
 	 * java.util.List)
 	 */
 	@Override
-	public List<SystemUser> getByFilter(List<String> userIDList,
-			List<String> userNameList)
+	public List<SystemUser> getByUserIDList(List<String> userIDList)
 	{
-		log.debug("[DAO] get the SystemUser by UserID and UserName:" +userIDList+userNameList );
+		log.debug("[DAO] get the SystemUser by UserID and UserName:" +userIDList );
 		//根据userID列表信息和 userName列表信息 共同查找systemUser信息
 		List<SystemUser> userList;
 		Session s = null;
@@ -149,14 +148,7 @@ public class SystemUserDaoImpl implements SystemUserDao
 				c.add(Restrictions.in("userID", userIDList));
 				
 			}	
-				if(null!=userNameList)
-				{
-					c.add(Restrictions.in("userName", userNameList));
-				}
-					
-					
-			
-
+ 
 			userList = c.list();
 
 		} catch (RuntimeException e)
@@ -191,7 +183,7 @@ public class SystemUserDaoImpl implements SystemUserDao
 			s = HibernateUtil.getSession();
 
 			Criteria c = s.createCriteria(SystemUser.class);		
-			if (!ValidatorUtil.isEmpty(filter.getUserID()))
+			if (null != filter && !ValidatorUtil.isEmpty(filter.getUserID()))
 			{
 				c.add(Restrictions.like("userID", "%"+filter.getUserID()+"%"));
 				
@@ -252,6 +244,41 @@ public class SystemUserDaoImpl implements SystemUserDao
 			}
 		}
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.SystemUserDao#getByUserID(java.lang.String)
+	 */
+	@Override
+	public SystemUser getByUserID(String userID)
+	{
+		log.debug("get the SystemUser by userID:" +userID );
+		//根据userID列表信息和 userName列表信息 共同查找systemUser信息
+		SystemUser user;
+		Session s = null;
+
+		try
+		{
+			s = HibernateUtil.getSession();
+
+			Criteria c = s.createCriteria(SystemUser.class);		
+			c.add(Restrictions.eq("userID", userID));
+			 	
+			user = (SystemUser) c.uniqueResult();
+
+		} catch (RuntimeException e)
+		{
+			//log.error("get the SystemUser by UserID and UserName failed." + userList, e);
+			throw e;
+		} finally
+		{
+			if (s != null)
+			{
+				s.close();
+			}
+		}
+
+		return user;	
 	}
 
 }

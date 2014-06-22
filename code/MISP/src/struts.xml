@@ -42,7 +42,7 @@
 		
 		
 		<action name="orgManage" class="cn.fuego.misp.web.action.user.OrgManageAction">
-			<result type="dispatcher">/client/platform/userInfo/orgManage.jsp</result> 
+			<result type="dispatcher">/client/platform/service/user/orgManage.jsp</result> 
 		</action>
 		
 
@@ -50,17 +50,19 @@
  	
  	<package name="user" extends="default">
  	    <action name="userManage" class="cn.fuego.misp.web.action.user.UserManageAction">
-			<result type="dispatcher">/client/platform/userInfo/userManage.jsp</result>
-            <result name="showUser" type="dispatcher">/client/platform/userInfo/userInfo.jsp</result>
+			<result type="dispatcher">/client/platform/service/user/userManage.jsp</result>
+            <result name="showUser" type="dispatcher">/client/platform/service/user/userInfo.jsp</result>
 		</action>
  		<action name="groupManage" class="cn.fuego.misp.web.action.user.GroupManageAction">
-			<result type="dispatcher">/client/platform/userInfo/groupManage.jsp</result>
-			<result name="showInfo" type="dispatcher">/client/platform/userInfo/userGroupInfo.jsp</result> 
+			<result type="dispatcher">/client/platform/service/user/groupManage.jsp</result>
+			<result name="showInfo" type="dispatcher">/client/platform/service/user/userGroupInfo.jsp</result>
+			<result name="showMember" type="dispatcher">/client/platform/service/user/userGroupMember.jsp</result> 
+			 
 		</action>
 
 		<action name="passwordConfig" class="cn.fuego.misp.web.action.user.PasswordConfigAction">	
 			<result type="dispatcher">/client/platform/login/login.jsp</result>		
-			<result type="dispatcher" name="Page">/client/platform/userInfo/passwordConfig.jsp</result>			    
+			<result type="dispatcher" name="Page">/client/platform/service/user/passwordConfig.jsp</result>			    
 		</action>	
  	</package>
  	

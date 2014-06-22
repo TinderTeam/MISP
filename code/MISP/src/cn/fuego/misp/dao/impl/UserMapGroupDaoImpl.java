@@ -20,7 +20,6 @@ import org.hibernate.criterion.Restrictions;
 
 import cn.fuego.misp.dao.UserMapGroupDao;
 import cn.fuego.misp.dao.hibernate.util.HibernateUtil;
-import cn.fuego.misp.domain.po.UserGroupMapFunction;
 import cn.fuego.misp.domain.po.UserMapGroup;
 
 /**   
@@ -239,6 +238,70 @@ public class UserMapGroupDaoImpl implements UserMapGroupDao {
 		} finally
 		{
 			if(null != session)
+			{
+				session.close();
+			}
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserMapGroupDao#getByPrimary(cn.fuego.misp.domain.po.UserMapGroup)
+	 */
+	@Override
+	public UserMapGroup getByPrimary(UserMapGroup map)
+	{
+		log.debug("get the user group by groupID:" + map);
+		Session s = null;
+		UserMapGroup userMapGroup;
+		try
+		{
+			s = HibernateUtil.getSession();
+			Criteria c = s.createCriteria(UserMapGroup.class);
+			c.add(Restrictions.eq("groupID", map.getGroupID()));
+			c.add(Restrictions.eq("userID", map.getUserID()));
+
+			userMapGroup =(UserMapGroup) c.uniqueResult();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			// HibernateUtil.closeSession();
+			if (s != null)
+			{
+				s.close();
+			}
+		}
+
+		return userMapGroup;	
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserMapGroupDao#create(java.util.List)
+	 */
+	@Override
+	public void create(List<UserMapGroup> mapList)
+	{
+		Session session = null;
+		Transaction tx = null;
+		try
+		{
+			session = HibernateUtil.getSession();
+			tx = session.beginTransaction();
+			for(UserMapGroup map : mapList)
+			{
+				session.save(map);
+			}
+ 			tx.commit();
+			
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			//  HibernateUtil.closeSession();
+			if (session != null)
 			{
 				session.close();
 			}

@@ -31,6 +31,8 @@ public interface UserManageService
 	
 	public void delete(String userID);
 	
+	public void resetPassword(String userID);
+	
 	public void modify(UserModel userModel);
 	public void create(UserModel userModel);
 

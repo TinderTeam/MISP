@@ -8,11 +8,16 @@
 */ 
 package cn.fuego.misp.web.action.user;
 
+import java.util.Arrays;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.type.DateType;
 
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserGroupManageService;
+import cn.fuego.misp.util.format.DataTypeConvert;
+import cn.fuego.misp.util.validate.ValidatorUtil;
 import cn.fuego.misp.web.action.basic.TableAction;
 import cn.fuego.misp.web.constant.OperateTypeConst;
 import cn.fuego.misp.web.model.group.GroupManageModel;
@@ -36,6 +41,8 @@ public class GroupManageAction extends TableAction
 	
  
 	private static final String SHOW_INFO="showInfo";
+	private static final String SHOW_MEMBER="showMember";
+
 
 	private UserGroupManageService groupService = ServiceContext.getInstance().getUserGroupManageService();
 	
@@ -49,25 +56,19 @@ public class GroupManageAction extends TableAction
 	}
 	public String show()
 	{
-		log.info("show user");
-		if(null == groupManage)
-		{
-			log.warn("the group manage is null");
-			groupManage = new GroupManageModel();
-		}
+
 		
 	    if(OperateTypeConst.CREATE.equals(super.getOperateType()))
 	    {	
-	    	groupManage.setUserGroup(new UserGroupModel()); 
+	    	log.info("the page is create page,just show a empty page");
+	    	loadGroupByID(null);
 	    }
 	    else
 	    {
-	    	groupManage.setUserGroup(groupService.getGroupByID(getSelectedID()));
+	    	loadGroupByID(getSelectedID());
 	    }
-	    groupManage.getUserGroup().setTableExtAttrNameList(super.convertToPageMessage(ServiceContext.getInstance().getUserManagerService().getUserDisAttrNameList()));
-	    groupManage.setUserList(ServiceContext.getInstance().getUserManagerService().getUserListDataSourceByFilter(null).getAllPageData());
-	    groupManage.setAllFunctionList(ServiceContext.getInstance().getUserGroupManageService().getAllFunction());
- 		return SHOW_INFO;
+    	
+	    return SHOW_INFO;
 	}
 
 	public String delete()
@@ -94,21 +95,69 @@ public class GroupManageAction extends TableAction
 	}
 	
  
-	public String deleteFunction()
+	public String showMember()
 	{
-    	groupManage.setUserGroup(groupService.getGroupByID(groupManage.getUserGroup().getGroupID()));
+		
+		loadGroupByID(getSelectedID());
+		return SHOW_MEMBER;
+	}
+	public String deleteMember()
+	{
+		
+		if(ValidatorUtil.isEmpty(this.getSelectedID()))
+		{
+			log.warn("select id list is empty");
+		}
+		else
+		{
+			groupService.deleteMember(this.groupManage.getUserGroup().getGroupID(),this.getSelectedID());
+ 		}
+		
+		loadGroupByID(this.groupManage.getUserGroup().getGroupID());
 
-		return SHOW_INFO;
+		return SHOW_MEMBER;
+	}
+ 
+	public String addMember()
+	{
+		if(ValidatorUtil.isEmpty(this.getSelectedIDList()))
+		{
+			log.warn("select id list is empty");
+		}
+		else
+		{
+			groupService.addMember(this.groupManage.getUserGroup().getGroupID(),Arrays.asList(this.getSelectedIDList()));
+
+		}
+		
+		loadGroupByID(this.groupManage.getUserGroup().getGroupID());
+ 
+
+		return SHOW_MEMBER;
+	}
+	private void loadGroupByID(String groupID)
+	{
+		log.info("show user group");
+		if(null == groupManage)
+		{
+			log.warn("the group manage is null");
+			groupManage = new GroupManageModel();
+		}
+		if(ValidatorUtil.isEmpty(groupID))
+		{
+			groupManage.setUserGroup(new UserGroupModel());
+		}
+		else
+		{
+		    groupManage.setUserGroup(groupService.getGroupByID(groupID));
+		}
+	  
+	    groupManage.getUserGroup().setTableExtAttrNameList(super.convertToPageMessage(ServiceContext.getInstance().getUserManagerService().getUserDisAttrNameList()));
+	    groupManage.setUserList(ServiceContext.getInstance().getUserManagerService().getUserListDataSourceByFilter(null).getAllPageData());
+	    groupManage.setAllFunctionList(ServiceContext.getInstance().getUserGroupManageService().getAllFunction());
+ 		
 	}
 	
-	public String addFunction()
-	{
-    	groupManage.setUserGroup(groupService.getGroupByID(groupManage.getUserGroup().getGroupID()));
-
-		return SHOW_INFO;
-	}
- 
- 
 	private void loadList()
 	{
 		if(null == groupManage)
@@ -121,14 +170,7 @@ public class GroupManageAction extends TableAction
 		log.info("the group list size is " + groupManage.getGroupList().size());
 
 	}
-	public Log getLog()
-	{
-		return log;
-	}
-	public void setLog(Log log)
-	{
-		this.log = log;
-	}
+ 
 	public UserGroupManageService getGroupService()
 	{
 		return groupService;

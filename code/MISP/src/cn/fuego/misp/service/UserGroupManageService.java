@@ -31,4 +31,7 @@ public interface UserGroupManageService
 	
 	public List<FunctionModel>  getAllFunction();
 	
+	public void deleteMember(String groupID,String userID);
+	public void addMember(String groupID, List<String> userIDList);
+	
 }

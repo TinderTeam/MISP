@@ -79,7 +79,7 @@ public class SystemUserImplTest
 		NameList=null;
 		//NameList.add("a");
 		//NameList.add("b");
-		List<SystemUser> userList2 = userImpl.getByFilter(IDList, NameList);
+		List<SystemUser> userList2 = userImpl.getByUserIDList(IDList);
 		System.out.println(userList2);
 		 
 		

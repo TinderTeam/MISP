@@ -32,4 +32,6 @@ public interface UserGroupDao {
 	public List<UserGroup> getAll();
 	
 	public UserGroup getGroupByID(String groupID);
+ 
+
 }

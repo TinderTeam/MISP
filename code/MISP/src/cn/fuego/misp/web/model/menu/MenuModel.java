@@ -26,8 +26,21 @@ public class MenuModel
 	private String external;
 	private String fresh;
 	private String url;
+	
+	private int selected;
+	
 	private int parentID;
 	private int functionID;
+	
+	
+	public int getSelected()
+	{
+		return selected;
+	}
+	public void setSelected(int selected)
+	{
+		this.selected = selected;
+	}
 	public int getMenuID()
 	{
 		return menuID;

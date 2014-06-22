@@ -13,6 +13,8 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.DayDV;
+
 import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.domain.po.SystemUser;
 import cn.fuego.misp.domain.po.UserExtAttr;
@@ -140,17 +142,10 @@ public class UserManageServiceImpl implements UserManageService
 		}
 		else
 		{
-			// reSet the password
+ 
+			updatePassword(user.getUserID(),newPassword);
 
-			// 1.database update
-
-			SystemUser systemUser = new SystemUser();
-			systemUser.setUserID(user.getUserID());
-			systemUser.setPassword(newPassword);
-			DaoContext.getInstance().getSystemUserDao().saveOrUpdate(systemUser);
-
-			// 1.Model Set newPasword
-			user.setPassword(newPassword);
+			UserCache.getInstance().reload();
 
 			return user;
 		}
@@ -181,6 +176,42 @@ public class UserManageServiceImpl implements UserManageService
 		//reload the system user cache
 		UserCache.getInstance().reload();
 		
+	}
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.service.UserManageService#create(cn.fuego.misp.web.model.user.UserModel)
+	 */
+	@Override
+	public void create(UserModel userModel)
+	{
+		if(ValidatorUtil.isEmpty(userModel.getUserID()))
+		{
+			log.error("the user id can not be eampty");
+			throw new ServiceException(ExceptionMsg.USER_NAME_EMPTY);
+		}
+		
+		if(null != UserCache.getInstance().getUserByUserID(userModel.getUserID()))
+		{	log.error("the user id exited. user id = " + userModel.getUserID());
+			throw new ServiceException(ExceptionMsg.USER_NAME_EXISTED);
+		}
+		
+		
+		//create a new user
+		createNewUser(userModel.getUserID());
+		
+		//update extend attribute
+		updateUserExtAttr(userModel.getUserID(),userModel.getAttrList());
+		 
+		//reload the system user cache
+		UserCache.getInstance().reload();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.service.UserManageService#resetPassword(java.lang.String)
+	 */
+	@Override
+	public void resetPassword(String userID)
+	{
+		updatePassword(userID,this.getDefualPassword());
 	}
 	
 	public String getDefualPassword()
@@ -219,32 +250,19 @@ public class UserManageServiceImpl implements UserManageService
 		
 
 	}
-	/* (non-Javadoc)
-	 * @see cn.fuego.misp.service.UserManageService#create(cn.fuego.misp.web.model.user.UserModel)
-	 */
-	@Override
-	public void create(UserModel userModel)
+
+ 	private void updatePassword(String userID,String newPassword)
 	{
-		if(ValidatorUtil.isEmpty(userModel.getUserID()))
-		{
-			log.error("the user id can not be eampty");
-			throw new ServiceException(ExceptionMsg.USER_NAME_EMPTY);
-		}
-		
-		if(null != UserCache.getInstance().getUserByUserID(userModel.getUserID()))
-		{	log.error("the user id exited. user id = " + userModel.getUserID());
-			throw new ServiceException(ExceptionMsg.USER_NAME_EXISTED);
-		}
-		
-		
-		//create a new user
-		createNewUser(userModel.getUserID());
-		
-		//update extend attribute
-		updateUserExtAttr(userModel.getUserID(),userModel.getAttrList());
-		 
-		//reload the system user cache
-		UserCache.getInstance().reload();
+ 		SystemUser user = DaoContext.getInstance().getSystemUserDao().getByUserID(userID);
+ 		
+ 		if(null == user)
+ 		{
+ 			log.error("the user is empty ");
+ 			throw new ServiceException(ExceptionMsg.USER_NOT_EXIST);
+ 		}
+ 		
+ 		user.setPassword(newPassword);
+		DaoContext.getInstance().getSystemUserDao().saveOrUpdate(user);
 	}
 
 }
