@@ -33,5 +33,6 @@ public interface UserGroupManageService
 	
 	public void deleteMember(String groupID,String userID);
 	public void addMember(String groupID, List<String> userIDList);
-	
+	public void modifyFunction(String groupID,  List<String> functionIDList);
+
 }

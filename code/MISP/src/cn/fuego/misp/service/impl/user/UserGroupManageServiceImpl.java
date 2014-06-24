@@ -8,6 +8,7 @@
 */ 
 package cn.fuego.misp.service.impl.user;
 
+import java.awt.SystemColor;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,11 +22,13 @@ import cn.fuego.misp.dao.UserGroupDao;
 import cn.fuego.misp.dao.UserGroupMapFunctionDao;
 import cn.fuego.misp.dao.UserMapGroupDao;
 import cn.fuego.misp.domain.po.UserGroup;
+import cn.fuego.misp.domain.po.UserGroupMapFunction;
 import cn.fuego.misp.domain.po.UserMapGroup;
 import cn.fuego.misp.service.IDCreateService;
 import cn.fuego.misp.service.ServiceContext;
 import cn.fuego.misp.service.UserGroupManageService;
 import cn.fuego.misp.service.cache.FunctionCache;
+import cn.fuego.misp.service.cache.SystemMenuCache;
 import cn.fuego.misp.service.cache.UserCache;
 import cn.fuego.misp.service.cache.UserGroupBatchData;
 import cn.fuego.misp.service.exception.ServiceException;
@@ -48,7 +51,7 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 
 	private UserGroupDao userGroupDao = DaoContext.getInstance().getUserGroupDao();
 	private UserMapGroupDao userMapGroupDao = DaoContext.getInstance().getUserMapGroupDao();
-	private UserGroupMapFunctionDao userMapFunctionDao = DaoContext.getInstance().getUserGroupMapFunctionDao();
+	private UserGroupMapFunctionDao groupMapFunctionDao = DaoContext.getInstance().getUserGroupMapFunctionDao();
 
 	/* (non-Javadoc)
 	 * @see cn.fuego.misp.service.UserGroupManageService#delete(java.lang.String)
@@ -58,7 +61,7 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 	{
 		this.userGroupDao.delete(groupID);
 		this.userMapGroupDao.deleteByGroupID(groupID);
-		this.userMapFunctionDao.deleteByGroupID(groupID);
+		this.groupMapFunctionDao.deleteByGroupID(groupID);
 		
 	}
 
@@ -83,6 +86,7 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 	{
 		List<String> IDList = ServiceContext.getInstance().getIDCreateService(IDCreateService.USER_GROUP_ID_NAME).createIDList(1);
 		UserGroup userGroup = new UserGroup();
+		userGroupModel.setGroupID(IDList.get(0));
 		userGroup.setGroupID(IDList.get(0));
 		if(ValidatorUtil.isEmpty(userGroupModel.getGroupName()))
 		{
@@ -95,6 +99,8 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 		log.info("create new user group. " + userGroup);
 
 		this.userGroupDao.create(userGroup);
+		
+ 
 	}
 
 	/* (non-Javadoc)
@@ -124,21 +130,36 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 	@Override
 	public UserGroupModel getGroupByID(String groupID)
 	{
- 		UserGroupModel groupModel = convertGroupToGroupUserModel(userGroupDao.getGroupByID(groupID));
-		
- 	
-		
- 		//update group user list
- 		List<UserMapGroup> userMapGroupList = userMapGroupDao.getByGroupID(groupID);
- 		Set<String> userIDSet = new HashSet<String>();
- 		for(UserMapGroup map : userMapGroupList)
+		UserGroupModel groupModel;
+		Set<String> functionSet = new HashSet<String>();
+		if(ValidatorUtil.isEmpty(groupID))
 		{
- 			userIDSet.add(map.getUserID());
+		    groupModel = new UserGroupModel();
 		}
- 		
- 		groupModel.setUserList(UserCache.getInstance().getUserByUserID(userIDSet));
- 		
+		else
+		{
+            groupModel = convertGroupToGroupUserModel(userGroupDao.getGroupByID(groupID));
  
+	 		//update group user list
+	 		List<UserMapGroup> userMapGroupList = userMapGroupDao.getByGroupID(groupID);
+	 		Set<String> userIDSet = new HashSet<String>();
+	 		for(UserMapGroup map : userMapGroupList)
+			{
+	 			userIDSet.add(map.getUserID());
+			}
+	 		groupModel.setUserList(UserCache.getInstance().getUserByUserID(userIDSet));
+	 		
+	 		
+	 		//update group user list
+	 		List<UserGroupMapFunction> userGroupMapFunctionList = groupMapFunctionDao.getByGroupID(groupID);
+	 		
+	 		for(UserGroupMapFunction map : userGroupMapFunctionList)
+			{
+	 			functionSet.add(map.getFunctionID());
+			}
+		}
+ 
+ 		groupModel.setMenuTreeList(SystemMenuCache.getInstance().getAllByFunctionIDList(functionSet));;
  		
  		return groupModel;
 	}
@@ -195,6 +216,35 @@ public class UserGroupManageServiceImpl implements UserGroupManageService
 		}
 		
 		this.userMapGroupDao.create(newMapList);
+ 
+	}
+	
+	@Override
+	public void modifyFunction(String groupID,  List<String> functionIDList)
+	{ 
+ 		List<String> allFunctionIDList = SystemMenuCache.getInstance().getAllMenuFunctionIDList();
+ 		
+		List<UserGroupMapFunction> existMapList = new  ArrayList<UserGroupMapFunction>();
+		for(String id : allFunctionIDList)
+		{	
+			UserGroupMapFunction map = new UserGroupMapFunction();
+			map.setGroupID(groupID);
+			map.setFunctionID(id);
+			existMapList.add(map);
+		}
+ 
+		this.groupMapFunctionDao.delete(existMapList);
+		
+		List<UserGroupMapFunction> newMapList = new ArrayList<UserGroupMapFunction>();
+		for(String functionID : functionIDList)
+		{
+			UserGroupMapFunction map = new UserGroupMapFunction();
+			map.setGroupID(groupID);
+			map.setFunctionID(functionID);
+			newMapList.add(map);
+		}
+		
+		this.groupMapFunctionDao.create(newMapList);
  
 	}
 

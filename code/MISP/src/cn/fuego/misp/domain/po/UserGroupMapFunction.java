@@ -49,6 +49,41 @@ public class UserGroupMapFunction implements Serializable {
 	{
 		return "UserGroupMapFunction [groupID=" + groupID + ", functionID=" + functionID + "]";
 	}
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((functionID == null) ? 0 : functionID.hashCode());
+		result = prime * result + ((groupID == null) ? 0 : groupID.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserGroupMapFunction other = (UserGroupMapFunction) obj;
+		if (functionID == null)
+		{
+			if (other.functionID != null)
+				return false;
+		}
+		else if (!functionID.equals(other.functionID))
+			return false;
+		if (groupID == null)
+		{
+			if (other.groupID != null)
+				return false;
+		}
+		else if (!groupID.equals(other.groupID))
+			return false;
+		return true;
+	}
  
 
 

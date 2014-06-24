@@ -28,7 +28,7 @@ public class SystemMenu {
 	private String fresh;
 	private String url;
 	private int parentID;
-	private int functionID;
+	private String functionID;
 	public int getMenuID() {
 		return menuID;
 	}
@@ -83,10 +83,13 @@ public class SystemMenu {
 	public void setParentID(int parentID) {
 		this.parentID = parentID;
 	}
-	public int getFunctionID() {
+ 
+	public String getFunctionID()
+	{
 		return functionID;
 	}
-	public void setFunctionID(int functionID) {
+	public void setFunctionID(String functionID)
+	{
 		this.functionID = functionID;
 	}
 	@Override

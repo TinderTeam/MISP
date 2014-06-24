@@ -31,7 +31,7 @@ public class SystemMenuImplTest {
 	public void testcreate() {
 		menu.setMenuID(001);
 		menu.setName("aa");
-		menu.setFunctionID(02);
+		menu.setFunctionID("02");
 		menu.setIcon("red");
 		mimpl.create(menu);
 		
@@ -47,7 +47,7 @@ public class SystemMenuImplTest {
 	{
 		menu.setMenuID(001);
 		menu.setName("aa");
-		menu.setFunctionID(02);
+		menu.setFunctionID("02");
 		menu.setIcon("green");
 		
 		mimpl.saveOrUpdate(menu);
@@ -58,14 +58,14 @@ public class SystemMenuImplTest {
 		int pID=002;
 		menu.setMenuID(001);
 		menu.setName("aa");
-		menu.setFunctionID(02);
+		menu.setFunctionID("02");
 		menu.setIcon("green");
 		menu.setParentID(001);
 		mimpl.saveOrUpdate(menu);
 		
 		menu.setMenuID(002);
 		menu.setName("bb");
-		menu.setFunctionID(03);
+		menu.setFunctionID("03");
 		menu.setIcon("blue");
 		menu.setParentID(002);
 		mimpl.saveOrUpdate(menu);

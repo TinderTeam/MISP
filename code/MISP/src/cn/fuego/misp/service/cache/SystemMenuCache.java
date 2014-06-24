@@ -10,6 +10,7 @@ package cn.fuego.misp.service.cache;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,6 +18,7 @@ import org.apache.commons.logging.LogFactory;
 import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.dao.SystemMenuDao;
 import cn.fuego.misp.domain.po.SystemMenu;
+import cn.fuego.misp.util.validate.ValidatorUtil;
 import cn.fuego.misp.web.model.menu.MenuModel;
 import cn.fuego.misp.web.model.menu.MenuTreeModel;
 
@@ -30,11 +32,14 @@ import cn.fuego.misp.web.model.menu.MenuTreeModel;
 
 public class SystemMenuCache
 {	
+	SystemMenuDao systemMenuDao = DaoContext.getInstance().getSystemMenuDao();
+
 	
 	private Log log = LogFactory.getLog(SystemMenuCache.class);
 
 	private static SystemMenuCache instance;
 	private List<MenuTreeModel> cache;
+	private List<String> functionList;
 
 	private SystemMenuCache()
 	{
@@ -62,29 +67,53 @@ public class SystemMenuCache
 	{
 		return this.cache;
 	}
-	public List<MenuTreeModel>  getAllByFunctionIDList(List<Integer> functionList)
+	public List<MenuTreeModel>  getAllByFunctionIDList(Set<String> functionList)
 	{
 		
 		return getMenuTreeByFunctionIDList(this.cache,functionList);
 		 
 	}
+	
+	public List<String> getAllMenuFunctionIDList()
+	{
+         if(null != functionList)
+         {
+        	 return functionList;
+         }
+         functionList = new ArrayList<String>();
+		 List<SystemMenu> menuList =  systemMenuDao.getAllMenu();
+         
+         if(!ValidatorUtil.isEmpty(menuList))
+         {
+        	 for(SystemMenu menu: menuList)
+        	 {
+        		 functionList.add(menu.getFunctionID());
+        	 }
+         }
+         return functionList;
+	}
 
-	private List<MenuTreeModel> getMenuTreeByFunctionIDList(List<MenuTreeModel> menuTreeList, List<Integer> functionList)
+	private List<MenuTreeModel> getMenuTreeByFunctionIDList(List<MenuTreeModel> menuTreeList, Set<String> functionList)
 	{
 		List<MenuTreeModel> nowMenuTreeList = new ArrayList<MenuTreeModel>();
 		for(MenuTreeModel menuModel : menuTreeList)
 		{
+
+			MenuTreeModel nowMenuTree = new MenuTreeModel();
+			
+			nowMenuTree.setMenu(menuModel.getMenu().clone());
+ 			if (null != menuModel.getChildMenuList())
+			{
+				List<MenuTreeModel> childMenuList = getMenuTreeByFunctionIDList(menuModel.getChildMenuList(),functionList);
+				nowMenuTree.setChildMenuList(childMenuList);
+			}
 			if(null != functionList && functionList.contains(menuModel.getMenu().getFunctionID()))
 			{	
  			 
-				MenuTreeModel nowMenuTree = menuModel;
-	 			if (null != menuModel.getChildMenuList())
-				{
-					List<MenuTreeModel> childMenuList = getMenuTreeByFunctionIDList(menuModel.getChildMenuList(),functionList);
-					nowMenuTree.setChildMenuList(childMenuList);
-				}
-	 			nowMenuTreeList.add(nowMenuTree);
+				nowMenuTree.getMenu().setSelected(true);
 			}
+ 			nowMenuTreeList.add(nowMenuTree);
+
 		}
 		return nowMenuTreeList;
 	}
@@ -97,7 +126,6 @@ public class SystemMenuCache
 	 */
 	private List<MenuTreeModel> loadMenuTreeByParentID(int parentID)
 	{
-		SystemMenuDao systemMenuDao = DaoContext.getInstance().getSystemMenuDao();
 		List<MenuTreeModel> menuTreeList = new ArrayList<MenuTreeModel>();
 
 		for (SystemMenu menu : systemMenuDao.getMenuByParentID(parentID))

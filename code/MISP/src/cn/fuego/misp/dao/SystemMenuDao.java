@@ -29,6 +29,9 @@ public interface SystemMenuDao
 	public void saveOrUpdate(SystemMenu menu);
 
 	public void delete(SystemMenu menu);
+	
+	public List<SystemMenu> getAllMenu();
+
 
 	public List<SystemMenu> getMenuByParentID(int parentID);
 }

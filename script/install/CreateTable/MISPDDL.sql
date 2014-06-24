@@ -21,7 +21,7 @@ CREATE TABLE `s_system_menu` (
   `FRESH` varchar(255) DEFAULT NULL COMMENT '菜单跳转URL:',
   `URL` varchar(255) DEFAULT NULL COMMENT '菜单跳转URL:',
   `PARENT_ID` int(32) DEFAULT NULL COMMENT '上一级菜单ID:',	  
-  `FUNCTION_ID` int(32) DEFAULT NULL COMMENT '上一级菜单ID:',
+  `FUNCTION_ID` varchar(40)  DEFAULT NULL COMMENT '上一级菜单ID:',
   PRIMARY KEY (`MENU_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `s_system_meta_data` (
@@ -56,12 +56,26 @@ CREATE TABLE `d_user_group` (
   PRIMARY KEY (`GROUP_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE `s_system_function_set` (
   `FUNCTION_ID` varchar(40) NOT NULL,
   `FUNCTION_NAME` varchar(255) NOT NULL,
   `FUNCTION_TYPE` int(11) DEFAULT NULL,
   `FUNCTION_DESP` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`FUNCTION_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ 
+CREATE TABLE `d_user_group_map_function` (
+  `GROUP_ID` varchar(40) NOT NULL,
+  `FUNCTION_ID` varchar(40) NOT NULL,
+  PRIMARY KEY (`GROUP_ID`,`FUNCTION_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `d_user_map_group` (
+  `USER_ID` varchar(40) NOT NULL,
+  `GROUP_ID` varchar(40) NOT NULL,
+  PRIMARY KEY (`USER_ID`,`GROUP_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `d_system_id_type` (

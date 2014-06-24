@@ -22,6 +22,7 @@ import cn.fuego.misp.dao.UserGroupMapFunctionDao;
 import cn.fuego.misp.dao.hibernate.util.HibernateUtil;
 import cn.fuego.misp.domain.po.UserGroup;
 import cn.fuego.misp.domain.po.UserGroupMapFunction;
+import cn.fuego.misp.domain.po.UserMapGroup;
 
 /**   
  * @Title: UserGroupMapFunctionDaoImpl.java 
@@ -196,6 +197,78 @@ public class UserGroupMapFunctionDaoImpl implements UserGroupMapFunctionDao {
 			query.setString(0, groupID);
 
 			query.executeUpdate();
+
+			tx.commit();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			if(null != session)
+			{
+				session.close();
+			}
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserGroupMapFunctionDao#create(java.util.List)
+	 */
+	@Override
+	public void create(List<UserGroupMapFunction> mapList)
+	{
+		Session session = null;
+		Transaction tx = null;
+		try
+		{
+			session = HibernateUtil.getSession();
+			tx = session.beginTransaction();
+			for(UserGroupMapFunction map : mapList)
+			{
+				session.save(map);
+			}
+ 			tx.commit();
+			
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			//  HibernateUtil.closeSession();
+			if (session != null)
+			{
+				session.close();
+			}
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.UserGroupMapFunctionDao#delete(java.util.List)
+	 */
+	@Override
+	public void delete(List<UserGroupMapFunction> mapList)
+	{
+		Session session = null;
+		Transaction tx = null;
+		String hql = null;
+
+		try
+		{
+			session = HibernateUtil.getSession();
+
+			tx = session.beginTransaction();
+
+			for(UserGroupMapFunction map : mapList)
+			{
+				hql = "delete from UserGroupMapFunction where group_id=? and function_id = ?";
+				Query query = session.createQuery(hql);
+				query.setString(0,map.getGroupID());
+				query.setString(1,map.getFunctionID());
+				query.executeUpdate();
+			}
+			
 
 			tx.commit();
 		} catch (RuntimeException re)

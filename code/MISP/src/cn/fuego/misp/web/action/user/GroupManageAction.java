@@ -82,12 +82,29 @@ public class GroupManageAction extends TableAction
 	{
 		log.info("create user group, group is  " + groupManage.getUserGroup());
 		groupService.create(groupManage.getUserGroup());
+		if(ValidatorUtil.isEmpty(this.getSelectedIDList()))
+		{
+			log.warn("select id list is empty");
+		}
+		else
+		{		
+			groupService.modifyFunction(groupManage.getUserGroup().getGroupID(),  Arrays.asList(this.getSelectedIDList()));
+		}
 		this.loadList();
 		return SUCCESS;
 	}
 	public String modify()
 	{
 		log.info("modify user group, group is  " + groupManage.getUserGroup());
+		log.info("selected function id list is " + this.getSelectedIDList());
+		if(ValidatorUtil.isEmpty(this.getSelectedIDList()))
+		{
+			log.warn("select id list is empty");
+		}
+		else
+		{		
+			groupService.modifyFunction(groupManage.getUserGroup().getGroupID(), Arrays.asList(this.getSelectedIDList()));
+		}
 
 		groupService.modify(groupManage.getUserGroup());
 		this.loadList();
@@ -145,14 +162,14 @@ public class GroupManageAction extends TableAction
 		}
 		if(ValidatorUtil.isEmpty(groupID))
 		{
-			groupManage.setUserGroup(new UserGroupModel());
+			groupManage.setUserGroup(groupService.getGroupByID(null));
 		}
 		else
 		{
 		    groupManage.setUserGroup(groupService.getGroupByID(groupID));
 		}
 	  
-	    groupManage.getUserGroup().setTableExtAttrNameList(super.convertToPageMessage(ServiceContext.getInstance().getUserManagerService().getUserDisAttrNameList()));
+		groupManage.getUserGroup().setTableExtAttrNameList(super.convertToPageMessage(ServiceContext.getInstance().getUserManagerService().getUserDisAttrNameList()));
 	    groupManage.setUserList(ServiceContext.getInstance().getUserManagerService().getUserListDataSourceByFilter(null).getAllPageData());
 	    groupManage.setAllFunctionList(ServiceContext.getInstance().getUserGroupManageService().getAllFunction());
  		

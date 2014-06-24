@@ -58,7 +58,62 @@
 									 </div>
 								</div>
 		 				 		 
-	                 			<div class="form-actions">
+	                 		
+		                   	 </div>
+
+					</div>
+					
+ 					<div class="container-fluid">		
+						<div class="row-fluid">
+										
+							 <div class="widget-content nopadding">
+								<table class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th style="width:150px">
+											  <label class="checkbox">
+													<input type="checkbox" name="selectedIDList" > 模块
+										      </label>  
+										 
+											</th>
+											<th class="span12">功能</th>						
+										</tr>
+									</thead>
+									<tbody>	
+		                                <c:forEach var="parentMenu"   items="${groupManage.userGroup.menuTreeList}"> 						 
+										<tr>
+											<td>
+												<label class="checkbox">
+												    <c:if test="${parentMenu.menu.selected}">
+												     <input type="checkbox"  checked="checked"  name="selectedIDList"  value="${parentMenu.menu.functionID}"/>${parentMenu.menu.value}
+ 												    </c:if>
+												    <c:if test="${!parentMenu.menu.selected}">
+												     <input type="checkbox"   name="selectedIDList"  value="${parentMenu.menu.functionID}"/>${parentMenu.menu.value}
+ 												    </c:if>
+												</label>
+											</td>
+											<td>
+												<div class="form-inline">
+													<c:forEach var="menu"   items="${parentMenu.childMenuList}"> 						 
+													  <label class="checkbox">
+													   	  <c:if test="${menu.menu.selected}">													   
+													       <input type="checkbox" checked="checked" name="selectedIDList"  value="${menu.menu.functionID}"/>${menu.menu.value}
+													      </c:if> 
+													      <c:if test="${!menu.menu.selected}">													   
+													       <input type="checkbox" name="selectedIDList"  value="${menu.menu.functionID}"/>${menu.menu.value}
+													      </c:if> 
+ 												 	  </label>
+												    </c:forEach>
+												</div>													
+											</td>								
+										</tr>	
+									   </c:forEach>
+										 
+								 	
+									</tbody>
+								</table>  
+							</div>
+	                         <div class="form-actions">
 		                 			<div class="offset10">
 			                 			    <c:if test="${'create' == operateType}">
 									       		<s:submit cssClass="btn btn-primary" name="create" value="新增" method="create"/>
@@ -70,40 +125,8 @@
 					               
 					                       	<input class="btn btn-primary" type="submit"  name="cancel"  class="btn btn-success" value="取消"/>
 		                 			</div>
-			                    </div>
-		                   	 </div>
-
-					</div>
-					
- 					<div class="container-fluid">		
-						<div class="row-fluid">
-										
-							 <table class="table table-striped table-bordered table-hover table-condensed">
-					       
-					             <thead>
-					                <tr>
-					                    <th>功能名称</th>
-					                    <th>功能描述</th>
-					 					<th style="width:60px">操作</th>
-					                </tr>
-					            </thead>
-					            <tbody>
-					               <c:forEach var="function" items="${groupManage.userGroup.functionList}"> 						 
-									  <tr>
-					                    <td  style="text-align:center" >${function.functionName}</td>
-					                    <td  style="text-align:center" >${function.functionDesp}</td>
-					          
-					                    <td  style="text-align:center">
-					  						<span class="icon" ><a class="tip-bottom" href="groupManage!deleteFunction.action?selectedID=${userGroup.groupID}&operateType=delete" title="删除"><i class="icon-remove"></i></a></span>
-					                    </td>		
-					                  </tr>   
-											 
-									</c:forEach>
-					         
-					            </tbody>
-					        </table>
-        	         <a class="btn btn-primary offset10"  href="groupManage!show.action?selectedID=${userGroup.groupID}&operateType=create">新增</a>	
-									</div>
+			                    </div>							
+			                 </div>
 					</div>
 		       </s:form>
 			</div>

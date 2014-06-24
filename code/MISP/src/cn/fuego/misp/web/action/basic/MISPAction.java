@@ -78,23 +78,19 @@ public class MISPAction extends ActionSupport
 	}
 	private MenuModel getMenuByMenuID(int menuID,List<MenuTreeModel> menuTreeList)
 	{
- 		if(ValidatorUtil.isEmpty(menuTreeList))
+ 		if(!ValidatorUtil.isEmpty(menuTreeList))
 		{	
-			return null;
+ 			for(MenuTreeModel e : menuTreeList)
+ 			{
+ 				MenuModel menu =  e.getMenuModelByMenuID(menuID);
+ 				if(null != menu)
+ 				{	
+ 					return menu;
+ 				}
+ 			}
 		}
 		
-		for(MenuTreeModel e : menuTreeList)
-		{
-			if(menuID == e.getMenu().getMenuID())
-			{
-				return e.getMenu();
-			}
-			if(!ValidatorUtil.isEmpty(e.getChildMenuList()) )
-			{	
-				return getMenuByMenuID(menuID,e.getChildMenuList());
-			}
- 
-		}
+		
 		return null;
 	}
 

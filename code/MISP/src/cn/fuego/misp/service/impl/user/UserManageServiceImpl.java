@@ -13,8 +13,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.DayDV;
-
 import cn.fuego.misp.dao.DaoContext;
 import cn.fuego.misp.domain.po.SystemUser;
 import cn.fuego.misp.domain.po.UserExtAttr;

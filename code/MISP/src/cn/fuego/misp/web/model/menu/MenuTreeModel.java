@@ -10,6 +10,8 @@ package cn.fuego.misp.web.model.menu;
 
 import java.util.List;
 
+import cn.fuego.misp.util.validate.ValidatorUtil;
+
 /**
  * @ClassName: MenuTreeModel
  * @Description: TODO
@@ -23,6 +25,27 @@ public class MenuTreeModel
 	private MenuModel menu;
 	private List<MenuTreeModel> childMenuList;
 
+	public MenuModel getMenuModelByMenuID(int menuID)
+	{
+		if(menuID == menu.getMenuID())
+		{
+			return menu;
+		}
+		if(!ValidatorUtil.isEmpty(childMenuList))
+		{
+			for(MenuTreeModel menuTree : childMenuList)
+			{
+				MenuModel menu = menuTree.getMenuModelByMenuID(menuID);
+				if(null != menu)
+				{
+					return menu;
+				}
+			}	
+		}
+		return null;
+		
+		
+	}
 	public MenuModel getMenu()
 	{
 		return menu;
@@ -48,5 +71,7 @@ public class MenuTreeModel
 	{
 		return "MenuTreeModel [menu=" + menu + ", childMenuList=" + childMenuList + "]";
 	}
+	
+ 
 
 }

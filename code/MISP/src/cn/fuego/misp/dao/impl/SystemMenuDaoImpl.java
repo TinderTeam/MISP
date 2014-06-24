@@ -140,4 +140,33 @@ public class SystemMenuDaoImpl implements SystemMenuDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.fuego.misp.dao.SystemMenuDao#getAllMenu()
+	 */
+	@Override
+	public List<SystemMenu> getAllMenu()
+	{
+		Session s = null;
+		List<SystemMenu> menu;
+		try
+		{
+			s = HibernateUtil.getSession();
+			Criteria c = s.createCriteria(SystemMenu.class);
+ 
+			menu =c.list();
+		} catch (RuntimeException re)
+		{
+			throw re;
+		} finally
+		{
+			// HibernateUtil.closeSession();
+			if (s != null)
+			{
+				s.close();
+			}
+		}
+
+		return menu;		
+	}
+
 }

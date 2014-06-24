@@ -3,6 +3,7 @@ package cn.fuego.misp.web.model.group;
 import java.util.List;
 
 import cn.fuego.misp.web.model.function.FunctionModel;
+import cn.fuego.misp.web.model.menu.MenuTreeModel;
 import cn.fuego.misp.web.model.user.UserModel;
 
 
@@ -15,6 +16,8 @@ public class UserGroupModel
 	
 	private List<String> tableExtAttrNameList;
 	private List<UserModel> userList;
+	
+	private List<MenuTreeModel> menuTreeList;
 	
 	
  
@@ -66,6 +69,14 @@ public class UserGroupModel
 	public void setUserList(List<UserModel> userList)
 	{
 		this.userList = userList;
+	}
+	public List<MenuTreeModel> getMenuTreeList()
+	{
+		return menuTreeList;
+	}
+	public void setMenuTreeList(List<MenuTreeModel> menuTreeList)
+	{
+		this.menuTreeList = menuTreeList;
 	}
 	 
 

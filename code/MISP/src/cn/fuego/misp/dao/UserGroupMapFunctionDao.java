@@ -23,11 +23,16 @@ import cn.fuego.misp.domain.po.UserGroupMapFunction;
 
 public interface UserGroupMapFunctionDao {
 
+	public void create(List<UserGroupMapFunction> mapList);
+
 	public void create(UserGroupMapFunction usermap);
 
 	public void saveOrUpdate(UserGroupMapFunction usermap);
 
+	public void delete(List<UserGroupMapFunction> mapList);
+
 	public void delete(UserGroupMapFunction usermap);
+	
 	public void deleteByGroupID(String groupID);
 	
 	public List<UserGroupMapFunction> getByGroupID(String groupID);
